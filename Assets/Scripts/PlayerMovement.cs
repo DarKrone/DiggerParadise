@@ -12,12 +12,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
+        _posToMove = transform.position;
         _mainCamera = Camera.main;
         if (_debugMode)
             Debug.Log("Camera founded - " + _mainCamera.ToString());
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
             _posToMove = transform.position;
         }
 
-        transform.position = Vector2.Lerp(transform.position, _posToMove, Time.fixedDeltaTime * _moveSpeed);
+        transform.position = Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime);
         
     }
 }
