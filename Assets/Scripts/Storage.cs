@@ -6,7 +6,7 @@ public static class Storage
     public static float IronResource;
     public static float CopperResource;
 
-    static void AddToStorage(float amount, ResourceType name)
+    public static void AddToStorage(float amount, ResourceType name)
     {
         switch(name)
         {
@@ -17,9 +17,10 @@ public static class Storage
                 IronResource += amount;
                 break;
         }
+        GameManager.Instance.UpdateUI();
     }
 
-    static void RemoveFromStorage(float amount, ResourceType name)
+    public static void RemoveFromStorage(float amount, ResourceType name)
     {
         switch (name)
         {
@@ -30,5 +31,6 @@ public static class Storage
                 IronResource -= amount;
                 break;
         }
+        GameManager.Instance.UpdateUI();
     }
 }

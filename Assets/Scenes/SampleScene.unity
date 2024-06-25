@@ -1483,29 +1483,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2042042972}
+  - component: {fileID: 2042042973}
   - component: {fileID: 2042042971}
   - component: {fileID: 2042042970}
-  - component: {fileID: 2042042969}
   m_Layer: 0
-  m_Name: Copper (1)
+  m_Name: AutoCopper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2042042969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2042042968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8844bbaf83509648b36c06230fa1634, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _debugMode: 0
 --- !u!61 &2042042970
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1618,6 +1605,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2042042973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042042968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e230be0e0d15d4d91c1051a4a7f441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _extractionSpeed: 1
+  _extractionAmount: 2
+  _resourceType: 0
 --- !u!1 &2087254556
 GameObject:
   m_ObjectHideFlags: 0

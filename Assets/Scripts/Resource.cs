@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum ResourceType
+public enum ResourceType
 {
     Copper,
     Iron
