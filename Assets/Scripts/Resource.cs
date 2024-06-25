@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum ResourceType
+{
+    Copper,
+    Iron
+}
 // Базовый класс ресурсов от которых все наследуются и переопределяют метод ExtractResource
 public class Resource : MonoBehaviour
 {
@@ -30,7 +35,7 @@ public class Resource : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Extraction.ExtractionSpeed);
+            yield return new WaitForSeconds(1/Extraction.ExtractionSpeed);
             ExtractResource();
             GameManager.Instance.UpdateUI();
             if (_debugMode)
@@ -56,3 +61,4 @@ public class Resource : MonoBehaviour
         return;
     }
 }
+
