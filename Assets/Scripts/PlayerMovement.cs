@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Camera founded - " + _mainCamera.ToString());
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
             _posToMove = transform.position;
         }
 
-        transform.position = Vector2.Lerp(transform.position, _posToMove, Time.deltaTime * _moveSpeed);
+        transform.position = Vector2.Lerp(transform.position, _posToMove, Time.fixedDeltaTime * _moveSpeed);
         
     }
 }
