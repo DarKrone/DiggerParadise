@@ -11,7 +11,7 @@ public class Iron : Resource
 
     protected override void ExtractResource()
     {
-        Storage.IronResource += Extraction.IronExtractAmount;
+        Storage.AddToStorage(Extraction.IronExtractAmount, ResourceType.Iron);
     }
 
     protected override void ResourceNotification()

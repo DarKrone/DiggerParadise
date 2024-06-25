@@ -11,7 +11,7 @@ public class Copper : Resource
 
     protected override void ExtractResource()
     {
-        Storage.CopperResource += Extraction.CopperExtractAmount;
+        Storage.AddToStorage(Extraction.CopperExtractAmount, ResourceType.Copper);
     }
 
     protected override void ResourceNotification()
