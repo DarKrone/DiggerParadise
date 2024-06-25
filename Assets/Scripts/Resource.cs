@@ -48,7 +48,7 @@ public class Resource : MonoBehaviour
     /// <summary>
     /// Вывод в консоль сообщения о текущем количестве ресурса на складе
     /// </summary>
-    virtual protected void DebugResourceAmount()
+    protected virtual void DebugResourceAmount()
     {
         return;
     }
@@ -56,7 +56,7 @@ public class Resource : MonoBehaviour
     /// <summary>
     /// Добавление ресурса на склад со скоростью добычи
     /// </summary>
-    virtual protected void ExtractResource()
+    protected virtual void ExtractResource()
     {
         return;
     }

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _copperText;
     [SerializeField] private TextMeshProUGUI _ironText;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
         UpdateUI();
