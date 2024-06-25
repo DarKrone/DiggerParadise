@@ -8,8 +8,14 @@ public class Copper : Resource
     {
         Debug.Log($"Current copper amount - {Storage.CopperResource}");
     }
+
     protected override void ExtractResource()
     {
         Storage.CopperResource += Extraction.CopperExtractAmount;
+    }
+
+    protected override void ResourceNotification()
+    {
+        NotificationHandler.Instance.ShowNotification(ResourceType.Copper);
     }
 }

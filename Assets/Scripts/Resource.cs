@@ -37,6 +37,7 @@ public class Resource : MonoBehaviour
         {
             yield return new WaitForSeconds(1/Extraction.ExtractionSpeed);
             ExtractResource();
+            ResourceNotification();
             GameManager.Instance.UpdateUI();
             if (_debugMode)
                 DebugResourceAmount();
@@ -57,6 +58,14 @@ public class Resource : MonoBehaviour
     /// ƒобавление ресурса на склад со скоростью добычи
     /// </summary>
     protected virtual void ExtractResource()
+    {
+        return;
+    }
+
+    /// <summary>
+    /// ¬ывод оповещени€ о добыче в виде +1 над игроком
+    /// </summary>
+    protected virtual void ResourceNotification()
     {
         return;
     }

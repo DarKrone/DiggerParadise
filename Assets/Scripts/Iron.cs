@@ -8,8 +8,14 @@ public class Iron : Resource
     {
         Debug.Log($"Current iron amount - {Storage.IronResource}");
     }
+
     protected override void ExtractResource()
     {
         Storage.IronResource += Extraction.IronExtractAmount;
+    }
+
+    protected override void ResourceNotification()
+    {
+        NotificationHandler.Instance.ShowNotification(ResourceType.Iron);
     }
 }
