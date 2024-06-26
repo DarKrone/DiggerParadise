@@ -955,7 +955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9120445958823974781, guid: 0f36d53a3392b5f4db6d2572c84d7aa4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1106,7 +1106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debugMode: 0
-  _notificationPrefab: {fileID: 7541012383906819224, guid: be804edbfa7613e49b1b7ad89f654977, type: 3}
 --- !u!1 &1318252927
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,7 +1496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &2042042970
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1617,7 +1616,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042042968}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e230be0e0d15d4d91c1051a4a7f441, type: 3}
   m_Name: 
@@ -1684,8 +1683,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db9e1568c8ae664db36ddb8e086b8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugMode: 0
   _player: {fileID: 413560643}
   _spawnOffset: {x: 0, y: 1.2, z: 0}
+  _notificationPrefabs:
+  - {fileID: 7541012383906819224, guid: be804edbfa7613e49b1b7ad89f654977, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
