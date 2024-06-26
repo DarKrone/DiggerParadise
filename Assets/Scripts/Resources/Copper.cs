@@ -6,7 +6,7 @@ public class Copper : Resource
 {
     protected override void DebugResourceAmount()
     {
-        Debug.Log($"Current copper amount - {Storage.CopperResource}");
+        Debug.Log($"Current copper amount - {Storage.CheckResourceAmount(ResourceType.Copper)}");
     }
 
     protected override void ExtractResource()

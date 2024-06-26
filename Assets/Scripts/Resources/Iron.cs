@@ -6,7 +6,7 @@ public class Iron : Resource
 {
     protected override void DebugResourceAmount()
     {
-        Debug.Log($"Current iron amount - {Storage.IronResource}");
+        Debug.Log($"Current iron amount - {Storage.CheckResourceAmount(ResourceType.Iron)}");
     }
 
     protected override void ExtractResource()

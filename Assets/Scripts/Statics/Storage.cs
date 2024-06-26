@@ -3,18 +3,18 @@
 /// </summary>
 public static class Storage
 {
-    public static float IronResource;
-    public static float CopperResource;
+    private static float _ironResource;
+    private static float _copperResource;
 
     public static void AddToStorage(float amount, ResourceType resourceType)
     {
         switch(resourceType)
         {
             case ResourceType.Copper:
-                CopperResource += amount;
+                _copperResource += amount;
                 break;
             case ResourceType.Iron:
-                IronResource += amount;
+                _ironResource += amount;
                 break;
         }
         GameManager.Instance.UpdateUI();
@@ -25,12 +25,25 @@ public static class Storage
         switch (resourceType)
         {
             case ResourceType.Copper:
-                CopperResource -= amount;
+                _copperResource -= amount;
                 break;
             case ResourceType.Iron:
-                IronResource -= amount;
+                _ironResource -= amount;
                 break;
         }
         GameManager.Instance.UpdateUI();
+    }
+
+    public static float CheckResourceAmount(ResourceType resourceType)
+    {
+        switch (resourceType)
+        {
+            case ResourceType.Copper:
+                return _copperResource;
+            case ResourceType.Iron:
+                return _ironResource;
+            default:
+                return -1;
+        }
     }
 }
