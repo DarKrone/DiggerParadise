@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _debugMode = false;
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private GameObject _pointerPrefab;
+    public static bool IsMoving = false;
     private Camera _mainCamera;
     private Vector2 _posToMove;
 
@@ -20,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (transform.position != (Vector3)_posToMove)
+            IsMoving = true;
+        else
+            IsMoving = false;
+
         if (Input.GetMouseButtonDown(0))
         {
             _posToMove = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -29,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
+            IsMoving = true;
             _posToMove = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         }
         if (Input.GetMouseButtonDown(1))
@@ -37,6 +44,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.position = Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime);
-        
     }
 }

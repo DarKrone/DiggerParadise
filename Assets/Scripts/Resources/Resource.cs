@@ -36,6 +36,8 @@ public class Resource : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1/Extraction.ExtractionSpeed);
+            if (PlayerMovement.IsMoving)
+                continue;
             ExtractResource();
             ResourceNotification();
             GameManager.Instance.UpdateUI();

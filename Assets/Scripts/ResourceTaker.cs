@@ -11,7 +11,7 @@ public class ResourceTaker : MonoBehaviour
     public class NeededResource
     {
         public ResourceType ResourceType;
-        [Range(1f, 10000f)]
+        [Range(1f, 1000f)]
         public float ResourceAmountNeeded;
     }
 
