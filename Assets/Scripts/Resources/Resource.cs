@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ResourceType
-{
-    Copper,
-    Iron
-}
 // Базовый класс ресурсов от которых все наследуются и переопределяют метод ExtractResource
 public class Resource : MonoBehaviour
 {
     [SerializeField] protected bool _debugMode;
+    [SerializeField] private ResourceType _resourceType;
     private Coroutine _extractionCoroutine;
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -53,7 +49,7 @@ public class Resource : MonoBehaviour
     /// </summary>
     protected virtual void DebugResourceAmount()
     {
-        return;
+        Debug.Log($"Current copper amount - {Storage.Instance.CheckResourceAmount(_resourceType)}");
     }
 
     /// <summary>
@@ -61,7 +57,7 @@ public class Resource : MonoBehaviour
     /// </summary>
     protected virtual void ExtractResource()
     {
-        return;
+        Storage.Instance.AddToStorage(Extraction.CopperExtractAmount, _resourceType);
     }
 
     /// <summary>
@@ -69,7 +65,7 @@ public class Resource : MonoBehaviour
     /// </summary>
     protected virtual void ResourceNotification()
     {
-        return;
+        NotificationHandler.Instance.ShowNotification(_resourceType);
     }
 }
 

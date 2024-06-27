@@ -8,7 +8,7 @@ using UnityEngine;
 public class ResourceTaker : MonoBehaviour
 {
     [Serializable]
-    public class NeededResource
+    private class NeededResource
     {
         public ResourceType ResourceType;
         [Range(1f, 1000f)]
@@ -87,6 +87,7 @@ public class ResourceTaker : MonoBehaviour
     {
         UpdateNeededTextByIndex(currentObjectIndex);
         TextMeshProUGUI neededResourceText = _neededTexts[currentObjectIndex];
+        neededResourceText.color = Storage.Instance.GetResourceColorByType(_neededResources[currentObjectIndex].ResourceType);
         neededResourceText.fontSize = FONT_SIZE;
         neededResourceText.alignment = TextAlignmentOptions.Center;
         neededResourceText.rectTransform.sizeDelta = new Vector2(WIDTH, HEIGHT);
@@ -142,10 +143,10 @@ public class ResourceTaker : MonoBehaviour
 
     private void TakeResourceByIndex(int currentResourceIndex)
     {
-        if (Storage.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType) >= _removeAmount)
+        if (Storage.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType) >= _removeAmount)
         {
             _neededResources[currentResourceIndex].ResourceAmountNeeded -= _removeAmount;
-            Storage.RemoveFromStorage(_removeAmount, _neededResources[currentResourceIndex].ResourceType);
+            Storage.Instance.RemoveFromStorage(_removeAmount, _neededResources[currentResourceIndex].ResourceType);
             if (_neededResources[currentResourceIndex].ResourceAmountNeeded <= 0)
             {
                 _neededResourcesToDelete.Add(_neededResources[currentResourceIndex]);

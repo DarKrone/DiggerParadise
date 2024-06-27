@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class NotificationHandler : MonoBehaviour
@@ -8,7 +9,7 @@ public class NotificationHandler : MonoBehaviour
     [SerializeField] private bool _debugMode = false;
     [SerializeField] private GameObject _player;
     [SerializeField] private Vector3 _spawnOffset;
-    [SerializeField] private List<GameObject> _notificationPrefabs;
+    [SerializeField] private GameObject _notificationPrefab;
     private void Awake()
     {
         Instance = this;
@@ -18,19 +19,10 @@ public class NotificationHandler : MonoBehaviour
     {
         if(_debugMode)
             Debug.Log("Extract notification called, resource type - " + resourceType);
-        GameObject notificationPrefab = _notificationPrefabs[0];
-        switch (resourceType)
-        {
-            case ResourceType.Copper:
-                if (_notificationPrefabs[1] != null )
-                    notificationPrefab = _notificationPrefabs[1];
-                break;
-            case ResourceType.Iron:
-                if (_notificationPrefabs[2] != null)
-                    notificationPrefab = _notificationPrefabs[2];
-                break;
-        }
-        if(notificationPrefab != null) 
+        GameObject notificationPrefab = _notificationPrefab;
+        TextMeshProUGUI notificationText = notificationPrefab.GetComponent<ResourceAddedNotification>().NotificationText;
+        notificationText.color = Storage.Instance.GetResourceColorByType(resourceType);
+        if (notificationPrefab != null) 
             Instantiate(notificationPrefab, _player.transform.position + _spawnOffset, notificationPrefab.transform.rotation, this.transform);
     }
 }

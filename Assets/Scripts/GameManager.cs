@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        _copperText.text = "Copper: " + Storage.CheckResourceAmount(ResourceType.Copper);
-        _ironText.text = "Iron: " + Storage.CheckResourceAmount(ResourceType.Iron);
+        _copperText.text = "Copper: " + Storage.Instance.CheckResourceAmount(ResourceType.Copper);
+        _ironText.text = "Iron: " + Storage.Instance.CheckResourceAmount(ResourceType.Iron);
     }
 }
