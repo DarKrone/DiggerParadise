@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,16 +7,24 @@ using UnityEngine;
 
 public class ResourceTaker : MonoBehaviour
 {
+    [Serializable]
+    public class NeededResource
+    {
+        public ResourceType ResourceType;
+        public float ResourceAmountNeeded;
+        public bool IsDone;
+    }
+
     [SerializeField] private bool _debugMode = false;
-    [SerializeField] private List<ResourceType> _resourceType;
-    [SerializeField] private List<float> _resourceNeeded;
+    [SerializeField] private List<NeededResource> _neededResource;
     [SerializeField] private GameObject _canvasToSpawn;
     [SerializeField] private float _takingSpeed = 3f;
     private List<TextMeshProUGUI> _neededTexts;
 
-    private float _spawnYOffset = 0.6f;
-    private float _fontSize = 0.15f;
-    private Vector2 _wightAndHeight = new Vector2(2f, 0.5f);
+    private const float SPAWN_Y_OFFSET = 0.6f;
+    private const float FONT_SIZE = 0.15f;
+    private const float WIDTH = 2f;
+    private const float HEIGHT = 0.5f;
 
     private Coroutine _takingCoroutine;
     private float _removeAmount = 1f;
@@ -23,29 +32,41 @@ public class ResourceTaker : MonoBehaviour
 
     private void Start()
     {
-        if (_resourceType.Count != _resourceNeeded.Count)
-            Debug.LogError($"The number of resource types does not match the number of requested quantity at - {gameObject}");
-
         _neededTexts = new List<TextMeshProUGUI>();
 
-        for (int i = 0; i < _resourceType.Count; i++)
+        for (int i = 0; i < _neededResource.Count; i++)
         {
-            GameObject textObject = new GameObject($"{_resourceType[i]} text");
-            textObject.transform.SetParent(_canvasToSpawn.transform);
-            textObject.transform.localScale = Vector3.one;
-            textObject.AddComponent<CanvasRenderer>();
-            TextMeshProUGUI resourceNeededText = textObject.AddComponent<TextMeshProUGUI>();
-            resourceNeededText.text = $"Need {_resourceType[i]} : {_resourceNeeded[i]}";
-            resourceNeededText.fontSize = _fontSize;
-            resourceNeededText.alignment = TextAlignmentOptions.Center;
-            resourceNeededText.rectTransform.localPosition = Vector3.zero;
-            resourceNeededText.rectTransform.sizeDelta = _wightAndHeight;
-            Vector3 spawnPos = _canvasToSpawn.transform.position;
-            spawnPos += new Vector3(0, _spawnYOffset * i, 0);
-            textObject.transform.position = spawnPos;
-            //GameObject createdText = Instantiate(textObject, spawnPos, textObject.transform.rotation, _canvasToSpawn.transform);
-            _neededTexts.Add(resourceNeededText);
+            GenerateNeededTextObject(i);
         }
+    }
+
+    private void GenerateNeededTextObject(int currentObjectIndex)
+    {
+        GameObject neededResource = new GameObject($"{_neededResource[currentObjectIndex].ResourceType} text");
+        neededResource.transform.SetParent(_canvasToSpawn.transform);
+        neededResource.transform.localScale = Vector3.one;
+        neededResource.AddComponent<CanvasRenderer>();
+        ConfigureNeededText(currentObjectIndex, neededResource.AddComponent<TextMeshProUGUI>());
+        SetNeededTextGameObjectPos(currentObjectIndex, neededResource);
+    }
+
+
+    private void ConfigureNeededText(int currentObjectIndex, TextMeshProUGUI neededResourceText)
+    {
+        neededResourceText.text = $"Need {_neededResource[currentObjectIndex].ResourceType} " +
+                                  $": {_neededResource[currentObjectIndex].ResourceAmountNeeded}";
+        neededResourceText.fontSize = FONT_SIZE;
+        neededResourceText.alignment = TextAlignmentOptions.Center;
+        neededResourceText.rectTransform.localPosition = Vector3.zero;
+        neededResourceText.rectTransform.sizeDelta = new Vector2(WIDTH, HEIGHT);
+        _neededTexts.Add(neededResourceText);
+    }
+
+    private void SetNeededTextGameObjectPos(int currentObjectIndex, GameObject textObject)
+    {
+        Vector3 spawnPos = _canvasToSpawn.transform.position;
+        spawnPos += new Vector3(0, SPAWN_Y_OFFSET * currentObjectIndex, 0);
+        textObject.transform.position = spawnPos;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -71,22 +92,18 @@ public class ResourceTaker : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1 / _takingSpeed);
-            bool allEmpty = true;
-            for (int i = 0; i < _resourceType.Count; i++)
+            bool allResourcesDone = true;
+            for (int i = 0; i < _neededResource.Count; i++)
             {
-                if (_resourceNeeded[i] > 0)
+                if (_neededResource[i].IsDone)
                 {
-                    allEmpty = false;
-                    if (Storage.CheckResourceAmount(_resourceType[i]) >= _removeAmount)
-                    {
-                        _resourceNeeded[i] -= _removeAmount;
-                        Storage.RemoveFromStorage(_removeAmount, _resourceType[i]);
-                        UpdateNeededAmounts();
-                    }
+                    continue;
                 }
+                allResourcesDone = false;
+                TakeResource(i);
             }
 
-            if (allEmpty)
+            if (allResourcesDone)
             {
                 _doneTaking = true;
                 DoneTaking();
@@ -95,11 +112,23 @@ public class ResourceTaker : MonoBehaviour
         }
     }
 
+    private void TakeResource(int currentResourceIndex)
+    {
+        if (Storage.CheckResourceAmount(_neededResource[currentResourceIndex].ResourceType) >= _removeAmount)
+        {
+            _neededResource[currentResourceIndex].ResourceAmountNeeded -= _removeAmount;
+            Storage.RemoveFromStorage(_removeAmount, _neededResource[currentResourceIndex].ResourceType);
+            if (_neededResource[currentResourceIndex].ResourceAmountNeeded <= 0)
+                _neededResource[currentResourceIndex].IsDone = true;
+            UpdateNeededAmounts();
+        }
+    }
+
     private void UpdateNeededAmounts()
     {
-        for (int i = 0; i < _resourceType.Count; i++)
+        for (int i = 0; i < _neededResource.Count; i++)
         {
-            _neededTexts[i].text = $"Need {_resourceType[i]} : {_resourceNeeded[i]}";
+            _neededTexts[i].text = $"Need {_neededResource[i].ResourceType} : {_neededResource[i].ResourceAmountNeeded}";
         }
     }
 
