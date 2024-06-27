@@ -953,6 +953,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6135990082522409005, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
+      propertyPath: _neededResource.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135990082522409005, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
+      propertyPath: _neededResource.Array.data[0].ResourceType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135990082522409005, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
+      propertyPath: _neededResource.Array.data[0].ResourceAmountNeeded
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1804,6 +1816,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6135990082522409005, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
+      propertyPath: _takingSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135990082522409005, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
       propertyPath: _playerStats.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1816,11 +1832,19 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6135990082522409005, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
+      propertyPath: _neededResource.Array.data[2].ResourceType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135990082522409005, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
       propertyPath: _neededResource.Array.data[0].ResourceAmountNeeded
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6135990082522409005, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
       propertyPath: _neededResource.Array.data[1].ResourceAmountNeeded
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135990082522409005, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
+      propertyPath: _neededResource.Array.data[2].ResourceAmountNeeded
       value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []

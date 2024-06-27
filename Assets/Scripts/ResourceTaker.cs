@@ -18,6 +18,7 @@ public class ResourceTaker : MonoBehaviour
     [SerializeField] private List<NeededResource> _neededResource;
     [SerializeField] private GameObject _canvasToSpawn;
     [SerializeField] private float _takingSpeed = 3f;
+    private List<NeededResource> _neededResourcedToDelete;
     private List<TextMeshProUGUI> _neededTexts;
 
     private const float SPAWN_Y_OFFSET = 0.6f;
@@ -26,28 +27,40 @@ public class ResourceTaker : MonoBehaviour
     private const float HEIGHT = 0.5f;
 
     private Coroutine _takingCoroutine;
+    private bool _needUpdatingResourcesList = false;
     private float _removeAmount = 1f;
     private bool _doneTaking = false;
 
     private void Start()
     {
         _neededTexts = new List<TextMeshProUGUI>();
+        _neededResourcedToDelete = new List<NeededResource>();
         UpdateNeededResources();
     }
 
     private void UpdateNeededResources()
     {
-        RemoveAllNeededResourcesObjects();
+        _needUpdatingResourcesList = false;
+        ClearAllNeededResourceObjects();
+        
         for (int i = 0; i < _neededResource.Count; i++)
         {
-            GenerateNeededTextObject(i);
+            if (_neededResource[i].ResourceAmountNeeded > 0)
+                GenerateNeededTextObject(i);
         }
     }
 
-    private void RemoveAllNeededResourcesObjects()
+    private void ClearAllNeededResourceObjects()
     {
         while (_canvasToSpawn.transform.childCount > 0)
-             DestroyImmediate(_canvasToSpawn.transform.GetChild(0).gameObject);
+        {
+            DestroyImmediate(_canvasToSpawn.transform.GetChild(0).gameObject);
+        }
+        for (int i = 0; i < _neededResourcedToDelete.Count; i++)
+        {
+            _neededResource.Remove(_neededResourcedToDelete[i]);
+        }
+        _neededResourcedToDelete.Clear();
         _neededTexts.Clear();
     }
 
@@ -57,27 +70,25 @@ public class ResourceTaker : MonoBehaviour
         neededResource.transform.SetParent(_canvasToSpawn.transform);
         neededResource.transform.localScale = Vector3.one;
         neededResource.AddComponent<CanvasRenderer>();
-        ConfigureNeededText(currentObjectIndex, neededResource.AddComponent<TextMeshProUGUI>());
-        SetNeededTextGameObjectPos(currentObjectIndex, neededResource);
+        _neededTexts.Add(neededResource.AddComponent<TextMeshProUGUI>());
+        neededResource.transform.position = GetNeededTextGameObjectPos(currentObjectIndex);
+        ConfigureNeededText(currentObjectIndex);
     }
 
-
-    private void ConfigureNeededText(int currentObjectIndex, TextMeshProUGUI neededResourceText)
+    private void ConfigureNeededText(int currentObjectIndex)
     {
-        neededResourceText.text = $"Need {_neededResource[currentObjectIndex].ResourceType} " +
-                                  $": {_neededResource[currentObjectIndex].ResourceAmountNeeded}";
+        UpdateNeededText(currentObjectIndex);
+        TextMeshProUGUI neededResourceText = _neededTexts[currentObjectIndex];
         neededResourceText.fontSize = FONT_SIZE;
         neededResourceText.alignment = TextAlignmentOptions.Center;
-        neededResourceText.rectTransform.localPosition = Vector3.zero;
         neededResourceText.rectTransform.sizeDelta = new Vector2(WIDTH, HEIGHT);
-        _neededTexts.Add(neededResourceText);
     }
 
-    private void SetNeededTextGameObjectPos(int currentObjectIndex, GameObject textObject)
+    private Vector3 GetNeededTextGameObjectPos(int currentObjectIndex)
     {
         Vector3 spawnPos = _canvasToSpawn.transform.position;
         spawnPos += new Vector3(0, SPAWN_Y_OFFSET * currentObjectIndex, 0);
-        textObject.transform.position = spawnPos;
+        return spawnPos;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -108,8 +119,10 @@ public class ResourceTaker : MonoBehaviour
             {
                 allResourcesDone = false;
                 TakeResource(i);
+                UpdateNeededText(i);
             }
-
+            if (_needUpdatingResourcesList)
+                UpdateNeededResources();
             if (allResourcesDone)
             {
                 _doneTaking = true;
@@ -127,22 +140,19 @@ public class ResourceTaker : MonoBehaviour
             Storage.RemoveFromStorage(_removeAmount, _neededResource[currentResourceIndex].ResourceType);
             if (_neededResource[currentResourceIndex].ResourceAmountNeeded <= 0)
             {
-                _neededResource.RemoveAt(currentResourceIndex);
-                UpdateNeededResources();
+                _neededResourcedToDelete.Add(_neededResource[currentResourceIndex]);
+                _needUpdatingResourcesList = true;
             }
-            UpdateNeededAmounts();
         }
     }
 
-    private void UpdateNeededAmounts()
+    private void UpdateNeededText(int currentObjectIndex)
     {
-        for (int i = 0; i < _neededResource.Count; i++)
-        {
-            _neededTexts[i].text = $"Need {_neededResource[i].ResourceType} : {_neededResource[i].ResourceAmountNeeded}";
-        }
+        _neededTexts[currentObjectIndex].text = $"Need {_neededResource[currentObjectIndex].ResourceType} " +
+                                           $": {_neededResource[currentObjectIndex].ResourceAmountNeeded}";
     }
 
-    private void DoneTaking()
+    protected virtual void DoneTaking()
     {
         if (_debugMode)
             Debug.Log($"Done taking - {gameObject}");
