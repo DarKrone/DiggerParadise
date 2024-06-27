@@ -12,7 +12,6 @@ public class ResourceTaker : MonoBehaviour
     {
         public ResourceType ResourceType;
         public float ResourceAmountNeeded;
-        public bool IsDone;
     }
 
     [SerializeField] private bool _debugMode = false;
@@ -33,11 +32,23 @@ public class ResourceTaker : MonoBehaviour
     private void Start()
     {
         _neededTexts = new List<TextMeshProUGUI>();
+        UpdateNeededResources();
+    }
 
+    private void UpdateNeededResources()
+    {
+        RemoveAllNeededResourcesObjects();
         for (int i = 0; i < _neededResource.Count; i++)
         {
             GenerateNeededTextObject(i);
         }
+    }
+
+    private void RemoveAllNeededResourcesObjects()
+    {
+        while (_canvasToSpawn.transform.childCount > 0)
+             DestroyImmediate(_canvasToSpawn.transform.GetChild(0).gameObject);
+        _neededTexts.Clear();
     }
 
     private void GenerateNeededTextObject(int currentObjectIndex)
@@ -95,10 +106,6 @@ public class ResourceTaker : MonoBehaviour
             bool allResourcesDone = true;
             for (int i = 0; i < _neededResource.Count; i++)
             {
-                if (_neededResource[i].IsDone)
-                {
-                    continue;
-                }
                 allResourcesDone = false;
                 TakeResource(i);
             }
@@ -119,7 +126,10 @@ public class ResourceTaker : MonoBehaviour
             _neededResource[currentResourceIndex].ResourceAmountNeeded -= _removeAmount;
             Storage.RemoveFromStorage(_removeAmount, _neededResource[currentResourceIndex].ResourceType);
             if (_neededResource[currentResourceIndex].ResourceAmountNeeded <= 0)
-                _neededResource[currentResourceIndex].IsDone = true;
+            {
+                _neededResource.RemoveAt(currentResourceIndex);
+                UpdateNeededResources();
+            }
             UpdateNeededAmounts();
         }
     }
