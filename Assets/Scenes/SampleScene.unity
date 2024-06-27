@@ -1693,8 +1693,8 @@ MonoBehaviour:
   _spawnOffset: {x: 0, y: 1.2, z: 0}
   _notificationPrefabs:
   - {fileID: 7541012383906819224, guid: be804edbfa7613e49b1b7ad89f654977, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7541012383906819224, guid: d40c767305673f44ba583e793a88ecf4, type: 3}
+  - {fileID: 7541012383906819224, guid: 91da21e2c1340bc45ab6a92514e77500, type: 3}
 --- !u!1001 &4929089633303212424
 PrefabInstance:
   m_ObjectHideFlags: 0
