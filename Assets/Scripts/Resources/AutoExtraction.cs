@@ -14,9 +14,13 @@ public class AutoExtraction : MonoBehaviour
     {
         StartCoroutine(Extracting());
     }
+
     IEnumerator Extracting()
     {
-        yield return new WaitForSeconds(1 / _extractionSpeed);
-        Storage.Instance.AddToStorage(_extractionAmount, _resourceType);
+        while(true)
+        {
+            yield return new WaitForSeconds(1f / _extractionSpeed);
+            Storage.Instance.AddToStorage(_extractionAmount, _resourceType);
+        }
     }
 }
