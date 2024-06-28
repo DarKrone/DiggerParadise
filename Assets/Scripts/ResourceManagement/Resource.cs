@@ -13,18 +13,33 @@ public class Resource : MonoBehaviour
     [SerializeField] protected bool _debugMode;
     private Coroutine _extractionCoroutine;
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    //public void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (!collision.CompareTag("Player"))
+    //        return;
+    //    if (_debugMode)
+    //        Debug.Log($"Enter {gameObject.name} resource");
+    //    _extractionCoroutine = StartCoroutine(Extracting());
+    //}
+    //public void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (!collision.CompareTag("Player"))
+    //        return;
+    //    if (_debugMode)
+    //        Debug.Log($"Exit {gameObject.name} resource");
+    //    StopCoroutine(_extractionCoroutine);
+    //}
+    private void OnTriggerEnter(Collider other)
     {
-        if (!collision.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
             return;
         if (_debugMode)
             Debug.Log($"Enter {gameObject.name} resource");
         _extractionCoroutine = StartCoroutine(Extracting());
     }
-
-    public void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (!collision.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
             return;
         if (_debugMode)
             Debug.Log($"Exit {gameObject.name} resource");
