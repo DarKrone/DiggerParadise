@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,14 +8,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _debugMode = false;
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private GameObject _pointerPrefab;
+    private Animator _animator;
     public static bool IsMoving = false;
     private Camera _mainCamera;
     private Vector2 _posToMove;
+    private SpriteRenderer _spriteRenderer;
 
-    void Awake()
+
+    void Start()
     {
         _posToMove = transform.position;
         _mainCamera = Camera.main;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
         if (_debugMode)
             Debug.Log("Camera founded - " + _mainCamera.ToString());
     }
@@ -22,9 +28,14 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (transform.position != (Vector3)_posToMove)
+        {
             IsMoving = true;
+        }
         else
+        {
             IsMoving = false;
+        }
+        _animator.SetBool("Moving", IsMoving);
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -43,6 +54,14 @@ public class PlayerMovement : MonoBehaviour
             _posToMove = transform.position;
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime);
+        if (_posToMove.x < transform.position.x)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        if (_posToMove.x > transform.position.x)
+        {
+            _spriteRenderer.flipX = false;
+        }
+            transform.position = Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime);
     }
 }
