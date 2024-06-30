@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
         {
             IsMoving = false;
         }
-        _animator.SetBool("Moving", IsMoving);
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -62,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _spriteRenderer.flipX = false;
         }
-            transform.position = Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime);
+        _animator.SetBool("Moving", IsMoving);
+        transform.position = Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime);
     }
 }
