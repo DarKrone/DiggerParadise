@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera _mainCamera;
     private SpriteRenderer _spriteRenderer;
     private Vector2 _posToMove;
+    private float _startXScale;
 
     private Vector3 _lastPosition;
     [SerializeField]private float _minStopAnim;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Instance = this;
+        _startXScale = transform.localScale.x;
         _playerRB = GetComponent<Rigidbody2D>();
         _posToMove = transform.position;
         _mainCamera = Camera.main;
@@ -89,14 +91,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void FlipCheck()
     {
+        //if (_posToMove.x < transform.position.x)
+        //{
+        //    _spriteRenderer.flipX = true;
+        //}
+        //if (_posToMove.x > transform.position.x)
+        //{
+        //    _spriteRenderer.flipX = false;
+        //}
+
+        // Если партиклы не понадобятся, то вернуть код сверху
+
         if (_posToMove.x < transform.position.x)
         {
-            _spriteRenderer.flipX = true;
+            transform.localScale = new Vector3(-_startXScale, transform.localScale.y, transform.localScale.z);
         }
         if (_posToMove.x > transform.position.x)
         {
-            _spriteRenderer.flipX = false;
+            transform.localScale = new Vector3(_startXScale, transform.localScale.y, transform.localScale.z);
         }
+
     }
 
     private void WalkAnimState()
