@@ -23,7 +23,7 @@ public class ResourceTaker : MonoBehaviour
     private List<TextMeshProUGUI> _neededTexts;
 
     private const float SPAWN_Y_OFFSET = 0.6f;
-    private const float FONT_SIZE = 0.15f;
+    private const float FONT_SIZE = 0.21f;
     private const float WIDTH = 2f;
     private const float HEIGHT = 0.5f;
 
@@ -147,6 +147,7 @@ public class ResourceTaker : MonoBehaviour
         {
             _neededResources[currentResourceIndex].ResourceAmountNeeded -= _removeAmount;
             Storage.Instance.RemoveFromStorage(_removeAmount, _neededResources[currentResourceIndex].ResourceType);
+            NotificationHandler.Instance.ShowNotification(_neededResources[currentResourceIndex].ResourceType, false);
             if (_neededResources[currentResourceIndex].ResourceAmountNeeded <= 0)
             {
                 _neededResourcesToDelete.Add(_neededResources[currentResourceIndex]);
