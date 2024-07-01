@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
@@ -5,22 +6,26 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Instance;
+    public bool IsMoving = false;
+    public bool IsMining = false;
+
     [SerializeField] private bool _debugMode = false;
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private GameObject _pointerPrefab;
 
     private Rigidbody2D _playerRB;
     private Animator _animator;
-    public static bool IsMoving = false;
     private Camera _mainCamera;
-    private Vector2 _posToMove;
     private SpriteRenderer _spriteRenderer;
+    private Vector2 _posToMove;
 
     private Vector3 _lastPosition;
     [SerializeField]private float _minStopAnim;
 
     void Start()
     {
+        Instance = this;
         _playerRB = GetComponent<Rigidbody2D>();
         _posToMove = transform.position;
         _mainCamera = Camera.main;
@@ -42,6 +47,9 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+
+        IsMovingCheck();
+
         if (Input.GetMouseButton(0))
         {
             IsMoving = true;
@@ -53,21 +61,18 @@ public class PlayerMovement : MonoBehaviour
         }
 
         FlipCheck();
-        IsMovingCheck();
-
-        //MovePlayer();
-
-        //WalkAnimState();
-
-        //_lastPosition = transform.position;
-
     }
     private void FixedUpdate()
     {
         MovePlayer();
+        MiningAnimState();
         WalkAnimState();
-
         _lastPosition = transform.position;
+    }
+
+    private void MiningAnimState()
+    {
+        _animator.SetBool("Mining", IsMining);
     }
 
     private void GetPosToMove()
@@ -97,7 +102,6 @@ public class PlayerMovement : MonoBehaviour
     private void WalkAnimState()
     {
         Vector3 delta = _lastPosition - transform.position;
-        Debug.Log(delta);
         bool isWalking = false;
         if (Mathf.Abs(delta.x) > _minStopAnim || Mathf.Abs(delta.y) > _minStopAnim)
             isWalking = true;

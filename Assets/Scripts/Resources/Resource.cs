@@ -25,6 +25,7 @@ public class Resource : MonoBehaviour
         if (_debugMode)
             Debug.Log($"Exit {gameObject.name} resource");
         StopCoroutine(_extractionCoroutine);
+        PlayerMovement.Instance.IsMining = false;
     }
 
     private IEnumerator Extracting()
@@ -32,8 +33,12 @@ public class Resource : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1/Extraction.ExtractionSpeed);
-            if (PlayerMovement.IsMoving)
+            if (PlayerMovement.Instance.IsMoving)
+            {
+                PlayerMovement.Instance.IsMining = false;
                 continue;
+            }
+            PlayerMovement.Instance.IsMining = true;
             ExtractResource();
             ResourceNotification();
             GameManager.Instance.UpdateUI();
@@ -42,30 +47,20 @@ public class Resource : MonoBehaviour
         }
     }
 
-    // Методы ниже следует переопределять в наследуемом классе нового ресурса
-
-    /// <summary>
-    /// Вывод в консоль сообщения о текущем количестве ресурса на складе
-    /// </summary>
-    protected virtual void DebugResourceAmount()
-    {
-        Debug.Log($"Current copper amount - {Storage.Instance.CheckResourceAmount(_resourceType)}");
-    }
-
-    /// <summary>
-    /// Добавление ресурса на склад со скоростью добычи
-    /// </summary>
     protected virtual void ExtractResource()
     {
         Storage.Instance.AddToStorage(Extraction.CopperExtractAmount, _resourceType);
     }
 
-    /// <summary>
-    /// Вывод оповещения о добыче в виде +1 над игроком
-    /// </summary>
     protected virtual void ResourceNotification()
     {
-        NotificationHandler.Instance.ShowNotification(_resourceType);
+        NotificationHandler.Instance.ShowNotification(_resourceType, true);
     }
+
+    protected virtual void DebugResourceAmount()
+    {
+        Debug.Log($"Current copper amount - {Storage.Instance.CheckResourceAmount(_resourceType)}");
+    }
+
 }
 
