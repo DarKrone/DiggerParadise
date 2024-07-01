@@ -8,7 +8,6 @@ public class NotificationHandler : MonoBehaviour
     public static NotificationHandler Instance;
     [SerializeField] private bool _debugMode = false;
     [SerializeField] private GameObject _player;
-    [SerializeField] private Vector3 _spawnOffset;
     [SerializeField] private float _notificationScale;
     [SerializeField] private GameObject _notificationPrefab;
     
@@ -21,6 +20,7 @@ public class NotificationHandler : MonoBehaviour
     {
         if(_debugMode)
             Debug.Log("Extract notification called, resource type - " + resourceType);
+        Vector3 _spawnOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
         GameObject notificationPrefab = _notificationPrefab;
         notificationPrefab.transform.localScale = new Vector3(_notificationScale, _notificationScale, 1);
         TextMeshProUGUI notificationText = notificationPrefab.GetComponent<ResourceAddedNotification>().NotificationText;
