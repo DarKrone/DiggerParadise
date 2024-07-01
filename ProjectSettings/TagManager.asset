@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TreeFoundation
+  - HidingCollider
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: World
+    uniqueID: 371725955
+    locked: 0
+  - name: Decor
+    uniqueID: 206433571
+    locked: 0
+  - name: Player
+    uniqueID: 1834474359
     locked: 0

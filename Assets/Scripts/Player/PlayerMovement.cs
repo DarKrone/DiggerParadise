@@ -39,9 +39,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             _posToMove = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            Instantiate(_pointerPrefab, _posToMove, _pointerPrefab.transform.rotation);
             if (_debugMode)
+            {
                 Debug.Log("Click 0 To pos: x - " + _posToMove.x + " y - " + _posToMove.y);
+                Instantiate(_pointerPrefab, _posToMove, _pointerPrefab.transform.rotation);
+            }
+            
         }
         if (Input.GetMouseButton(0))
         {
