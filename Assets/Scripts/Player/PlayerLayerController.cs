@@ -24,7 +24,6 @@ public class PlayerLayerController : MonoBehaviour
                 _spriteRenderer.sortingOrder = collision.GetComponent<TilemapRenderer>().sortingOrder -1;
             else
                 _spriteRenderer.sortingOrder = _overlapLayer;
-            Debug.Log("Нашел: " + collision.ClosestPoint(transform.position).y);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

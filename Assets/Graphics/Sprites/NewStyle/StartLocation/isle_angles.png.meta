@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d20a602de6c3aa8498cb64cbaafd5cae
+guid: be81a06eb2952a4449711bf4258a2f41
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -149,7 +149,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ore_copper_0
+      name: isle_angles_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c54051f3d8abb2469a27beb90f41d99
+      internalID: -1731502511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isle_angles_4
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d589c8b674884334f909a142a8716e93
+      internalID: -2118324561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isle_angles_6
       rect:
         serializedVersion: 2
         x: 0
@@ -157,20 +199,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2844775df0b45d9438d8d4e36b0aa998
-      internalID: -1922135332
+      spriteID: 24e7654869ce020469ab2a13323cba90
+      internalID: 1312007265
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ore_copper_1
+      name: isle_angles_7
       rect:
         serializedVersion: 2
         x: 16
@@ -178,20 +220,62 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19456c40532c765408fa0fb9fb20492a
-      internalID: 1169220375
+      spriteID: 19c845d57e5f4554f8bca5005b0347dd
+      internalID: 417346156
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ore_copper_2
+      name: isle_angles_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32db6e7116a58ba40b06b514c7a24721
+      internalID: 976874170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isle_angles_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f36eebafdb35afb43bd0eb66e18ae4a2
+      internalID: -2073834529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isle_angles_10
       rect:
         serializedVersion: 2
         x: 0
@@ -199,20 +283,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e6c85e092e5e9d4eb05053bb70e66f7
-      internalID: 876772442
+      spriteID: 64806d902c6ef15448a5d17b7a4152bf
+      internalID: -1033732641
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ore_copper_3
+      name: isle_angles_11
       rect:
         serializedVersion: 2
         x: 16
@@ -220,14 +304,56 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7317a92da21c04747a0454ded662de06
-      internalID: -1555479505
+      spriteID: f8cebb5c7b4d3664384a90e5d4accb52
+      internalID: 1771929078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isle_angles_12
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67c30c575b30a5a4a8f14d40d80473cb
+      internalID: 2012493580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isle_angles_13
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f740b176d5c8cc4ba0bf3ed435fe280
+      internalID: -732417267
       vertices: []
       indices: 
       edges: []
@@ -243,10 +369,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ore_copper_0: -1922135332
-      Ore_copper_1: 1169220375
-      Ore_copper_2: 876772442
-      Ore_copper_3: -1555479505
+      isle_angles_0: 220592095
+      isle_angles_1: -83278942
+      isle_angles_10: -1033732641
+      isle_angles_11: 1771929078
+      isle_angles_12: 2012493580
+      isle_angles_13: -732417267
+      isle_angles_2: -100568881
+      isle_angles_3: -1731502511
+      isle_angles_4: -2118324561
+      isle_angles_5: 234207830
+      isle_angles_6: 1312007265
+      isle_angles_7: 417346156
+      isle_angles_8: 976874170
+      isle_angles_9: -2073834529
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
