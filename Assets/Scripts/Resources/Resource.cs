@@ -28,7 +28,7 @@ public class Resource : MonoBehaviour
         PlayerMovement.Instance.IsMining = false;
     }
 
-    private IEnumerator Extracting()
+    public IEnumerator Extracting()
     {
         while (true)
         {

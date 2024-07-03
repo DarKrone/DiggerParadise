@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void MovePlayer()
     {
-        _playerRB.MovePosition(Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime));
+        _playerRB.MovePosition(Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.fixedDeltaTime));
         //transform.position = Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime);
     }
 

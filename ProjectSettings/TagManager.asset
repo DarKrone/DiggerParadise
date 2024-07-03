@@ -6,6 +6,8 @@ TagManager:
   tags:
   - TreeFoundation
   - HidingCollider
+  - Resource
+  - Minis
   layers:
   - Default
   - TransparentFX
