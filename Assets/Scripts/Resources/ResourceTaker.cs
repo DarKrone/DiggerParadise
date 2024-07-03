@@ -15,17 +15,23 @@ public class ResourceTaker : MonoBehaviour
         public float ResourceAmountNeeded;
     }
 
+    [Serializable]
+    private class NeededTextSettings
+    {
+        public float SPAWN_Y_OFFSET = 0.6f;
+        public float FONT_SIZE = 0.21f;
+        public float WIDTH = 2f;
+        public float HEIGHT = 0.5f;
+    }
+
+
     [SerializeField] private bool _debugMode = false;
     [SerializeField] private List<NeededResource> _neededResources;
     [SerializeField] private GameObject _canvasToSpawnTexts;
     [SerializeField] private float _takingSpeed = 3f;
+    [SerializeField] private NeededTextSettings _textSettings;
     private List<NeededResource> _neededResourcesToDelete;
     private List<TextMeshProUGUI> _neededTexts;
-
-    private const float SPAWN_Y_OFFSET = 0.6f;
-    private const float FONT_SIZE = 0.21f;
-    private const float WIDTH = 2f;
-    private const float HEIGHT = 0.5f;
 
     private Coroutine _takingCoroutine;
     private bool _needUpdatingResourcesList = false;
@@ -79,7 +85,7 @@ public class ResourceTaker : MonoBehaviour
     private Vector3 GetNeededTextGameObjectPosByIndex(int currentObjectIndex)
     {
         Vector3 spawnPos = _canvasToSpawnTexts.transform.position;
-        spawnPos += new Vector3(0, SPAWN_Y_OFFSET * currentObjectIndex, 0);
+        spawnPos += new Vector3(0, _textSettings.SPAWN_Y_OFFSET * currentObjectIndex, 0);
         return spawnPos;
     }
 
@@ -88,9 +94,9 @@ public class ResourceTaker : MonoBehaviour
         UpdateNeededTextByIndex(currentObjectIndex);
         TextMeshProUGUI neededResourceText = _neededTexts[currentObjectIndex];
         neededResourceText.color = Storage.Instance.GetResourceColorByType(_neededResources[currentObjectIndex].ResourceType);
-        neededResourceText.fontSize = FONT_SIZE;
+        neededResourceText.fontSize = _textSettings.FONT_SIZE;
         neededResourceText.alignment = TextAlignmentOptions.Center;
-        neededResourceText.rectTransform.sizeDelta = new Vector2(WIDTH, HEIGHT);
+        neededResourceText.rectTransform.sizeDelta = new Vector2(_textSettings.WIDTH, _textSettings.HEIGHT);
     }
 
     private void UpdateNeededTextByIndex(int currentObjectIndex)
