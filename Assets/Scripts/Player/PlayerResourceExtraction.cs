@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceExtraction : MonoBehaviour
+public class PlayerResourceExtraction : MonoBehaviour
 {
     [SerializeField] private bool _debugMode;
     private Coroutine _extractionCoroutine;
-    private Resource _resource;
+    private Resource _currentResource;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,7 +14,7 @@ public class ResourceExtraction : MonoBehaviour
             return;
         if (_debugMode)
             Debug.Log($"Enter {collision.gameObject.name} resource");
-        _resource = collision.gameObject.GetComponent<Resource>();
+        _currentResource = collision.gameObject.GetComponent<Resource>();
         _extractionCoroutine = StartCoroutine(Extracting());
     }
 
@@ -24,20 +24,27 @@ public class ResourceExtraction : MonoBehaviour
             return;
         if (_debugMode)
             Debug.Log($"Exit {collision.gameObject.name} resource");
-        _resource = null;
+        _currentResource = null;
         StopCoroutine(_extractionCoroutine);
         PlayerMovement.Instance.IsMining = false;
     }
 
-    private IEnumerator Extracting()
+    protected IEnumerator Extracting()
     {
+        float extractionSpeed = Storage.Instance.GetExtractionSpeedByType(_currentResource.ResourceType);
         while (true)
         {
-            yield return new WaitForSeconds(1 / Extraction.ExtractionSpeed);
+            yield return new WaitForSeconds(1 / extractionSpeed);
             if (PlayerMovement.Instance.IsMoving)
             {
                 PlayerMovement.Instance.IsMining = false;
                 continue;
+            }
+            if (_currentResource.isFullyExtracted)
+            {
+                PlayerMovement.Instance.IsMining = false;
+                StopCoroutine(_extractionCoroutine);
+                break;
             }
             PlayerMovement.Instance.IsMining = true;
             ExtractResource();
@@ -50,16 +57,18 @@ public class ResourceExtraction : MonoBehaviour
 
     protected virtual void ExtractResource()
     {
-        Storage.Instance.AddToStorage(Extraction.CopperExtractAmount, _resource._resourceType);
+        Storage.Instance.AddToStorage(Storage.Instance.GetExtractionAmountByType(_currentResource.ResourceType), _currentResource.ResourceType);
+        _currentResource.ResourceAmount -= Storage.Instance.GetExtractionAmountByType(_currentResource.ResourceType);
     }
 
     protected virtual void ResourceNotification()
     {
-        NotificationHandler.Instance.ShowNotification(_resource._resourceType, true);
+        NotificationHandler.Instance.ShowNotification(this.gameObject, _currentResource.ResourceType, true);
     }
 
     protected virtual void DebugResourceAmount()
     {
-        Debug.Log($"Current {_resource._resourceType} amount - {Storage.Instance.CheckResourceAmount(_resource._resourceType)}");
+        Debug.Log($"Current {_currentResource.ResourceType} amount - {Storage.Instance.CheckResourceAmount(_currentResource.ResourceType)}");
     }
 }
+

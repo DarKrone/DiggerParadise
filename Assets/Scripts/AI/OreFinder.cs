@@ -11,7 +11,7 @@ public class OreFinder : MonoBehaviour
     {
         _circleCollider = GetComponent<CircleCollider2D>();
     }
-    public void FindClosetPoint(ref GameObject findedPoint)
+    public void FindClosestPoint(ref GameObject findedPoint)
     {
         if (ClosestOreObject == null)
             ColliderExpansion();

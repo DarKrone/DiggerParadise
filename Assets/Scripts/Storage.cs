@@ -15,6 +15,8 @@ public class Storage : MonoBehaviour
         public ResourceType ResourceType;
         public Color ResourceColor;
         public float ResourceAmount;
+        public float ExtractionSpeed;
+        public float ExtractionAmount;
     }
 
     [SerializeField] private List<Resource> _resources;
@@ -69,5 +71,29 @@ public class Storage : MonoBehaviour
             }
         }
         return Color.white;
+    }
+
+    public float GetExtractionSpeedByType(ResourceType resourceType)
+    {
+        foreach (Resource resource in _resources)
+        {
+            if (resource.ResourceType == resourceType)
+            {
+                return resource.ExtractionSpeed;
+            }
+        }
+        return -1;
+    }
+
+    public float GetExtractionAmountByType(ResourceType resourceType)
+    {
+        foreach (Resource resource in _resources)
+        {
+            if (resource.ResourceType == resourceType)
+            {
+                return resource.ExtractionAmount;
+            }
+        }
+        return -1;
     }
 }

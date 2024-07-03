@@ -1242,8 +1242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5898caea58027654da0dfbddba060bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugMode: 0
-  _resourceType: 0
+  ResourceType: 0
+  ResourceAmount: 5
+  isFullyExtracted: 0
 --- !u!61 &387075436
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1370,6 +1371,7 @@ GameObject:
   - component: {fileID: 413560648}
   - component: {fileID: 413560651}
   - component: {fileID: 413560650}
+  - component: {fileID: 413560652}
   - component: {fileID: 413560649}
   m_Layer: 0
   m_Name: Player
@@ -1563,6 +1565,19 @@ CircleCollider2D:
   m_Offset: {x: -0.09, y: -0.61}
   serializedVersion: 2
   m_Radius: 0.3
+--- !u!114 &413560652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413560643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d892cb6d5a461e441838add1bc3481f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugMode: 0
 --- !u!1 &423256795
 GameObject:
   m_ObjectHideFlags: 3
@@ -6341,8 +6356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5898caea58027654da0dfbddba060bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugMode: 0
-  _resourceType: 1
+  ResourceType: 0
+  ResourceAmount: 1000
+  isFullyExtracted: 0
 --- !u!61 &661767521
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6602,6 +6618,7 @@ GameObject:
   - component: {fileID: 826373109}
   - component: {fileID: 826373113}
   - component: {fileID: 826373112}
+  - component: {fileID: 826373114}
   m_Layer: 0
   m_Name: Minis
   m_TagString: Minis
@@ -6673,12 +6690,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d8f0919095d264284cff3b389d63db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugMode: 0
   _oreFinder: {fileID: 9076163}
   _moveSpeed: 1
-  _posToMove: {x: 0, y: 0}
-  _isMoving: 0
-  _isMining: 0
-  _currentResource: {fileID: 0}
 --- !u!4 &826373111
 Transform:
   m_ObjectHideFlags: 0
@@ -6757,6 +6771,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &826373114
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826373108}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4ec7472f07d1f5740afee753372e8edc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1111361716
 GameObject:
   m_ObjectHideFlags: 0
@@ -19469,8 +19504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5898caea58027654da0dfbddba060bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugMode: 0
-  _resourceType: 0
+  ResourceType: 0
+  ResourceAmount: 5
+  isFullyExtracted: 0
 --- !u!61 &1562041956
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26491,7 +26527,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debugMode: 0
-  _player: {fileID: 413560643}
   _notificationScale: 0.7
   _notificationPrefab: {fileID: 7541012383906819224, guid: be804edbfa7613e49b1b7ad89f654977, type: 3}
 --- !u!114 &2087254560
@@ -26510,9 +26545,13 @@ MonoBehaviour:
   - ResourceType: 0
     ResourceColor: {r: 1, g: 0.5921569, b: 0, a: 1}
     ResourceAmount: 0
+    ExtractionSpeed: 2
+    ExtractionAmount: 1
   - ResourceType: 1
     ResourceColor: {r: 1, g: 0.93333334, b: 0.8352941, a: 1}
     ResourceAmount: 0
+    ExtractionSpeed: 2
+    ExtractionAmount: 1
 --- !u!4 &835188164980524894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3037944543208169496, guid: 9463ffb84b511dd4a83a3dcbf793621f, type: 3}
@@ -26718,8 +26757,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5898caea58027654da0dfbddba060bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugMode: 0
-  _resourceType: 0
+  ResourceType: 0
+  ResourceAmount: 1000
+  isFullyExtracted: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
