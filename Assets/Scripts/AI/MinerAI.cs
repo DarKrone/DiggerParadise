@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinerAI : MonoBehaviour
+public class MinerAI : Extract
 {
     [SerializeField] private bool _debugMode = false;
     [SerializeField] private OreFinder _oreFinder;
@@ -13,13 +13,11 @@ public class MinerAI : MonoBehaviour
     private Rigidbody2D _rb;
     private Animator _animator;
 
-    private bool _isMoving;
-    private bool _isMining;
+    [SerializeField] private bool _isMoving;
+    [SerializeField] private bool _isMining;
 
     private GameObject _targetObject;
 
-    private Resource _currentResource;
-    private Coroutine _extractionCoroutine;
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -69,60 +67,20 @@ public class MinerAI : MonoBehaviour
     {
         _rb.MovePosition(Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.fixedDeltaTime));
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    protected override bool CheckIfMinerMoving()
     {
-        if (!collision.CompareTag("Resource"))
-        {
-            return;
-        }
-        _isMining = true;
-        _currentResource = collision.GetComponent<Resource>();
-        _extractionCoroutine = StartCoroutine(Extracting());
-        _targetObject = null;
+        return false;
     }
-    private void OnTriggerExit2D(Collider2D collision)
+
+    protected override void StopMining()
     {
-        if (!collision.CompareTag("Resource"))
-        {
-            return;
-        }
         _isMining = false;
-        _currentResource = null;
-        StopCoroutine(_extractionCoroutine);
     }
 
-    protected IEnumerator Extracting()
+    protected override void ExtractResource()
     {
-        float extractionSpeed = Storage.Instance.GetExtractionSpeedByType(_currentResource.ResourceType);
-        while (true)
-        {
-            yield return new WaitForSeconds(1 / extractionSpeed);
-            if (_currentResource.isFullyExtracted)
-            {
-                StopCoroutine(_extractionCoroutine);
-                break;
-            }
-            ExtractResource();
-            ResourceNotification();
-            GameManager.Instance.UpdateUI();
-            if (_debugMode)
-                DebugResourceAmount();
-        }
-    }
-
-    protected virtual void ExtractResource()
-    {
-        Storage.Instance.AddToStorage(Storage.Instance.GetExtractionAmountByType(_currentResource.ResourceType), _currentResource.ResourceType);
-        _currentResource.ResourceAmount -= Storage.Instance.GetExtractionAmountByType(_currentResource.ResourceType);
-    }
-
-    protected virtual void ResourceNotification()
-    {
-        NotificationHandler.Instance.ShowNotification(this.gameObject, _currentResource.ResourceType, true);
-    }
-
-    protected virtual void DebugResourceAmount()
-    {
-        Debug.Log($"Current {_currentResource.ResourceType} amount - {Storage.Instance.CheckResourceAmount(_currentResource.ResourceType)}");
+        _isMining = true;
+        base.ExtractResource();
     }
 }

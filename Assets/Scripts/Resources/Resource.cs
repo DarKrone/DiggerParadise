@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Resource : MonoBehaviour
 {
+    [SerializeField] private bool _debugMode;
     public ResourceType ResourceType;
     public float ResourceAmount;
     public bool isFullyExtracted = false;
@@ -13,7 +14,8 @@ public class Resource : MonoBehaviour
         if (ResourceAmount <= 0 && !isFullyExtracted)
         {
             isFullyExtracted = true;
-            Debug.Log($"Resource {gameObject.name} has been full extracted");
+            if (_debugMode)
+                Debug.Log($"Resource {gameObject.name} has been full extracted");
         }
     }
 }
