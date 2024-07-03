@@ -153,7 +153,7 @@ public class ResourceTaker : MonoBehaviour
         {
             _neededResources[currentResourceIndex].ResourceAmountNeeded -= _removeAmount;
             Storage.Instance.RemoveFromStorage(_removeAmount, _neededResources[currentResourceIndex].ResourceType);
-            NotificationHandler.Instance.ShowNotification(_neededResources[currentResourceIndex].ResourceType, false);
+            NotificationHandler.Instance.ShowNotification(PlayerMovement.Instance.gameObject, _neededResources[currentResourceIndex].ResourceType, false);
             if (_neededResources[currentResourceIndex].ResourceAmountNeeded <= 0)
             {
                 _neededResourcesToDelete.Add(_neededResources[currentResourceIndex]);

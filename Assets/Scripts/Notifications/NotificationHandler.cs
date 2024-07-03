@@ -7,7 +7,6 @@ public class NotificationHandler : MonoBehaviour
 {
     public static NotificationHandler Instance;
     [SerializeField] private bool _debugMode = false;
-    [SerializeField] private GameObject _player;
     [SerializeField] private float _notificationScale;
     [SerializeField] private GameObject _notificationPrefab;
     
@@ -16,7 +15,7 @@ public class NotificationHandler : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowNotification(ResourceType resourceType, bool isAdding)
+    public void ShowNotification (GameObject callingObject, ResourceType resourceType, bool isAdding)
     {
         if(_debugMode)
             Debug.Log("Extract notification called, resource type - " + resourceType);
@@ -34,6 +33,6 @@ public class NotificationHandler : MonoBehaviour
         }
         notificationText.color = Storage.Instance.GetResourceColorByType(resourceType);
         if (notificationPrefab != null) 
-            Instantiate(notificationPrefab, _player.transform.position + _spawnOffset, notificationPrefab.transform.rotation, this.transform);
+            Instantiate(notificationPrefab, callingObject.transform.position + _spawnOffset, notificationPrefab.transform.rotation, this.transform);
     }
 }
