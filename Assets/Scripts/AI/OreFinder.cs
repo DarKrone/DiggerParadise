@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class OreFinder : MonoBehaviour
 {
+    [SerializeField] private float _maxFinderRaduis = 5f;
     private GameObject ClosestOreObject = null;
     private CircleCollider2D _circleCollider;
-    private void Awake()
+
+    private void Start()
     {
         _circleCollider = GetComponent<CircleCollider2D>();
     }
@@ -22,6 +24,7 @@ public class OreFinder : MonoBehaviour
     private void ColliderExpansion()
     {
         _circleCollider.radius += 1f;
+        _circleCollider.radius = Mathf.Clamp(_circleCollider.radius, 0, _maxFinderRaduis);
     }
     private void ColliderToNormal()
     {

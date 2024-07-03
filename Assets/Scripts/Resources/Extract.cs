@@ -27,7 +27,7 @@ public class Extract : MonoBehaviour
             Debug.Log($"Exit {collision.gameObject.name} resource");
         _currentResource = null;
         StopCoroutine(_extractionCoroutine);
-        PlayerMovement.Instance.IsMining = false;
+        StopMining();
     }
 
     protected IEnumerator Extracting()

@@ -14,6 +14,8 @@ public class Resource : MonoBehaviour
         if (ResourceAmount <= 0 && !isFullyExtracted)
         {
             isFullyExtracted = true;
+            //gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            gameObject.SetActive(false);
             if (_debugMode)
                 Debug.Log($"Resource {gameObject.name} has been full extracted");
         }

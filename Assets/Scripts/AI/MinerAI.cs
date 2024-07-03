@@ -13,8 +13,8 @@ public class MinerAI : Extract
     private Rigidbody2D _rb;
     private Animator _animator;
 
-    [SerializeField] private bool _isMoving;
-    [SerializeField] private bool _isMining;
+    private bool _isMoving;
+    private bool _isMining;
 
     private GameObject _targetObject;
 
@@ -76,11 +76,13 @@ public class MinerAI : Extract
     protected override void StopMining()
     {
         _isMining = false;
+        _targetObject = null;
     }
 
     protected override void ExtractResource()
     {
         _isMining = true;
+        _isMoving = false;
         base.ExtractResource();
     }
 }
