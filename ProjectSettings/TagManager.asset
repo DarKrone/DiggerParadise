@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TreeFoundation
   - HidingCollider
+  - Resource
   layers:
   - Default
   - TransparentFX

@@ -60,6 +60,6 @@ public class ResourceExtraction : MonoBehaviour
 
     protected virtual void DebugResourceAmount()
     {
-        Debug.Log($"Current copper amount - {Storage.Instance.CheckResourceAmount(_resource._resourceType)}");
+        Debug.Log($"Current {_resource._resourceType} amount - {Storage.Instance.CheckResourceAmount(_resource._resourceType)}");
     }
 }
