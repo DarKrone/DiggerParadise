@@ -35,7 +35,6 @@ public class ResourceTaker : MonoBehaviour
 
     private Coroutine _takingCoroutine;
     private bool _needUpdatingResourcesList = false;
-    private float _removeAmount = 1f;
     private bool _doneTaking = false;
 
     private void Start()
@@ -149,16 +148,29 @@ public class ResourceTaker : MonoBehaviour
 
     private void TakeResourceByIndex(int currentResourceIndex)
     {
-        if (Storage.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType) >= _removeAmount)
+        float amountToRemove = Storage.Instance.GetExtractionAmountByType(_neededResources[currentResourceIndex].ResourceType);
+        if (Storage.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType) >= amountToRemove)
         {
-            _neededResources[currentResourceIndex].ResourceAmountNeeded -= _removeAmount;
-            Storage.Instance.RemoveFromStorage(_removeAmount, _neededResources[currentResourceIndex].ResourceType);
-            NotificationHandler.Instance.ShowNotification(PlayerMovement.Instance.gameObject, _neededResources[currentResourceIndex].ResourceType, false);
-            if (_neededResources[currentResourceIndex].ResourceAmountNeeded <= 0)
+            if (amountToRemove > _neededResources[currentResourceIndex].ResourceAmountNeeded)
             {
-                _neededResourcesToDelete.Add(_neededResources[currentResourceIndex]);
-                _needUpdatingResourcesList = true;
+                amountToRemove = _neededResources[currentResourceIndex].ResourceAmountNeeded;
             }
+            _neededResources[currentResourceIndex].ResourceAmountNeeded -= amountToRemove;
+        }
+        else
+        {
+            amountToRemove = Storage.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType);
+        }
+
+        if (amountToRemove == 0)
+            return;
+
+        Storage.Instance.RemoveFromStorage(amountToRemove, _neededResources[currentResourceIndex].ResourceType);
+        NotificationHandler.Instance.ShowNotification(PlayerMovement.Instance.gameObject, _neededResources[currentResourceIndex].ResourceType, -amountToRemove);
+        if (_neededResources[currentResourceIndex].ResourceAmountNeeded <= 0)
+        {
+            _neededResourcesToDelete.Add(_neededResources[currentResourceIndex]);
+            _needUpdatingResourcesList = true;
         }
     }
 

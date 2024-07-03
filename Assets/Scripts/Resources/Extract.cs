@@ -47,7 +47,6 @@ public class Extract : MonoBehaviour
                 break;
             }
             ExtractResource();
-            ResourceNotification();
             GameManager.Instance.UpdateUI();
             if (_debugMode)
                 DebugResourceAmount();
@@ -66,13 +65,19 @@ public class Extract : MonoBehaviour
 
     protected virtual void ExtractResource()
     {
-        Storage.Instance.AddToStorage(Storage.Instance.GetExtractionAmountByType(_currentResource.ResourceType), _currentResource.ResourceType);
-        _currentResource.ResourceAmount -= Storage.Instance.GetExtractionAmountByType(_currentResource.ResourceType);
+        float curResourceExtractAmount = Storage.Instance.GetExtractionAmountByType(_currentResource.ResourceType);
+        if (curResourceExtractAmount > _currentResource.ResourceAmount)
+        {
+            curResourceExtractAmount = _currentResource.ResourceAmount;
+        }
+        Storage.Instance.AddToStorage(curResourceExtractAmount, _currentResource.ResourceType);
+        _currentResource.ResourceAmount -= curResourceExtractAmount;
+        ResourceNotification(curResourceExtractAmount);
     }
 
-    protected void ResourceNotification()
+    protected void ResourceNotification(float curResourceExtractAmount)
     {
-        NotificationHandler.Instance.ShowNotification(this.gameObject, _currentResource.ResourceType, true);
+        NotificationHandler.Instance.ShowNotification(this.gameObject, _currentResource.ResourceType, curResourceExtractAmount);
     }
 
     protected void DebugResourceAmount()

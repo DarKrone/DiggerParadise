@@ -15,7 +15,7 @@ public class NotificationHandler : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowNotification (GameObject callingObject, ResourceType resourceType, bool isAdding)
+    public void ShowNotification (GameObject callingObject, ResourceType resourceType, float deltaNumber)
     {
         if(_debugMode)
             Debug.Log("Extract notification called, resource type - " + resourceType);
@@ -23,14 +23,7 @@ public class NotificationHandler : MonoBehaviour
         GameObject notificationPrefab = _notificationPrefab;
         notificationPrefab.transform.localScale = new Vector3(_notificationScale, _notificationScale, 1);
         TextMeshProUGUI notificationText = notificationPrefab.GetComponent<ResourceAddedNotification>().NotificationText;
-        if (isAdding)
-        {
-            notificationText.text = "+1";
-        }
-        else
-        {
-            notificationText.text = "-1";
-        }
+        notificationText.text = $"{deltaNumber}";
         notificationText.color = Storage.Instance.GetResourceColorByType(resourceType);
         if (notificationPrefab != null) 
             Instantiate(notificationPrefab, callingObject.transform.position + _spawnOffset, notificationPrefab.transform.rotation, this.transform);
