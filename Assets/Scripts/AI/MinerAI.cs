@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MinerAI : Extract
 {
-    [SerializeField] private bool _debugMode = false;
     [SerializeField] private OreFinder _oreFinder;
     [SerializeField] private float _moveSpeed;
 
