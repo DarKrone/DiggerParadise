@@ -37,10 +37,13 @@ public class ResourceTaker : MonoBehaviour
     private bool _needUpdatingResourcesList = false;
     private bool _doneTaking = false;
 
+    private AudioSource _audioSource;
+
     private void Start()
     {
         _neededTexts = new List<TextMeshProUGUI>();
         _neededResourcesToDelete = new List<NeededResource>();
+        _audioSource = GetComponent<AudioSource>();
         UpdateNeededResources();
     }
 
@@ -156,6 +159,7 @@ public class ResourceTaker : MonoBehaviour
                 amountToRemove = _neededResources[currentResourceIndex].ResourceAmountNeeded;
             }
             _neededResources[currentResourceIndex].ResourceAmountNeeded -= amountToRemove;
+            _audioSource.Play();
         }
         else
         {
