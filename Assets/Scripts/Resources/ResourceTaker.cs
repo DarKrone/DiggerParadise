@@ -29,12 +29,16 @@ public class ResourceTaker : MonoBehaviour
     private bool _doneTaking = false;
 
     private AudioSource _audioSource;
+    private Collider2D _collider;
+    private SpriteRenderer _spriteRenderer;
 
     private void Start()
     {
         _neededResourceObjects = new List<GameObject>();
         _neededResourcesToDelete = new List<NeededResource>();
         _audioSource = GetComponent<AudioSource>();
+        _collider = GetComponent<Collider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateNeededResources();
     }
 
@@ -168,7 +172,15 @@ public class ResourceTaker : MonoBehaviour
     {
         if (_debugMode)
             Debug.Log($"Done taking - {gameObject}");
-        IComplitedConstruction completedObject = gameObject.GetComponent<IComplitedConstruction>();
-        completedObject.ConstructionCompleted();
+        _collider.enabled = false;
+        _spriteRenderer.enabled = false;
+        if (gameObject.TryGetComponent<IComplitedConstruction>(out IComplitedConstruction completedObject))
+        {
+            completedObject.ConstructionCompleted();
+        }
+        else
+        {
+            Debug.LogError($"Didnt find IComplitedConstruction on object - {gameObject.name}");
+        }
     }
 }
