@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +15,7 @@ public class Storage : MonoBehaviour
     {
         public ResourceType ResourceType;
         public Color ResourceColor;
+        public Sprite ResourceMiniSprite;
         public float ResourceAmount;
         public float ExtractionSpeed;
         public float ExtractionAmount;
@@ -71,6 +73,18 @@ public class Storage : MonoBehaviour
             }
         }
         return Color.white;
+    }
+
+    public Sprite GetResourceSpriteByType(ResourceType type)
+    {
+        foreach (Resource resource in _resources)
+        {
+            if (resource.ResourceType == type)
+            {
+                return resource.ResourceMiniSprite;
+            }
+        }
+        return null;
     }
 
     public float GetExtractionSpeedByType(ResourceType resourceType)

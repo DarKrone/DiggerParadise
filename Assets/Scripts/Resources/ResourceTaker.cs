@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceTaker : MonoBehaviour
 {
@@ -15,23 +16,13 @@ public class ResourceTaker : MonoBehaviour
         public float ResourceAmountNeeded;
     }
 
-    [Serializable]
-    private class NeededTextSettings
-    {
-        public float SPAWN_Y_OFFSET = 0.6f;
-        public float FONT_SIZE = 0.21f;
-        public float WIDTH = 2f;
-        public float HEIGHT = 0.5f;
-    }
-
-
     [SerializeField] private bool _debugMode = false;
     [SerializeField] private List<NeededResource> _neededResources;
     [SerializeField] private GameObject _canvasToSpawnTexts;
+    [SerializeField] private GameObject _resourceNeededPrefab;
     [SerializeField] private float _takingSpeed = 3f;
-    [SerializeField] private NeededTextSettings _textSettings;
     private List<NeededResource> _neededResourcesToDelete;
-    private List<TextMeshProUGUI> _neededTexts;
+    private List<GameObject> _neededResourceObjects;
 
     private Coroutine _takingCoroutine;
     private bool _needUpdatingResourcesList = false;
@@ -41,10 +32,20 @@ public class ResourceTaker : MonoBehaviour
 
     private void Start()
     {
-        _neededTexts = new List<TextMeshProUGUI>();
+        _neededResourceObjects = new List<GameObject>();
         _neededResourcesToDelete = new List<NeededResource>();
         _audioSource = GetComponent<AudioSource>();
         UpdateNeededResources();
+    }
+
+    private void FixedUpdate()
+    {
+        if (_neededResources.Count == 0 && !_doneTaking)
+        {
+            _doneTaking = true;
+            DoneTaking();
+            StopCoroutine(_takingCoroutine);
+        }
     }
 
     private void UpdateNeededResources()
@@ -70,43 +71,35 @@ public class ResourceTaker : MonoBehaviour
             _neededResources.Remove(_neededResourcesToDelete[i]);
         }
         _neededResourcesToDelete.Clear();
-        _neededTexts.Clear();
+        _neededResourceObjects.Clear();
     }
 
     private void GenerateNeededTextObjectByIndex(int currentObjectIndex)
     {
-        GameObject neededResource = new GameObject($"{_neededResources[currentObjectIndex].ResourceType} text");
-        neededResource.transform.SetParent(_canvasToSpawnTexts.transform);
-        neededResource.transform.localScale = Vector3.one;
-        neededResource.AddComponent<CanvasRenderer>();
-        _neededTexts.Add(neededResource.AddComponent<TextMeshProUGUI>());
-        neededResource.transform.position = GetNeededTextGameObjectPosByIndex(currentObjectIndex);
+        Vector3 spawnPos = Vector3.zero;
+        GameObject spawnedObj = Instantiate(_resourceNeededPrefab, spawnPos, _resourceNeededPrefab.transform.rotation, _canvasToSpawnTexts.transform);
+        _neededResourceObjects.Add(spawnedObj);
         ConfigureNeededTextByIndex(currentObjectIndex);
-    }
-
-    private Vector3 GetNeededTextGameObjectPosByIndex(int currentObjectIndex)
-    {
-        Vector3 spawnPos = _canvasToSpawnTexts.transform.position;
-        spawnPos += new Vector3(0, _textSettings.SPAWN_Y_OFFSET * currentObjectIndex, 0);
-        return spawnPos;
+        ConfigureNeededImageByIndex(currentObjectIndex);
     }
 
     private void ConfigureNeededTextByIndex(int currentObjectIndex)
     {
         UpdateNeededTextByIndex(currentObjectIndex);
-        TextMeshProUGUI neededResourceText = _neededTexts[currentObjectIndex];
+        TextMeshProUGUI neededResourceText = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceNeeded>().NeededText;
         neededResourceText.color = Storage.Instance.GetResourceColorByType(_neededResources[currentObjectIndex].ResourceType);
-        neededResourceText.fontSize = _textSettings.FONT_SIZE;
-        neededResourceText.alignment = TextAlignmentOptions.Center;
-        neededResourceText.rectTransform.sizeDelta = new Vector2(_textSettings.WIDTH, _textSettings.HEIGHT);
     }
 
     private void UpdateNeededTextByIndex(int currentObjectIndex)
     {
-        _neededTexts[currentObjectIndex].text = $"Need {_neededResources[currentObjectIndex].ResourceType} " +
-                                           $": {_neededResources[currentObjectIndex].ResourceAmountNeeded}";
+        _neededResourceObjects[currentObjectIndex].GetComponent<ResourceNeeded>().NeededText.text = _neededResources[currentObjectIndex].ResourceAmountNeeded.ToString();
     }
 
+    private void ConfigureNeededImageByIndex(int currentObjectIndex)
+    {
+        Image neededResourceImage = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceNeeded>().ResourceImage;
+        neededResourceImage.sprite = Storage.Instance.GetResourceSpriteByType(_neededResources[currentObjectIndex].ResourceType);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -131,21 +124,14 @@ public class ResourceTaker : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1 / _takingSpeed);
-            bool allResourcesDone = true;
             for (int i = 0; i < _neededResources.Count; i++)
             {
-                allResourcesDone = false;
                 TakeResourceByIndex(i);
                 UpdateNeededTextByIndex(i);
             }
             if (_needUpdatingResourcesList)
                 UpdateNeededResources();
-            if (allResourcesDone)
-            {
-                _doneTaking = true;
-                DoneTaking();
-                StopCoroutine(_takingCoroutine);
-            }
+
         }
     }
 
@@ -159,7 +145,6 @@ public class ResourceTaker : MonoBehaviour
                 amountToRemove = _neededResources[currentResourceIndex].ResourceAmountNeeded;
             }
             _neededResources[currentResourceIndex].ResourceAmountNeeded -= amountToRemove;
-            _audioSource.Play();
         }
         else
         {
@@ -169,6 +154,7 @@ public class ResourceTaker : MonoBehaviour
         if (amountToRemove == 0)
             return;
 
+        _audioSource.Play();
         Storage.Instance.RemoveFromStorage(amountToRemove, _neededResources[currentResourceIndex].ResourceType);
         NotificationHandler.Instance.ShowNotification(PlayerMovement.Instance.gameObject, _neededResources[currentResourceIndex].ResourceType, -amountToRemove);
         if (_neededResources[currentResourceIndex].ResourceAmountNeeded <= 0)
@@ -178,9 +164,11 @@ public class ResourceTaker : MonoBehaviour
         }
     }
 
-    protected virtual void DoneTaking()
+    private void DoneTaking()
     {
         if (_debugMode)
             Debug.Log($"Done taking - {gameObject}");
+        IComplitedConstruction completedObject = gameObject.GetComponent<IComplitedConstruction>();
+        completedObject.ConstructionCompleted();
     }
 }

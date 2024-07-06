@@ -12,13 +12,15 @@ public class MinerAI : Extract
     private Rigidbody2D _rb;
     private Animator _animator;
 
-    private bool _isMoving;
-    private bool _isMining;
+    public bool _isMoving;
+    public bool _isMining;
 
     private GameObject _targetObject;
+    private SpriteRenderer _spriteRenderer;
 
     private void Start()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
     }
@@ -32,7 +34,7 @@ public class MinerAI : Extract
         {
             if (_isMoving)
             {
-                if (_targetObject.activeSelf)
+                if (_targetObject != null && !_targetObject.GetComponent<Resource>().isFullyExtracted)
                     MoveToPoint();
                 else
                     _isMoving = false;
@@ -65,6 +67,19 @@ public class MinerAI : Extract
     private void MoveToPoint()
     {
         _rb.MovePosition(Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.fixedDeltaTime));
+        TurnMinerToMovePosition();
+    }
+
+    private void TurnMinerToMovePosition()
+    {
+        if (_posToMove.x < transform.position.x)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        else
+        {
+            _spriteRenderer.flipX = false;
+        }
     }
 
     protected override bool CheckIfMinerMoving()
