@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -24,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _lastPosition;
     [SerializeField]private float _minStopAnim;
 
-    void Start()
+    void Awake()
     {
         Instance = this;
         _startXScale = transform.localScale.x;
@@ -39,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        WalkAnimState();
         if (Input.GetMouseButtonDown(0))
         {
             GetPosToMove();
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
         MiningAnimState();
-        WalkAnimState();
+        //WalkAnimState();
         _lastPosition = transform.position;
     }
 
@@ -123,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void IsMovingCheck()
     {
-        if (transform.position != (Vector3)_posToMove)
+        if ((Vector2)transform.position != _posToMove)
         {
             IsMoving = true;
         }
