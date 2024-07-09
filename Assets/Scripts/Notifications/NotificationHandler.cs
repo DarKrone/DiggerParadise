@@ -34,13 +34,13 @@ public class NotificationHandler : MonoBehaviour
     private void ConfigureNotficationMiniIcon(ResourceType resourceType)
     {
         Image resourceImage = _notificationPrefab.GetComponent<ResourceAddedNotification>().ResourceImage;
-        resourceImage.sprite = Storage.Instance.GetResourceSpriteByType(resourceType);
+        resourceImage.sprite = ResourceManager.Instance.GetResourceSpriteByType(resourceType);
     }
 
     private void ConfigureNotificationText(float deltaNumber, ResourceType resourceType)
     {
         TextMeshProUGUI notificationText = _notificationPrefab.GetComponent<ResourceAddedNotification>().NotificationText;
         notificationText.text = $"{deltaNumber}";
-        notificationText.color = Storage.Instance.GetResourceColorByType(resourceType);
+        notificationText.color = ResourceManager.Instance.GetResourceColorByType(resourceType);
     }
 }

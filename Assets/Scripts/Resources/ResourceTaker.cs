@@ -91,7 +91,7 @@ public class ResourceTaker : MonoBehaviour
     {
         UpdateNeededTextByIndex(currentObjectIndex);
         TextMeshProUGUI neededResourceText = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceInfoUI>().ResourceAmountText;
-        neededResourceText.color = Storage.Instance.GetResourceColorByType(_neededResources[currentObjectIndex].ResourceType);
+        neededResourceText.color = ResourceManager.Instance.GetResourceColorByType(_neededResources[currentObjectIndex].ResourceType);
     }
 
     private void UpdateNeededTextByIndex(int currentObjectIndex)
@@ -103,7 +103,7 @@ public class ResourceTaker : MonoBehaviour
     private void ConfigureNeededImageByIndex(int currentObjectIndex)
     {
         Image neededResourceImage = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceInfoUI>().ResourceImage;
-        neededResourceImage.sprite = Storage.Instance.GetResourceSpriteByType(_neededResources[currentObjectIndex].ResourceType);
+        neededResourceImage.sprite = ResourceManager.Instance.GetResourceSpriteByType(_neededResources[currentObjectIndex].ResourceType);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -142,25 +142,25 @@ public class ResourceTaker : MonoBehaviour
 
     private void TakeResourceByIndex(int currentResourceIndex)
     {
-        float amountToRemove = Storage.Instance.GetExtractionAmountByType(_neededResources[currentResourceIndex].ResourceType);
-        if (Storage.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType) >= amountToRemove)
+        float amountToRemove = ResourceManager.Instance.GetExtractionAmountByType(_neededResources[currentResourceIndex].ResourceType);
+        if (ResourceManager.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType) >= amountToRemove)
         {
             if (amountToRemove > _neededResources[currentResourceIndex].ResourceAmountNeeded)
             {
                 amountToRemove = _neededResources[currentResourceIndex].ResourceAmountNeeded;
             }
-            _neededResources[currentResourceIndex].ResourceAmountNeeded -= amountToRemove;
         }
         else
         {
-            amountToRemove = Storage.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType);
+            amountToRemove = ResourceManager.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType);
         }
 
         if (amountToRemove == 0)
             return;
 
         _audioSource.Play();
-        Storage.Instance.RemoveFromStorage(amountToRemove, _neededResources[currentResourceIndex].ResourceType);
+        _neededResources[currentResourceIndex].ResourceAmountNeeded -= amountToRemove;
+        ResourceManager.Instance.RemoveFromStorage(amountToRemove, _neededResources[currentResourceIndex].ResourceType);
         NotificationHandler.Instance.ShowNotification(PlayerMovement.Instance.gameObject, _neededResources[currentResourceIndex].ResourceType, -amountToRemove);
         if (_neededResources[currentResourceIndex].ResourceAmountNeeded <= 0)
         {

@@ -7,7 +7,10 @@ public class Extract : MonoBehaviour
 {
     [SerializeField] private bool _debugMode;
     private Coroutine _extractionCoroutine;
-    private Resource _currentResource;
+    protected ResourceOre _currentResource;
+    public float curResourceExtractAmount;
+    public float curResourceExtractSpeed;
+
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,7 +18,8 @@ public class Extract : MonoBehaviour
             return;
         if (_debugMode)
             Debug.Log($"Enter {collision.gameObject.name} resource");
-        _currentResource = collision.gameObject.GetComponent<Resource>();
+        _currentResource = collision.gameObject.GetComponent<ResourceOre>();
+        SetExtractParams();
         _extractionCoroutine = StartCoroutine(Extracting());
     }
 
@@ -32,7 +36,7 @@ public class Extract : MonoBehaviour
 
     protected IEnumerator Extracting()
     {
-        float extractionSpeed = Storage.Instance.GetExtractionSpeedByType(_currentResource.ResourceType);
+        float extractionSpeed = curResourceExtractSpeed;
         while (true)
         {
             yield return new WaitForSeconds(1 / extractionSpeed);
@@ -63,14 +67,18 @@ public class Extract : MonoBehaviour
         throw new NotImplementedException();
     }
 
+    protected virtual void SetExtractParams()
+    {
+        throw new NotImplementedException();
+    }
+
     protected virtual void ExtractResource()
     {
-        float curResourceExtractAmount = Storage.Instance.GetExtractionAmountByType(_currentResource.ResourceType);
         if (curResourceExtractAmount > _currentResource.ResourceAmount)
         {
             curResourceExtractAmount = _currentResource.ResourceAmount;
         }
-        Storage.Instance.AddToStorage(curResourceExtractAmount, _currentResource.ResourceType);
+        ResourceManager.Instance.AddToStorage(curResourceExtractAmount, _currentResource.ResourceType);
         _currentResource.ResourceAmount -= curResourceExtractAmount;
         ResourceNotification(curResourceExtractAmount);
     }
@@ -82,6 +90,6 @@ public class Extract : MonoBehaviour
 
     protected void DebugResourceAmount()
     {
-        Debug.Log($"Current {_currentResource.ResourceType} amount - {Storage.Instance.CheckResourceAmount(_currentResource.ResourceType)}");
+        Debug.Log($"Current {_currentResource.ResourceType} amount - {ResourceManager.Instance.CheckResourceAmount(_currentResource.ResourceType)}");
     }
 }

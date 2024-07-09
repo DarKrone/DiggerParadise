@@ -7,6 +7,8 @@ public class MinerAI : Extract
 {
     [SerializeField] private OreFinder _oreFinder;
     [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _extractionSpeed;
+    [SerializeField] private float _extractionAmount;
 
     private Vector2 _posToMove;
     private Rigidbody2D _rb;
@@ -34,7 +36,7 @@ public class MinerAI : Extract
         {
             if (_isMoving)
             {
-                if (_targetObject != null && !_targetObject.GetComponent<Resource>().isFullyExtracted)
+                if (_targetObject != null && !_targetObject.GetComponent<ResourceOre>().isFullyExtracted)
                     MoveToPoint();
                 else
                     _isMoving = false;
@@ -80,6 +82,12 @@ public class MinerAI : Extract
         {
             _spriteRenderer.flipX = false;
         }
+    }
+
+    protected override void SetExtractParams()
+    {
+        curResourceExtractAmount = _extractionAmount;
+        curResourceExtractSpeed = _extractionSpeed;
     }
 
     protected override bool CheckIfMinerMoving()

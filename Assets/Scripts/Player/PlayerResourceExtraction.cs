@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerResourceExtraction : Extract
 {
+    protected override void SetExtractParams()
+    {
+        curResourceExtractAmount = ResourceManager.Instance.GetExtractionAmountByType(_currentResource.ResourceType);
+        curResourceExtractSpeed = ResourceManager.Instance.GetExtractionSpeedByType(_currentResource.ResourceType);
+    }
     protected override bool CheckIfMinerMoving()
     {
         return PlayerMovement.Instance.IsMoving;
