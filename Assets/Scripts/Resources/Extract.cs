@@ -8,8 +8,8 @@ public class Extract : MonoBehaviour
     [SerializeField] private bool _debugMode;
     private Coroutine _extractionCoroutine;
     protected ResourceOre _currentResource;
-    public float curResourceExtractAmount;
-    public float curResourceExtractSpeed;
+    protected float curResourceExtractAmount;
+    protected float curResourceExtractSpeed;
 
 
     public void OnTriggerEnter2D(Collider2D collision)

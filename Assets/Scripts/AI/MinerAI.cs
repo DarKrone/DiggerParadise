@@ -7,8 +7,8 @@ public class MinerAI : Extract
 {
     [SerializeField] private OreFinder _oreFinder;
     [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _extractionSpeed;
-    [SerializeField] private float _extractionAmount;
+    public float ExtractionSpeed;
+    public float ExtractionAmount;
 
     private Vector2 _posToMove;
     private Rigidbody2D _rb;
@@ -86,8 +86,8 @@ public class MinerAI : Extract
 
     protected override void SetExtractParams()
     {
-        curResourceExtractAmount = _extractionAmount;
-        curResourceExtractSpeed = _extractionSpeed;
+        curResourceExtractAmount = ExtractionAmount;
+        curResourceExtractSpeed = ExtractionSpeed;
     }
 
     protected override bool CheckIfMinerMoving()
