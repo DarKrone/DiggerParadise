@@ -11,7 +11,7 @@ public class Storage : MonoBehaviour
     public static Storage Instance;
 
     [Serializable]
-    private class Resource
+    public class Resource
     {
         public ResourceType ResourceType;
         public Color ResourceColor;
@@ -19,9 +19,10 @@ public class Storage : MonoBehaviour
         public float ResourceAmount;
         public float ExtractionSpeed;
         public float ExtractionAmount;
+        public bool IsAvailable;
     }
 
-    [SerializeField] private List<Resource> _resources;
+    [SerializeField] public List<Resource> Resources;
 
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class Storage : MonoBehaviour
     }
     public void AddToStorage(float amount, ResourceType resourceType)
     {
-        foreach (Resource resource in _resources)
+        foreach (Resource resource in Resources)
         {
             if (resource.ResourceType == resourceType)
             {
@@ -41,7 +42,7 @@ public class Storage : MonoBehaviour
 
     public void RemoveFromStorage(float amount, ResourceType resourceType)
     {
-        foreach (Resource resource in _resources)
+        foreach (Resource resource in Resources)
         {
             if (resource.ResourceType == resourceType)
             {
@@ -53,7 +54,7 @@ public class Storage : MonoBehaviour
 
     public float CheckResourceAmount(ResourceType resourceType)
     {
-        foreach (Resource resource in _resources)
+        foreach (Resource resource in Resources)
         {
             if (resource.ResourceType == resourceType)
             {
@@ -65,7 +66,7 @@ public class Storage : MonoBehaviour
 
     public Color GetResourceColorByType(ResourceType type)
     {
-        foreach (Resource resource in _resources)
+        foreach (Resource resource in Resources)
         {
             if (resource.ResourceType == type)
             {
@@ -77,7 +78,7 @@ public class Storage : MonoBehaviour
 
     public Sprite GetResourceSpriteByType(ResourceType type)
     {
-        foreach (Resource resource in _resources)
+        foreach (Resource resource in Resources)
         {
             if (resource.ResourceType == type)
             {
@@ -89,7 +90,7 @@ public class Storage : MonoBehaviour
 
     public float GetExtractionSpeedByType(ResourceType resourceType)
     {
-        foreach (Resource resource in _resources)
+        foreach (Resource resource in Resources)
         {
             if (resource.ResourceType == resourceType)
             {
@@ -101,7 +102,7 @@ public class Storage : MonoBehaviour
 
     public float GetExtractionAmountByType(ResourceType resourceType)
     {
-        foreach (Resource resource in _resources)
+        foreach (Resource resource in Resources)
         {
             if (resource.ResourceType == resourceType)
             {

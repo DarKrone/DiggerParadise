@@ -143,8 +143,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3926433163752482424}
-  - component: {fileID: 4688932096045578547}
   - component: {fileID: 5179564101021681892}
+  - component: {fileID: 3842225226584849976}
   m_Layer: 0
   m_Name: DefaultNeededResource
   m_TagString: Untagged
@@ -173,7 +173,15 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4688932096045578547
+--- !u!222 &5179564101021681892
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7541012383906819224}
+  m_CullTransparentMesh: 1
+--- !u!114 &3842225226584849976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,16 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98fbf4b9b35e310408264187967535c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NeededText: {fileID: 6479688748045973434}
+  ResourceAmountText: {fileID: 6479688748045973434}
   ResourceImage: {fileID: 4329358696678725141}
---- !u!222 &5179564101021681892
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7541012383906819224}
-  m_CullTransparentMesh: 1
+  ResourceType: 0
 --- !u!1 &9031813029265962633
 GameObject:
   m_ObjectHideFlags: 0

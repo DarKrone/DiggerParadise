@@ -90,18 +90,19 @@ public class ResourceTaker : MonoBehaviour
     private void ConfigureNeededTextByIndex(int currentObjectIndex)
     {
         UpdateNeededTextByIndex(currentObjectIndex);
-        TextMeshProUGUI neededResourceText = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceNeeded>().NeededText;
+        TextMeshProUGUI neededResourceText = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceInfoUI>().ResourceAmountText;
         neededResourceText.color = Storage.Instance.GetResourceColorByType(_neededResources[currentObjectIndex].ResourceType);
     }
 
     private void UpdateNeededTextByIndex(int currentObjectIndex)
     {
-        _neededResourceObjects[currentObjectIndex].GetComponent<ResourceNeeded>().NeededText.text = _neededResources[currentObjectIndex].ResourceAmountNeeded.ToString();
+        ResourceInfoUI resource = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceInfoUI>();
+        resource.ResourceAmountText.text = _neededResources[currentObjectIndex].ResourceAmountNeeded.ToString();
     }
 
     private void ConfigureNeededImageByIndex(int currentObjectIndex)
     {
-        Image neededResourceImage = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceNeeded>().ResourceImage;
+        Image neededResourceImage = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceInfoUI>().ResourceImage;
         neededResourceImage.sprite = Storage.Instance.GetResourceSpriteByType(_neededResources[currentObjectIndex].ResourceType);
     }
 
