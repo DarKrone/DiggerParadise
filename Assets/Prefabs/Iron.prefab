@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debugMode: 0
+  _oreCooldown: 10
+  _defaultResourceAmount: 15
   ResourceType: 1
   ResourceAmount: 10000
   isFullyExtracted: 0
