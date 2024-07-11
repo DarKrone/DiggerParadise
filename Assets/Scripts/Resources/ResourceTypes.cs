@@ -1,5 +1,11 @@
 public enum ResourceType
 {
     Copper,
-    Iron
+    Iron,
+    Gold,
+    Ametist,
+    Saphir,
+    Topaz,
+    Emerald,
+    Diamond
 }

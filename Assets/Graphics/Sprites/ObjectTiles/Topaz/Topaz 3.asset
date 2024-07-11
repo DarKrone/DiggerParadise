@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Topaz 3
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 1469349073, guid: 3572422a769803441a3950077d7149d1, type: 3}
-  m_DefaultGameObject: {fileID: 1821815770511622380, guid: 5406b28c8b4dc3240aa389e89488306d, type: 3}
+  m_DefaultSprite: {fileID: 329679998, guid: f40bec4dd3e674f42bd91c74477d5fd5, type: 3}
+  m_DefaultGameObject: {fileID: 1821815770511622380, guid: f8db083a4441cde4fb359a549f11c795, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []
