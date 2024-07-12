@@ -129,7 +129,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &9132740735006985261
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugMode: 0
   _oreCooldown: 10
-  _defaultResourceAmount: 10
+  _defaultResourceAmount: 15
   ResourceType: 0
-  ResourceAmount: 1
+  ResourceAmount: 15
   isFullyExtracted: 0
