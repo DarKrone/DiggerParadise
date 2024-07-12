@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Iron 3
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: -240749707, guid: 10d17d962053fda4aabb45ea39353bd3, type: 3}
-  m_DefaultGameObject: {fileID: 3420835225298115054, guid: 5a59e6e467cc144429766669af8cbe35, type: 3}
+  m_DefaultGameObject: {fileID: 3420835225298115054, guid: 395c601a9c23bc24e9be43b8266a97d6, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []
