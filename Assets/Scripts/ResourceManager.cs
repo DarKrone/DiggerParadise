@@ -16,6 +16,7 @@ public class ResourceManager : MonoBehaviour
         public ResourceType ResourceType;
         public Color ResourceColor;
         public Sprite ResourceMiniSprite;
+        public Sprite ResourceOreSprite;
         public float ResourceAmount;
         public float ExtractionSpeed;
         public float ExtractionAmount;
@@ -88,6 +89,18 @@ public class ResourceManager : MonoBehaviour
         return null;
     }
 
+    public Sprite GetOreSpriteByType(ResourceType type)
+    {
+        foreach (Resource resource in Resources)
+        {
+            if (resource.ResourceType == type)
+            {
+                return resource.ResourceOreSprite;
+            }
+        }
+        return null;
+    }
+
     public float GetExtractionSpeedByType(ResourceType resourceType)
     {
         foreach (Resource resource in Resources)
@@ -119,6 +132,18 @@ public class ResourceManager : MonoBehaviour
             if (resource.ResourceType == resourceType)
             {
                 resource.ExtractionAmount += upgradeAmount;
+                return;
+            }
+        }
+    }
+
+    public void UpgradeExtractionSpeedByType(float upgradeAmount, ResourceType resourceType)
+    {
+        foreach (Resource resource in Resources)
+        {
+            if (resource.ResourceType == resourceType)
+            {
+                resource.ExtractionSpeed += upgradeAmount;
                 return;
             }
         }

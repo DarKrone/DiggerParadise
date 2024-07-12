@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Shop : UpgradeUI
 {
-    public void UpgradePickaxeExtractAmount()
+    public void UpgradePickaxeExtractAmountByType(float ore)
     {
         float ironAmount = ResourceManager.Instance.CheckResourceAmount(ResourceType.Iron);
 
