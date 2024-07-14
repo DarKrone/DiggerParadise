@@ -153,7 +153,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -174,6 +174,132 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02f17915160886940988c6630c109d8b
+      internalID: -1870848773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c49864df8fa0dd34f8a0fcbbd98086b0
+      internalID: 1166297471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be08632e4bd715644ad563660d7ceba8
+      internalID: 1152492998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2829750012ac85e42bf7544a2095227e
+      internalID: -45185685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cc82f10b054e2b43bd5c784d7536fb1
+      internalID: -655614854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_6
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bc2d02a7763c8545bbcafd3a3e108cf
+      internalID: -94341911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_7
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 16
         width: 16
         height: 16
@@ -184,14 +310,77 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28f0e041556c2d84ca554815891fb7e7
-      internalID: -1870848773
+      spriteID: 858278fc0289ca64ab112ff3a1fb8120
+      internalID: 1803134656
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shop_house_2
+      name: Shop_house_8
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9781eba45bd8774d8f277dc007b0d58
+      internalID: 959926302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_9
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba238b6998888b34eb1d9469f9c82150
+      internalID: -1755270385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_10
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6112e5c3c1567224386dbafff0300203
+      internalID: 966117194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_11
       rect:
         serializedVersion: 2
         x: 0
@@ -205,14 +394,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a20cc1398edf2e499e461c061442959
-      internalID: 1166297471
+      spriteID: bf04cdd8f1ca5af4aaf6a7f8ad59f62d
+      internalID: -1676185256
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shop_house_3
+      name: Shop_house_12
       rect:
         serializedVersion: 2
         x: 16
@@ -226,8 +415,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc746b1ed1a82004a94965d0aa641a53
-      internalID: 1152492998
+      spriteID: fbd4a0da9ef60c849969d84e9e3d81d5
+      internalID: 623279718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_13
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba130b01218a6ad41b83a29339b7f80c
+      internalID: 849519003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_house_14
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8b77280e597a0c48825f7370d3a1bc4
+      internalID: 81001744
       vertices: []
       indices: 
       edges: []
@@ -245,8 +476,19 @@ TextureImporter:
     nameFileIdTable:
       Shop_house_0: 41551162
       Shop_house_1: -1870848773
+      Shop_house_10: 966117194
+      Shop_house_11: -1676185256
+      Shop_house_12: 623279718
+      Shop_house_13: 849519003
+      Shop_house_14: 81001744
       Shop_house_2: 1166297471
       Shop_house_3: 1152492998
+      Shop_house_4: -45185685
+      Shop_house_5: -655614854
+      Shop_house_6: -94341911
+      Shop_house_7: 1803134656
+      Shop_house_8: 959926302
+      Shop_house_9: -1755270385
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
