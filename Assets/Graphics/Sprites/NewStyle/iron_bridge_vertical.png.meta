@@ -153,7 +153,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -174,7 +174,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -195,7 +195,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -216,7 +216,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 32
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -237,7 +237,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -258,7 +258,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 16
+        y: 0
         width: 16
         height: 16
       alignment: 0
@@ -270,48 +270,6 @@ TextureImporter:
       bones: []
       spriteID: e30047a066f669c40ab2665991e7a460
       internalID: -1803715975
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: iron_bridge_vertical_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cadf2f046ca22f947bad7708774a69db
-      internalID: -1543146954
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: iron_bridge_vertical_7
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a7c1df4f1051d44a9ef5056fc8a2be5
-      internalID: 509303604
       vertices: []
       indices: 
       edges: []
@@ -333,8 +291,6 @@ TextureImporter:
       iron_bridge_vertical_3: 1583431314
       iron_bridge_vertical_4: -1912215473
       iron_bridge_vertical_5: -1803715975
-      iron_bridge_vertical_6: -1543146954
-      iron_bridge_vertical_7: 509303604
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
