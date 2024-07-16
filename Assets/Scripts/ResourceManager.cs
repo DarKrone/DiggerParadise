@@ -6,28 +6,67 @@ using UnityEngine;
 /// <summary>
 /// Это склад всех ресурсов, сюда добавлять и отсюда брать информацию
 /// </summary>
+[Serializable]
+public class ResourceParams
+{
+    public float ResourceAmount;
+    public float ExtractionSpeed;
+    public float ExtractionAmount;
+    public ResourceParams(Resource Resource)
+    {
+        ResourceAmount = Resource.ResourceAmount;
+        ExtractionSpeed = Resource.ExtractionSpeed; 
+        ExtractionAmount = Resource.ExtractionAmount;
+    }
+}
+[Serializable]
+public class Resource
+{
+    public ResourceType ResourceType;
+    public Color ResourceColor;
+    public Sprite ResourceMiniSprite;
+    public Sprite ResourceOreSprite;
+    public float ResourceAmount;
+    public float ExtractionSpeed;
+    public float ExtractionAmount;
+    public bool IsAvailable;
+
+    public void SetParams(ResourceParams Params)
+    {
+        ResourceAmount = Params.ResourceAmount;
+        ExtractionSpeed = Params.ExtractionSpeed;   
+        ExtractionAmount = Params.ExtractionAmount;
+    }
+}
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance;
 
-    [Serializable]
-    public class Resource
-    {
-        public ResourceType ResourceType;
-        public Color ResourceColor;
-        public Sprite ResourceMiniSprite;
-        public Sprite ResourceOreSprite;
-        public float ResourceAmount;
-        public float ExtractionSpeed;
-        public float ExtractionAmount;
-        public bool IsAvailable;
-    }
-
     [SerializeField] public List<Resource> Resources;
 
+    [SerializeField] public List<Color> Colors;
     private void Awake()
     {
         Instance = this;
+    }
+    public List<ResourceParams> GetParams()
+    {
+        List<ResourceParams> resourceParams = new List<ResourceParams>();
+
+        for (int i = 0; i < Resources.Count; i++)
+        {
+            resourceParams.Add(new ResourceParams(Resources[i]));
+        }
+        return resourceParams;
+    }
+    public void SetParams(List<ResourceParams> Params)
+    {
+        if (Params.Count != Resources.Count)
+            return;
+        for (int i = 0; i < Resources.Count; i++)
+        {
+            Resources[i].SetParams(Params[i]);
+        }
     }
     public void AddToStorage(float amount, ResourceType resourceType)
     {
@@ -40,7 +79,6 @@ public class ResourceManager : MonoBehaviour
         }
         GameManager.Instance.UpdateUI();
     }
-
     public void RemoveFromStorage(float amount, ResourceType resourceType)
     {
         foreach (Resource resource in Resources)

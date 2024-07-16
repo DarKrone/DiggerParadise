@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -7,22 +8,58 @@ using UnityEngine.TextCore.Text;
 
 public static class SaveLoad
 {
-    private static string path = Application.persistentDataPath + "/gamesave.skillbox"; //Путь к сохранению. Вы можете использовать любое расширение
+    [Serializable]
+    public class GameData
+    {
+        public float PlayerPositionX;
+        public float PlayerPositionY;
+        public float PlayerPositionZ;
+
+        public List<ResourceParams> ResourceParams;
+        public GameData(Vector3 PlayerPosition, List<Resource> Resources)
+        {
+            this.PlayerPositionX = PlayerPosition.x;
+            this.PlayerPositionY = PlayerPosition.y;
+            this.PlayerPositionZ = PlayerPosition.z;
+
+            this.ResourceParams.Clear();
+            foreach (var el in Resources)
+            {
+                this.ResourceParams.Add(new ResourceParams(el));
+            }
+        }
+        public GameData()
+        {
+
+        }
+        public Vector3 GetVector3()
+        {
+            return new Vector3(this.PlayerPositionX,this.PlayerPositionY,this.PlayerPositionZ);
+        }
+        public void GetPos(Vector3 pos)
+        {
+            this.PlayerPositionX = pos.x;
+            this.PlayerPositionY = pos.y;
+            this.PlayerPositionZ = pos.z;
+        }
+    }
+
+    private static string path = Application.persistentDataPath + "/gamesave.fm"; //Путь к сохранению. Вы можете использовать любое расширение
     private static BinaryFormatter formatter = new BinaryFormatter(); //Создание сериализатора 
 
-    public static Vector3 PlayerPosition { get; private set; }
-    public static List<Minis> Minis { get; private set; }
-    
+    public static GameData currentData = new GameData();
+
     public static bool Loaded{ get; private set; }
     public static void SaveGame() //Метод для сохранения
     {
         FileStream fs = new FileStream(path, FileMode.Create); //Создание файлового потока
 
-        GameData data = new GameData(); //Получение данных
+        //GameData data = new GameData(PlayerPosition, Resources); //Получение данных
 
-        formatter.Serialize(fs, data); //Сериализация данных
+        formatter.Serialize(fs, currentData); //Сериализация данных
 
         fs.Close(); //Закрытие потока
+        Debug.Log("Game saved");
     }
     public static bool CanLoad()
     {
@@ -37,9 +74,10 @@ public static class SaveLoad
 
             GameData data = formatter.Deserialize(fs) as GameData; //Получение данных
 
-            GameObject.Find("Player").transform.position = data.PlayerPosition;
-            Minis = data.Minis;
+            currentData = data;
+
             Loaded = true;
+            Debug.Log("Game loaded");
         }
     }
 }

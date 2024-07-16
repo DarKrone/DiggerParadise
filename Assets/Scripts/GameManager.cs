@@ -9,18 +9,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> _resourcesList;
     [SerializeField] private GameObject _resourceInfoPrefab;
     [SerializeField] private GameObject _parentToSpawnResourceUI;
+    [SerializeField] private GameObject _player;
+
+    private ResourceManager _resourceManager;
 
     private void Awake()
     {
         Instance = this;
         UpdateResourcesList();
         UpdateUI();
+        SaveLoad.LoadGame();
+        if(SaveLoad.Loaded)
+        {
+            LoadData();
+        }
     }
 
     public void UpdateResourcesList()
     {
         ClearAllResourcesUI();
-        foreach (ResourceManager.Resource resource in ResourceManager.Instance.Resources)
+        foreach (Resource resource in ResourceManager.Instance.Resources)
         {
             if (resource.IsAvailable)
             {
@@ -34,7 +42,17 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    private void LoadData()
+    {
+        _player.transform.position = SaveLoad.currentData.GetVector3();
+        ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
+    }
+    public void SaveData()
+    {
+        SaveLoad.currentData.GetPos(_player.transform.position);
+        SaveLoad.currentData.ResourceParams = ResourceManager.Instance.GetParams();
+        SaveLoad.SaveGame();
+    }
     private void ClearAllResourcesUI()
     {
         while (_parentToSpawnResourceUI.transform.childCount > 0)

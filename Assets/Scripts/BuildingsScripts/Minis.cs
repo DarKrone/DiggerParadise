@@ -21,4 +21,10 @@ public class Minis : MonoBehaviour, IComplitedConstruction
         _minisObjects.SetActive(true); 
         HouseTier += 1;
     }
+    public void SetParams(Minis newMinis)
+    {
+        _minisObjects = newMinis._minisObjects;
+        _building = newMinis._building;
+        _nextBuildingTier = newMinis._nextBuildingTier;
+    }
 }

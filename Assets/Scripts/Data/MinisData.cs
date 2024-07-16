@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class MinisData : MonoBehaviour
 {
-    public List<Minis> Minis;
-
+    public List<Minis> Minis { get { return _minis; } }
     [SerializeField] private List<Minis> _minis;
 
     private void Start()
@@ -17,7 +16,7 @@ public class MinisData : MonoBehaviour
     {
         for (int i = 0; i < _minis.Count; i++)
         {
-            _minis[i] = Minis[i];
+            //_minis[i].SetParams(SaveLoad.Minis[i]);
         }
     }
 }
