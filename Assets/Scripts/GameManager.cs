@@ -11,7 +11,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _parentToSpawnResourceUI;
     [SerializeField] private GameObject _player;
 
-    private ResourceManager _resourceManager;
+    [Header ("Save params")]
+    [SerializeField] private ResourceManager _resourceManager;
+    [SerializeField] private List<UpgradeMinisShop> _upgradeMinisShops;
+    [SerializeField] private List<ResourceTaker> ResourceTakers;
 
     private void Awake()
     {
@@ -22,6 +25,34 @@ public class GameManager : MonoBehaviour
         if(SaveLoad.Loaded)
         {
             LoadData();
+        }
+    }
+    public void SaveData()
+    {
+        List<int> minisTiers = new List<int>();
+        foreach(var el in _upgradeMinisShops)
+        {
+            minisTiers.Add(el.CurrentUpdateTier);
+        }
+
+        SaveLoad.currentData.GetPos(_player.transform.position);
+        SaveLoad.currentData.ResourceParams = ResourceManager.Instance.GetParams();
+        SaveLoad.currentData.UpgradeMinisTiers = minisTiers;
+
+        SaveLoad.SaveGame();
+    }
+    private void LoadData()
+    {
+        _player.transform.position = SaveLoad.currentData.GetVector3();
+        ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
+
+        for(int i =0; i< _upgradeMinisShops.Count; i++)
+        {
+            if (SaveLoad.currentData.UpgradeMinisTiers[i] > 0)
+            {
+                ResourceTakers[i].DoneTaking();
+                _upgradeMinisShops[i].UpgradeMinis(SaveLoad.currentData.UpgradeMinisTiers[i]);
+            }
         }
     }
 
@@ -41,17 +72,6 @@ public class GameManager : MonoBehaviour
                 resourceInfo.ResourceType = resource.ResourceType;
             }
         }
-    }
-    private void LoadData()
-    {
-        _player.transform.position = SaveLoad.currentData.GetVector3();
-        ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
-    }
-    public void SaveData()
-    {
-        SaveLoad.currentData.GetPos(_player.transform.position);
-        SaveLoad.currentData.ResourceParams = ResourceManager.Instance.GetParams();
-        SaveLoad.SaveGame();
     }
     private void ClearAllResourcesUI()
     {

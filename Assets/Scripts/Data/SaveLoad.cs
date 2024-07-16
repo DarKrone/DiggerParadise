@@ -16,6 +16,7 @@ public static class SaveLoad
         public float PlayerPositionZ;
 
         public List<ResourceParams> ResourceParams;
+        public List<int> UpgradeMinisTiers;
         public GameData(Vector3 PlayerPosition, List<Resource> Resources)
         {
             this.PlayerPositionX = PlayerPosition.x;
