@@ -19,13 +19,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        UpdateResourcesList();
-        UpdateUI();
         SaveLoad.LoadGame();
         if(SaveLoad.Loaded)
         {
             LoadData();
         }
+        UpdateResourcesList();
+        UpdateUI();
     }
     public void SaveData()
     {
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
             if (SaveLoad.currentData.UpgradeMinisTiers[i] > 0)
             {
                 ResourceTakers[i].DoneTaking();
-                _upgradeMinisShops[i].UpgradeMinis(SaveLoad.currentData.UpgradeMinisTiers[i]);
+                _upgradeMinisShops[i].UpgradeMinisAfterLoadSave(SaveLoad.currentData.UpgradeMinisTiers[i]);
             }
         }
     }

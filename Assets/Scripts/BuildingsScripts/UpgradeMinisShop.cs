@@ -60,7 +60,7 @@ public class UpgradeMinisShop : UpgradeUI
         _currentUpgradeCost += _upgradeCostStep * _currentUpgradeTier;
         UpdateUpgradeInfo();
     }
-    public void UpgradeMinis(int N)
+    public void UpgradeMinisAfterLoadSave(int N)
     {
         for(int i = 0; i< N+1;i++)
         {
@@ -73,7 +73,6 @@ public class UpgradeMinisShop : UpgradeUI
             {
                 _minis.GetComponent<MinerAI>().ExtractionAmount += 1;
             }
-            ResourceManager.Instance.RemoveFromStorage(_currentUpgradeCost, _resourceToUpgrade);
             _currentUpgradeTier += 1;
             _currentUpgradeCost += _upgradeCostStep * _currentUpgradeTier;
             UpdateUpgradeInfo();
