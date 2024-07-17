@@ -14,8 +14,16 @@ public class RewardedAds : MonoBehaviour
     [SerializeField] private GameObject _rewardIcon;
 
     [SerializeField] private GameObject _rewardedADSUI;
+    private bool _isRewardCooldown = false;
+    private float _rewardCooldown = 10f;
 
+
+    [SerializeField] private bool _debugMode;
     private YandexGame _sdk;
+    private void Start()
+    {
+        Instance = this;
+    }
     private void OnEnable()
     {
         YandexGame.RewardVideoEvent += Rewarded;
@@ -33,7 +41,11 @@ public class RewardedAds : MonoBehaviour
             StartCoroutine(ButtonCooldown(_btnCooldown));
         }
     }
-
+    private void Update()
+    {
+        if (!_rewardedADSUI.activeSelf)
+            StopAllCoroutines();
+    }
     private IEnumerator ButtonCooldown(float cooldown)
     {
         _upgBtn.interactable = false;
@@ -44,16 +56,39 @@ public class RewardedAds : MonoBehaviour
     }
     public void TryADSAfterResourceOreExtracting()
     {
-        if (Random.Range(0, 10) <= 2)
+        if (_rewardedADSUI.activeSelf)
+            return;
+        int roll = Random.Range(0, 100);
+        int chance = 5;
+        
+        if (roll <= chance)
         {
-            ShowObjectAtTime(_rewardedADSUI, 10f);
+            if (_debugMode)
+                Debug.Log("Rolled succeful");
+            //StartCoroutine(ShowObjectAtTime(_rewardedADSUI, _rewardCooldown));
+            ShowObject(_rewardedADSUI);
         }
+        else if (_debugMode)
+            Debug.Log($"Rolled {roll} need <{chance}");
+    }
+    private void ShowObject(GameObject obj)
+    {
+        obj.SetActive(true);
     }
     private IEnumerator ShowObjectAtTime(GameObject obj, float time)
     {
+        if(_debugMode)
+            Debug.Log("Showed ads window");
+
         obj.SetActive(true);
+        _isRewardCooldown = true;
         yield return new WaitForSeconds(time);
+
+        _isRewardCooldown = false;
         if (obj.activeSelf)
             obj.SetActive(false);
+        
+        if (_debugMode)
+            Debug.Log("Hided ads window");
     }
 }
