@@ -68,7 +68,6 @@ public class ResourceManager : MonoBehaviour
 
     [SerializeField] public List<Resource> Resources;
 
-    [SerializeField] public List<Color> Colors;
     private void Awake()
     {
         Instance = this;
