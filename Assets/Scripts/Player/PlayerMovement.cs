@@ -29,12 +29,15 @@ public class PlayerMovement : MonoBehaviour
         Instance = this;
         _startXScale = transform.localScale.x;
         _playerRB = GetComponent<Rigidbody2D>();
-        _posToMove = transform.position;
         _mainCamera = Camera.main;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         if (_debugMode)
             Debug.Log("Camera founded - " + _mainCamera.ToString());
+    }
+    private void Start()
+    {
+        _posToMove = transform.position;
     }
 
     void Update()

@@ -169,12 +169,16 @@ public class ResourceTaker : MonoBehaviour
         }
     }
 
-    private void DoneTaking()
+    public void DoneTaking()
     {
         if (_debugMode)
             Debug.Log($"Done taking - {gameObject}");
-        _collider.enabled = false;
-        _spriteRenderer.enabled = false;
+        try
+        {
+            _collider.enabled = false;
+            _spriteRenderer.enabled = false;
+        }
+        catch{ }
         if (gameObject.TryGetComponent<IComplitedConstruction>(out IComplitedConstruction completedObject))
         {
             completedObject.ConstructionCompleted();

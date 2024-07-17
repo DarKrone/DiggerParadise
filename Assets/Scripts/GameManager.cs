@@ -9,18 +9,57 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> _resourcesList;
     [SerializeField] private GameObject _resourceInfoPrefab;
     [SerializeField] private GameObject _parentToSpawnResourceUI;
+    [SerializeField] private GameObject _player;
+
+    [Header ("Save params")]
+    [SerializeField] private ResourceManager _resourceManager;
+    [SerializeField] private List<UpgradeMinisShop> _upgradeMinisShops;
+    [SerializeField] private List<ResourceTaker> ResourceTakers;
 
     private void Awake()
     {
         Instance = this;
+        SaveLoad.LoadGame();
+        if(SaveLoad.Loaded)
+        {
+            LoadData();
+        }
         UpdateResourcesList();
         UpdateUI();
+    }
+    public void SaveData()
+    {
+        List<int> minisTiers = new List<int>();
+        foreach(var el in _upgradeMinisShops)
+        {
+            minisTiers.Add(el.CurrentUpdateTier);
+        }
+
+        SaveLoad.currentData.GetPos(_player.transform.position);
+        SaveLoad.currentData.ResourceParams = ResourceManager.Instance.GetParams();
+        SaveLoad.currentData.UpgradeMinisTiers = minisTiers;
+
+        SaveLoad.SaveGame();
+    }
+    private void LoadData()
+    {
+        _player.transform.position = SaveLoad.currentData.GetVector3();
+        ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
+
+        for(int i =0; i< _upgradeMinisShops.Count; i++)
+        {
+            if (SaveLoad.currentData.UpgradeMinisTiers[i] > 0)
+            {
+                ResourceTakers[i].DoneTaking();
+                _upgradeMinisShops[i].UpgradeMinisAfterLoadSave(SaveLoad.currentData.UpgradeMinisTiers[i]);
+            }
+        }
     }
 
     public void UpdateResourcesList()
     {
         ClearAllResourcesUI();
-        foreach (ResourceManager.Resource resource in ResourceManager.Instance.Resources)
+        foreach (Resource resource in ResourceManager.Instance.Resources)
         {
             if (resource.IsAvailable)
             {
@@ -34,7 +73,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     private void ClearAllResourcesUI()
     {
         while (_parentToSpawnResourceUI.transform.childCount > 0)

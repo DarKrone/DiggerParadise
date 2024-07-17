@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class Shop : UpgradeUI
 {
-    public void UpgradePickaxeExtractAmountByType(float ore)
-    {
-        float ironAmount = ResourceManager.Instance.CheckResourceAmount(ResourceType.Iron);
+    //public void UpgradePickaxeExtractAmountByType(float ore)
+    //{
+    //    float ironAmount = ResourceManager.Instance.CheckResourceAmount(ResourceType.Iron);
 
-        if (ironAmount < 5)
-        {
-            return;
-        }
-        ResourceManager.Instance.RemoveFromStorage(5, ResourceType.Iron);
-        ResourceManager.Instance.UpgradeExtractionAmountByType(1, ResourceType.Copper);
-        DisableThisUpgradeBtn();
-    }
+    //    if (ironAmount < 5)
+    //    {
+    //        return;
+    //    }
+    //    ResourceManager.Instance.RemoveFromStorage(5, ResourceType.Iron);
+    //    ResourceManager.Instance.UpgradeExtractionAmountByType(1, ResourceType.Copper);
+    //    DisableThisUpgradeBtn();
+    //}
 }
