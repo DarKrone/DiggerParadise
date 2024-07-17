@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -65,13 +66,15 @@ public class Resource
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance;
-
     [SerializeField] public List<Resource> Resources;
+    [SerializeField] private float _upgradeSpeedForAds = 2f;
+    private float[] modifiers;
+    private Coroutine _upgCoroutine;
 
-    [SerializeField] public List<Color> Colors;
     private void Awake()
     {
         Instance = this;
+        modifiers = new float[Resources.Count];
     }
     public List<ResourceParams> GetParams()
     {
@@ -92,6 +95,41 @@ public class ResourceManager : MonoBehaviour
             Resources[i].SetParams(Params[i]);
         }
     }
+
+    public void RewardedAdsUpgradeSpeedForPeriod(float duration)
+    {
+        int counter = 0;
+        foreach (Resource resource in Resources)
+        {
+            float modifier = Mathf.Log(resource.ExtractionSpeed) + _upgradeSpeedForAds;
+            modifier = Mathf.Floor(modifier);
+            modifiers[counter] = modifier;
+            counter++;
+            resource.ExtractionSpeed += modifier;
+        }
+        _upgCoroutine = StartCoroutine(StartRewardAdsUpgradeTimer(duration));
+    }
+
+    private IEnumerator StartRewardAdsUpgradeTimer(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        StopRewardedAdsUpgrade();
+    }
+
+    public void StopRewardedAdsUpgrade()
+    {
+        if (_upgCoroutine != null)
+        {
+            StopCoroutine(_upgCoroutine);
+        }
+        int counter = 0;
+        foreach (Resource resource in Resources)
+        {
+            resource.ExtractionSpeed -= modifiers[counter];
+            counter++;
+        }
+    }
+
     public void AddToStorage(float amount, ResourceType resourceType)
     {
         foreach (Resource resource in Resources)

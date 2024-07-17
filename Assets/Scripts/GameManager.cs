@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     }
     public void SaveData()
     {
+        ResourceManager.Instance.StopRewardedAdsUpgrade();
         List<int> minisTiers = new List<int>();
         foreach(var el in _upgradeMinisShops)
         {
