@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using YG;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _lastPosition;
     [SerializeField]private float _minStopAnim;
 
+    [SerializeField] private GameObject _joystick;
+    private bool _isMobileDevice;
+
     void Awake()
     {
         Instance = this;
@@ -32,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
         _mainCamera = Camera.main;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _isMobileDevice = YandexGame.EnvironmentData.isMobile;
+        if (_isMobileDevice)
+            _joystick.SetActive(true);
         if (_debugMode)
             Debug.Log("Camera founded - " + _mainCamera.ToString());
     }
@@ -41,6 +48,22 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update()
+    {
+        if (_isMobileDevice)
+            MobileMovement();
+        else
+            DesktopMovement();
+    }
+    private void MobileMovement()
+    {
+        WalkAnimState();
+        IsMovingCheck();
+
+        _posToMove = (Vector2)transform.position + _joystick.GetComponent<Joystick>().Direction;
+
+        FlipCheck();
+    }
+    private void DesktopMovement()
     {
         WalkAnimState();
         if (Input.GetMouseButtonDown(0))
