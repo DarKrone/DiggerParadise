@@ -30,6 +30,7 @@ public class ResourceOre : MonoBehaviour
         if (ResourceAmount <= 0 && !isFullyExtracted)
         {
             isFullyExtracted = true;
+            //RewardedAds.Instance.TryADSAfterResourceOreExtracting();
             //gameObject.GetComponent<BoxCollider2D>().enabled = false;
             _collider.enabled = false;
             _tilemap.SetColor(_tilePos, new Color(1f, 1f, 1f, 0.3f));

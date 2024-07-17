@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<UpgradeMinisShop> _upgradeMinisShops;
     [SerializeField] private List<ResourceTaker> ResourceTakers;
 
+
     private void Awake()
     {
         Instance = this;
