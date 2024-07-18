@@ -65,6 +65,13 @@ public class PlayerMovement : MonoBehaviour
     }
     private void DesktopMovement()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (YandexGame.EnvironmentData.language == "ru")
+                YandexGame.EnvironmentData.language = "en";
+            else
+                YandexGame.EnvironmentData.language = "ru";
+        }
         WalkAnimState();
         if (Input.GetMouseButtonDown(0))
         {
