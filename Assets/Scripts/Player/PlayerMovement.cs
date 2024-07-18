@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera _mainCamera;
     private SpriteRenderer _spriteRenderer;
     private Vector2 _posToMove;
+    private float _playerModelYOffset = 0.5f;
     private float _startXScale;
 
     private Vector3 _lastPosition;
@@ -65,13 +66,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void DesktopMovement()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            if (YandexGame.EnvironmentData.language == "ru")
-                YandexGame.EnvironmentData.language = "en";
-            else
-                YandexGame.EnvironmentData.language = "ru";
-        }
         WalkAnimState();
         if (Input.GetMouseButtonDown(0))
         {
@@ -124,7 +118,10 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, LayerMask.GetMask("Ground"));
 
         if (hit.point != Vector2.zero)
+        {
             _posToMove = hit.point;
+            _posToMove.y += _playerModelYOffset;
+        }
         else
             _posToMove = transform.position;
     }
