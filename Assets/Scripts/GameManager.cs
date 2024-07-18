@@ -63,6 +63,12 @@ public class GameManager : MonoBehaviour
     }
     private void LoadData()
     {
+        if (YandexGame.savesData.isFirstSession)
+        {
+            YandexGame.ResetSaveProgress();
+            SaveLoad.SaveGame();
+            return;
+        }
         SaveLoad.LoadGame();
         _player.transform.position = SaveLoad.currentData.GetVector3();
         ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
@@ -77,6 +83,11 @@ public class GameManager : MonoBehaviour
         }
         UpdateResourcesList();
         UpdateUI();
+    }
+
+    public void ResetData()
+    {
+        YandexGame.ResetSaveProgress();
     }
 
     public void UpdateResourcesList()
