@@ -17,22 +17,7 @@ public class GameData
     public List<ResourceParams> ResourceParams;
     public List<int> UpgradeMinisTiers;
     public List<List<NeededResource>> NeededResources = new List<List<NeededResource>>();
-    public GameData(Vector3 PlayerPosition, List<Resource> Resources)
-    {
-        this.PlayerPositionX = PlayerPosition.x;
-        this.PlayerPositionY = PlayerPosition.y;
-        this.PlayerPositionZ = PlayerPosition.z;
 
-        this.ResourceParams.Clear();
-        foreach (var el in Resources)
-        {
-            this.ResourceParams.Add(new ResourceParams(el));
-        }
-    }
-    public GameData()
-    {
-
-    }
     public Vector3 GetVector3()
     {
         return new Vector3(this.PlayerPositionX,this.PlayerPositionY,this.PlayerPositionZ);
@@ -50,9 +35,8 @@ public static class SaveLoad
     private static string path = Application.persistentDataPath + "/gamesave.fm"; //Путь к сохранению. Вы можете использовать любое расширение
     private static BinaryFormatter formatter = new BinaryFormatter(); //Создание сериализатора 
 
-    public static GameData currentData = new GameData();
+    public static GameData currentData;
 
-    public static bool Loaded{ get { return YandexGame.SDKEnabled; }}
     public static bool CanLoad()
     {
         return File.Exists(path);
@@ -65,6 +49,7 @@ public static class SaveLoad
     }
     public static void LoadGame()
     {
+        currentData = new GameData();
         currentData = YandexGame.savesData.gameData;
         Debug.Log("Game loaded");
     }

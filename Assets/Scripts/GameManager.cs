@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using YG;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,15 +18,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<UpgradeMinisShop> _upgradeMinisShops;
     [SerializeField] private List<ResourceTaker> ResourceTakers;
 
+    private void OnEnable()
+    {
+        YandexGame.GetDataEvent += LoadData;
+    }
+
+    private void OnDisable()
+    {
+        YandexGame.GetDataEvent -= LoadData;
+    }
 
     private void Awake()
     {
         Instance = this;
-        SaveLoad.LoadGame();
-        if(SaveLoad.Loaded)
+
+        if(YandexGame.SDKEnabled)
         {
             LoadData();
         }
+
         UpdateResourcesList();
         UpdateUI();
     }
@@ -42,6 +53,7 @@ public class GameManager : MonoBehaviour
         {
             neededResources.Add(neededResourceOnTaker.NeededResources);
         }
+        SaveLoad.currentData = new GameData();
         SaveLoad.currentData.GetPos(_player.transform.position);
         SaveLoad.currentData.ResourceParams = ResourceManager.Instance.GetParams();
         SaveLoad.currentData.NeededResources = neededResources;
@@ -51,10 +63,11 @@ public class GameManager : MonoBehaviour
     }
     private void LoadData()
     {
+        SaveLoad.LoadGame();
         _player.transform.position = SaveLoad.currentData.GetVector3();
         ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
 
-        for(int i = 0; i< ResourceTakers.Count; i++)
+        for (int i = 0; i < ResourceTakers.Count; i++)
         {
             ResourceTakers[i].NeededResources = SaveLoad.currentData.NeededResources[i];
             if (SaveLoad.currentData.UpgradeMinisTiers[i] > 0)
@@ -62,6 +75,8 @@ public class GameManager : MonoBehaviour
                 _upgradeMinisShops[i].UpgradeMinisAfterLoadSave(SaveLoad.currentData.UpgradeMinisTiers[i]);
             }
         }
+        UpdateResourcesList();
+        UpdateUI();
     }
 
     public void UpdateResourcesList()

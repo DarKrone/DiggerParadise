@@ -17,13 +17,19 @@ public class ResourceParams
 
     public float UpgradeAmountCost;
     public float UpgradeSpeedCost;
+
     public ResourceParams(Resource Resource)
     {
         ResourceAmount = Resource.ResourceAmount;
-        ExtractionSpeed = Resource.ExtractionSpeed; 
+        ExtractionSpeed = Resource.ExtractionSpeed;
         ExtractionAmount = Resource.ExtractionAmount;
         UpgradeAmountCost = Resource.UpgradeAmountCost;
         UpgradeSpeedCost = Resource.UpgradeSpeedCost;
+    }
+
+    public ResourceParams()
+    {
+
     }
 }
 [Serializable]
@@ -40,16 +46,17 @@ public class Resource
     public float ExtractionAmount;
     public float AmountTierModify;
     public float SpeedTierModify;
+    public float[] Parameters { get { return new float[] { ResourceAmount, ExtractionSpeed, ExtractionAmount, UpgradeAmountCost, UpgradeSpeedCost }; } }
     public bool IsAvailable { get { return ResourceAmount > 0; } }
     public float NextTierAmount { get { return ExtractionAmount * AmountTierModify; } }
     public float NextTierSpeed { get { return ExtractionSpeed * SpeedTierModify; } }
-    public void SetParams(ResourceParams Params)
+    public void SetParams(ResourceParams parameters)
     {
-        ResourceAmount = Params.ResourceAmount;
-        ExtractionSpeed = Params.ExtractionSpeed;   
-        ExtractionAmount = Params.ExtractionAmount;
-        UpgradeAmountCost = Params.UpgradeAmountCost;
-        UpgradeSpeedCost = Params.UpgradeSpeedCost;
+        ResourceAmount = parameters.ResourceAmount;
+        ExtractionSpeed = parameters.ExtractionSpeed;   
+        ExtractionAmount = parameters.ExtractionAmount;
+        UpgradeAmountCost = parameters.UpgradeAmountCost;
+        UpgradeSpeedCost = parameters.UpgradeSpeedCost;
     }
 
     public void UpgradeAmount()
@@ -88,13 +95,13 @@ public class ResourceManager : MonoBehaviour
         }
         return resourceParams;
     }
-    public void SetParams(List<ResourceParams> Params)
+    public void SetParams(List<ResourceParams> parameters)
     {
-        if (Params.Count != Resources.Count)
+        if (parameters.Count != Resources.Count)
             return;
         for (int i = 0; i < Resources.Count; i++)
         {
-            Resources[i].SetParams(Params[i]);
+            Resources[i].SetParams(parameters[i]);
         }
     }
 
