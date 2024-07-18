@@ -38,9 +38,9 @@ public class Resource
     public float ResourceAmount;
     public float ExtractionSpeed;
     public float ExtractionAmount;
-    public bool IsAvailable;
     public float AmountTierModify;
     public float SpeedTierModify;
+    public bool IsAvailable { get { return ResourceAmount > 0; } }
     public float NextTierAmount { get { return ExtractionAmount * AmountTierModify; } }
     public float NextTierSpeed { get { return ExtractionSpeed * SpeedTierModify; } }
     public void SetParams(ResourceParams Params)
@@ -48,6 +48,8 @@ public class Resource
         ResourceAmount = Params.ResourceAmount;
         ExtractionSpeed = Params.ExtractionSpeed;   
         ExtractionAmount = Params.ExtractionAmount;
+        UpgradeAmountCost = Params.UpgradeAmountCost;
+        UpgradeSpeedCost = Params.UpgradeSpeedCost;
     }
 
     public void UpgradeAmount()
@@ -136,7 +138,14 @@ public class ResourceManager : MonoBehaviour
         {
             if (resource.ResourceType == resourceType)
             {
+                if (resource.ResourceAmount == 0)
+                {
+                    resource.ResourceAmount += amount;
+                    GameManager.Instance.UpdateResourcesList();
+                    break;
+                }
                 resource.ResourceAmount += amount;
+                break;
             }
         }
         GameManager.Instance.UpdateUI();

@@ -14,8 +14,6 @@ public class RewardedAds : MonoBehaviour
     [SerializeField] private GameObject _rewardIcon;
 
     [SerializeField] private GameObject _rewardedADSUI;
-    private bool _isRewardCooldown = false;
-    private float _rewardCooldown = 10f;
 
 
     [SerializeField] private bool _debugMode;
@@ -81,10 +79,7 @@ public class RewardedAds : MonoBehaviour
             Debug.Log("Showed ads window");
 
         obj.SetActive(true);
-        _isRewardCooldown = true;
         yield return new WaitForSeconds(time);
-
-        _isRewardCooldown = false;
         if (obj.activeSelf)
             obj.SetActive(false);
         

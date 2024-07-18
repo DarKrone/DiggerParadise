@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     public void UpdateResourcesList()
     {
         ClearAllResourcesUI();
+        _resourcesList.Clear();
         foreach (Resource resource in ResourceManager.Instance.Resources)
         {
             if (resource.IsAvailable)
