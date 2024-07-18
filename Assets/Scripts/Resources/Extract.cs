@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +20,7 @@ public class Extract : MonoBehaviour
             Debug.Log($"Enter {collision.gameObject.name} resource");
         _currentResource = collision.gameObject.GetComponent<ResourceOre>();
         SetExtractParams();
-        _extractionCoroutine = StartCoroutine(Extracting());
+        _extractionCoroutine = StartCoroutine(Extracting(gameObject.tag));
     }
 
     public void OnTriggerExit2D(Collider2D collision)
@@ -34,7 +34,7 @@ public class Extract : MonoBehaviour
         StopMining();
     }
 
-    protected IEnumerator Extracting()
+    protected IEnumerator Extracting(string tag)
     {
         float extractionSpeed = curResourceExtractSpeed;
         while (true)
@@ -51,6 +51,7 @@ public class Extract : MonoBehaviour
                 break;
             }
             ExtractResource();
+            _currentResource.AmountCheck(tag);
             GameManager.Instance.UpdateUI();
             if (_debugMode)
                 DebugResourceAmount();

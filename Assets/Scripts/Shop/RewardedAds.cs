@@ -59,7 +59,7 @@ public class RewardedAds : MonoBehaviour
         if (_rewardedADSUI.activeSelf)
             return;
         int roll = Random.Range(0, 100);
-        int chance = 5;
+        int chance = 10;
         
         if (roll <= chance)
         {

@@ -25,12 +25,27 @@ public class ResourceOre : MonoBehaviour
         _tilemap = GameObject.Find("Decor").GetComponent<Tilemap>();
         _tilePos = new Vector3Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y), 0);
     }
-    private void Update()
+    //private void Update()
+    //{
+    //    if (ResourceAmount <= 0 && !isFullyExtracted)
+    //    {
+    //        isFullyExtracted = true;
+    //        //RewardedAds.Instance.TryADSAfterResourceOreExtracting();
+    //        //gameObject.GetComponent<BoxCollider2D>().enabled = false;
+    //        _collider.enabled = false;
+    //        _tilemap.SetColor(_tilePos, new Color(1f, 1f, 1f, 0.3f));
+    //        StartCoroutine(OreCooldown());
+    //        if (_debugMode)
+    //            Debug.Log($"Resource {gameObject.name} has been full extracted");
+    //    }
+    //}
+    public void AmountCheck(string tag)
     {
         if (ResourceAmount <= 0 && !isFullyExtracted)
         {
             isFullyExtracted = true;
-            //RewardedAds.Instance.TryADSAfterResourceOreExtracting();
+            if(tag == "Player")
+                RewardedAds.Instance.TryADSAfterResourceOreExtracting();
             //gameObject.GetComponent<BoxCollider2D>().enabled = false;
             _collider.enabled = false;
             _tilemap.SetColor(_tilePos, new Color(1f, 1f, 1f, 0.3f));
