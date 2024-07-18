@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using YG;
 using UnityEngine;
-using YG.Example;
 using UnityEngine.UI;
 
 public class RewardedAds : MonoBehaviour
