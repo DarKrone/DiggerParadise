@@ -17,6 +17,7 @@ public static class SaveLoad
 
         public List<ResourceParams> ResourceParams;
         public List<int> UpgradeMinisTiers;
+        public List<List<NeededResource>> NeededResources = new List<List<NeededResource>>();
         public GameData(Vector3 PlayerPosition, List<Resource> Resources)
         {
             this.PlayerPositionX = PlayerPosition.x;

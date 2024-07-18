@@ -23,8 +23,12 @@ public class OreFinder : MonoBehaviour
     }
     private void ColliderExpansion()
     {
-        _circleCollider.radius += 1f;
-        _circleCollider.radius = Mathf.Clamp(_circleCollider.radius, 0, _maxFinderRaduis);
+        try
+        {
+            _circleCollider.radius += 1f;
+            _circleCollider.radius = Mathf.Clamp(_circleCollider.radius, 0, _maxFinderRaduis);
+        }
+        catch { }
     }
     private void ColliderToNormal()
     {

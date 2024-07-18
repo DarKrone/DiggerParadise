@@ -60,9 +60,14 @@ public class UpgradeMinisShop : UpgradeUI
         _currentUpgradeCost += _upgradeCostStep * _currentUpgradeTier;
         UpdateUpgradeInfo();
     }
+    public void UpgradeMinisAfterConstructionCompleted()
+    {
+        _currentUpgradeTier += 1;
+        UpdateUpgradeInfo();
+    }
     public void UpgradeMinisAfterLoadSave(int N)
     {
-        for(int i = 0; i< N+1;i++)
+        for(int i = 0; i< N-1;i++)
         {
             _building.GetComponent<BuildingSpriteHandler>().UpdateBuildingSpriteToNext();
             if (_currentUpgradeTier % 2 == 0)

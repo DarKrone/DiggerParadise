@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -36,9 +37,14 @@ public class GameManager : MonoBehaviour
         {
             minisTiers.Add(el.CurrentUpdateTier);
         }
-
+        List<List<NeededResource>> neededResources = new List<List<NeededResource>>();
+        foreach(var neededResourceOnTaker in ResourceTakers)
+        {
+            neededResources.Add(neededResourceOnTaker.NeededResources);
+        }
         SaveLoad.currentData.GetPos(_player.transform.position);
         SaveLoad.currentData.ResourceParams = ResourceManager.Instance.GetParams();
+        SaveLoad.currentData.NeededResources = neededResources;
         SaveLoad.currentData.UpgradeMinisTiers = minisTiers;
 
         SaveLoad.SaveGame();
@@ -48,11 +54,11 @@ public class GameManager : MonoBehaviour
         _player.transform.position = SaveLoad.currentData.GetVector3();
         ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
 
-        for(int i =0; i< _upgradeMinisShops.Count; i++)
+        for(int i = 0; i< ResourceTakers.Count; i++)
         {
+            ResourceTakers[i].NeededResources = SaveLoad.currentData.NeededResources[i];
             if (SaveLoad.currentData.UpgradeMinisTiers[i] > 0)
             {
-                ResourceTakers[i].DoneTaking();
                 _upgradeMinisShops[i].UpgradeMinisAfterLoadSave(SaveLoad.currentData.UpgradeMinisTiers[i]);
             }
         }

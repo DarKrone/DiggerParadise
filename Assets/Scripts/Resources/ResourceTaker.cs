@@ -6,18 +6,18 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResourceTaker : MonoBehaviour
-{
-    [Serializable]
-    private class NeededResource
+[Serializable]
+public class NeededResource
     {
         public ResourceType ResourceType;
         [Range(1f, 1000f)]
         public float ResourceAmountNeeded;
     }
+public class ResourceTaker : MonoBehaviour
+{
 
     [SerializeField] private bool _debugMode = false;
-    [SerializeField] private List<NeededResource> _neededResources;
+    public List<NeededResource> NeededResources;
     [SerializeField] private GameObject _canvasToSpawnTexts;
     [SerializeField] private GameObject _resourceNeededPrefab;
     [SerializeField] private float _takingSpeed = 3f;
@@ -26,7 +26,7 @@ public class ResourceTaker : MonoBehaviour
 
     private Coroutine _takingCoroutine;
     private bool _needUpdatingResourcesList = false;
-    private bool _doneTaking = false;
+    public bool IsDoneTaking = false;
 
     private AudioSource _audioSource;
     private Collider2D _collider;
@@ -39,14 +39,20 @@ public class ResourceTaker : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _collider = GetComponent<Collider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        UpdateNeededResources();
+
+        IsDoneTaking = NeededResources.Count <= 0;
+
+        if (IsDoneTaking)
+            DoneTaking();
+        else
+            UpdateNeededResources();
     }
 
     private void FixedUpdate()
     {
-        if (_neededResources.Count == 0 && !_doneTaking)
+        if (NeededResources.Count == 0 && !IsDoneTaking)
         {
-            _doneTaking = true;
+            IsDoneTaking = true;
             DoneTaking();
             StopCoroutine(_takingCoroutine);
         }
@@ -57,9 +63,9 @@ public class ResourceTaker : MonoBehaviour
         _needUpdatingResourcesList = false;
         ClearAllNeededResourceObjects();
         
-        for (int i = 0; i < _neededResources.Count; i++)
+        for (int i = 0; i < NeededResources.Count; i++)
         {
-            if (_neededResources[i].ResourceAmountNeeded > 0)
+            if (NeededResources[i].ResourceAmountNeeded > 0)
                 GenerateNeededTextObjectByIndex(i);
         }
     }
@@ -72,7 +78,7 @@ public class ResourceTaker : MonoBehaviour
         }
         for (int i = 0; i < _neededResourcesToDelete.Count; i++)
         {
-            _neededResources.Remove(_neededResourcesToDelete[i]);
+            NeededResources.Remove(_neededResourcesToDelete[i]);
         }
         _neededResourcesToDelete.Clear();
         _neededResourceObjects.Clear();
@@ -91,24 +97,24 @@ public class ResourceTaker : MonoBehaviour
     {
         UpdateNeededTextByIndex(currentObjectIndex);
         TextMeshProUGUI neededResourceText = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceInfoUI>().ResourceAmountText;
-        neededResourceText.color = ResourceManager.Instance.GetResourceColorByType(_neededResources[currentObjectIndex].ResourceType);
+        neededResourceText.color = ResourceManager.Instance.GetResourceColorByType(NeededResources[currentObjectIndex].ResourceType);
     }
 
     private void UpdateNeededTextByIndex(int currentObjectIndex)
     {
         ResourceInfoUI resource = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceInfoUI>();
-        resource.ResourceAmountText.text = _neededResources[currentObjectIndex].ResourceAmountNeeded.ToString();
+        resource.ResourceAmountText.text = NeededResources[currentObjectIndex].ResourceAmountNeeded.ToString();
     }
 
     private void ConfigureNeededImageByIndex(int currentObjectIndex)
     {
         Image neededResourceImage = _neededResourceObjects[currentObjectIndex].GetComponent<ResourceInfoUI>().ResourceImage;
-        neededResourceImage.sprite = ResourceManager.Instance.GetResourceSpriteByType(_neededResources[currentObjectIndex].ResourceType);
+        neededResourceImage.sprite = ResourceManager.Instance.GetResourceSpriteByType(NeededResources[currentObjectIndex].ResourceType);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player") || _doneTaking)
+        if (!collision.CompareTag("Player") || IsDoneTaking)
             return;
         if (_debugMode)
             Debug.Log($"Start taking - {gameObject}");
@@ -117,7 +123,7 @@ public class ResourceTaker : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player") || _doneTaking)
+        if (!collision.CompareTag("Player") || IsDoneTaking)
             return;
         if (_debugMode)
             Debug.Log($"Stop taking - {gameObject}");
@@ -129,7 +135,7 @@ public class ResourceTaker : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1 / _takingSpeed);
-            for (int i = 0; i < _neededResources.Count; i++)
+            for (int i = 0; i < NeededResources.Count; i++)
             {
                 TakeResourceByIndex(i);
                 UpdateNeededTextByIndex(i);
@@ -142,29 +148,29 @@ public class ResourceTaker : MonoBehaviour
 
     private void TakeResourceByIndex(int currentResourceIndex)
     {
-        float amountToRemove = ResourceManager.Instance.GetExtractionAmountByType(_neededResources[currentResourceIndex].ResourceType);
-        if (ResourceManager.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType) >= amountToRemove)
+        float amountToRemove = ResourceManager.Instance.GetExtractionAmountByType(NeededResources[currentResourceIndex].ResourceType);
+        if (ResourceManager.Instance.CheckResourceAmount(NeededResources[currentResourceIndex].ResourceType) >= amountToRemove)
         {
-            if (amountToRemove > _neededResources[currentResourceIndex].ResourceAmountNeeded)
+            if (amountToRemove > NeededResources[currentResourceIndex].ResourceAmountNeeded)
             {
-                amountToRemove = _neededResources[currentResourceIndex].ResourceAmountNeeded;
+                amountToRemove = NeededResources[currentResourceIndex].ResourceAmountNeeded;
             }
         }
         else
         {
-            amountToRemove = ResourceManager.Instance.CheckResourceAmount(_neededResources[currentResourceIndex].ResourceType);
+            amountToRemove = ResourceManager.Instance.CheckResourceAmount(NeededResources[currentResourceIndex].ResourceType);
         }
 
         if (amountToRemove == 0)
             return;
 
         _audioSource.Play();
-        _neededResources[currentResourceIndex].ResourceAmountNeeded -= amountToRemove;
-        ResourceManager.Instance.RemoveFromStorage(amountToRemove, _neededResources[currentResourceIndex].ResourceType);
-        NotificationHandler.Instance.ShowNotification(PlayerMovement.Instance.gameObject, _neededResources[currentResourceIndex].ResourceType, -amountToRemove);
-        if (_neededResources[currentResourceIndex].ResourceAmountNeeded <= 0)
+        NeededResources[currentResourceIndex].ResourceAmountNeeded -= amountToRemove;
+        ResourceManager.Instance.RemoveFromStorage(amountToRemove, NeededResources[currentResourceIndex].ResourceType);
+        NotificationHandler.Instance.ShowNotification(PlayerMovement.Instance.gameObject, NeededResources[currentResourceIndex].ResourceType, -amountToRemove);
+        if (NeededResources[currentResourceIndex].ResourceAmountNeeded <= 0)
         {
-            _neededResourcesToDelete.Add(_neededResources[currentResourceIndex]);
+            _neededResourcesToDelete.Add(NeededResources[currentResourceIndex]);
             _needUpdatingResourcesList = true;
         }
     }
