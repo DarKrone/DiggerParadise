@@ -16,7 +16,7 @@ namespace YG
         // Ваши сохранения
 
         // ...
-        public GameData gameData;
+        public GameData gameData = new GameData();
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
 
 

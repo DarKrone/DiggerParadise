@@ -1,91 +1,73 @@
 {
-  "idSave": 1,
-  "isFirstSession": false,
-  "language": "en",
-  "promptDone": false,
-  "gameData": {
-    "PlayerPositionX": 0.0,
-    "PlayerPositionY": 0.0,
-    "PlayerPositionZ": 0.0,
-    "ResourceParams": [
-      {
-        "ResourceAmount": 1000000.0,
-        "ExtractionSpeed": 1.0,
-        "ExtractionAmount": 1.0,
-        "UpgradeAmountCost": 0.0,
-        "UpgradeSpeedCost": 0.0
-      },
-      {
-        "ResourceAmount": 1000000.0,
-        "ExtractionSpeed": 1.0,
-        "ExtractionAmount": 1.0,
-        "UpgradeAmountCost": 0.0,
-        "UpgradeSpeedCost": 0.0
-      },
-      {
-        "ResourceAmount": 0.0,
-        "ExtractionSpeed": 1.0,
-        "ExtractionAmount": 1.0,
-        "UpgradeAmountCost": 0.0,
-        "UpgradeSpeedCost": 0.0
-      },
-      {
-        "ResourceAmount": 0.0,
-        "ExtractionSpeed": 1.0,
-        "ExtractionAmount": 1.0,
-        "UpgradeAmountCost": 0.0,
-        "UpgradeSpeedCost": 0.0
-      },
-      {
-        "ResourceAmount": 0.0,
-        "ExtractionSpeed": 1.0,
-        "ExtractionAmount": 1.0,
-        "UpgradeAmountCost": 0.0,
-        "UpgradeSpeedCost": 0.0
-      },
-      {
-        "ResourceAmount": 0.0,
-        "ExtractionSpeed": 1.0,
-        "ExtractionAmount": 1.0,
-        "UpgradeAmountCost": 0.0,
-        "UpgradeSpeedCost": 0.0
-      },
-      {
-        "ResourceAmount": 0.0,
-        "ExtractionSpeed": 1.0,
-        "ExtractionAmount": 1.0,
-        "UpgradeAmountCost": 0.0,
-        "UpgradeSpeedCost": 0.0
-      },
-      {
-        "ResourceAmount": 0.0,
-        "ExtractionSpeed": 1.0,
-        "ExtractionAmount": 1.0,
-        "UpgradeAmountCost": 0.0,
-        "UpgradeSpeedCost": 0.0
-      }
-    ],
-    "UpgradeMinisTiers": [
-      0,
-      0
-    ],
-    "NeededResources": [
-      [
-        {
-          "ResourceType": 0,
-          "ResourceAmountNeeded": 390.0
-        }
-      ],
-      [
-        {
-          "ResourceType": 0,
-          "ResourceAmountNeeded": 282.0
-        },
-        {
-          "ResourceType": 1,
-          "ResourceAmountNeeded": 282.0
-        }
-      ]
-    ]
-  }
+    "idSave": 4,
+    "isFirstSession": false,
+    "language": "en",
+    "promptDone": false,
+    "gameData": {
+        "PlayerPositionX": 0.0,
+        "PlayerPositionY": 0.0,
+        "PlayerPositionZ": 0.0,
+        "ResourceParams": [
+            {
+                "ResourceAmount": 1000015.0,
+                "ExtractionSpeed": 1.0,
+                "ExtractionAmount": 1.0,
+                "UpgradeAmountCost": 0.0,
+                "UpgradeSpeedCost": 0.0
+            },
+            {
+                "ResourceAmount": 1000030.0,
+                "ExtractionSpeed": 1.0,
+                "ExtractionAmount": 1.0,
+                "UpgradeAmountCost": 0.0,
+                "UpgradeSpeedCost": 0.0
+            },
+            {
+                "ResourceAmount": 0.0,
+                "ExtractionSpeed": 1.0,
+                "ExtractionAmount": 1.0,
+                "UpgradeAmountCost": 0.0,
+                "UpgradeSpeedCost": 0.0
+            },
+            {
+                "ResourceAmount": 15.0,
+                "ExtractionSpeed": 1.0,
+                "ExtractionAmount": 1.0,
+                "UpgradeAmountCost": 0.0,
+                "UpgradeSpeedCost": 0.0
+            },
+            {
+                "ResourceAmount": 15.0,
+                "ExtractionSpeed": 1.0,
+                "ExtractionAmount": 1.0,
+                "UpgradeAmountCost": 0.0,
+                "UpgradeSpeedCost": 0.0
+            },
+            {
+                "ResourceAmount": 15.0,
+                "ExtractionSpeed": 1.0,
+                "ExtractionAmount": 1.0,
+                "UpgradeAmountCost": 0.0,
+                "UpgradeSpeedCost": 0.0
+            },
+            {
+                "ResourceAmount": 15.0,
+                "ExtractionSpeed": 1.0,
+                "ExtractionAmount": 1.0,
+                "UpgradeAmountCost": 0.0,
+                "UpgradeSpeedCost": 0.0
+            },
+            {
+                "ResourceAmount": 15.0,
+                "ExtractionSpeed": 1.0,
+                "ExtractionAmount": 1.0,
+                "UpgradeAmountCost": 0.0,
+                "UpgradeSpeedCost": 0.0
+            }
+        ],
+        "UpgradeMinisTiers": [
+            0,
+            0
+        ]
+    }
 }

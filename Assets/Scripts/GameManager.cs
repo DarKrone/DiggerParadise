@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         _player.transform.position = SaveLoad.currentData.GetVector3();
         ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
 
-        for (int i = 0; i < ResourceTakers.Count; i++)
+        for (int i = 0; i < SaveLoad.currentData.NeededResources.Count; i++)
         {
             ResourceTakers[i].NeededResources = SaveLoad.currentData.NeededResources[i];
             if (SaveLoad.currentData.UpgradeMinisTiers[i] > 0)
@@ -87,7 +87,9 @@ public class GameManager : MonoBehaviour
 
     public void ResetData()
     {
-        YandexGame.ResetSaveProgress();
+        SaveLoad.currentData = DefaultDataStorage.Instance.GetDefaultGameData;
+        SaveLoad.SaveGame();
+        SaveLoad.LoadGame();
     }
 
     public void UpdateResourcesList()

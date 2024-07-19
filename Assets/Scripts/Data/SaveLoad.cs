@@ -28,6 +28,25 @@ public class GameData
         this.PlayerPositionY = pos.y;
         this.PlayerPositionZ = pos.z;
     }
+    public GameData()
+    {
+
+    }
+    public GameData(bool isDefault)
+    {
+        GetPos(Vector3.zero);
+
+        for (int i = 0; i < ResourceParams.Count; i++) 
+        {
+            ResourceParams[i] = new ResourceParams();
+        }
+
+        for (int i = 0; i < UpgradeMinisTiers.Count; i++)
+        {
+            UpgradeMinisTiers[i] = 0;
+        }
+
+    }
 }
 
 public static class SaveLoad

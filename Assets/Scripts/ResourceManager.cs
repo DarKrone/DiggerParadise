@@ -29,7 +29,11 @@ public class ResourceParams
 
     public ResourceParams()
     {
-
+        ResourceAmount = 0;
+        ExtractionSpeed = 1;
+        ExtractionAmount = 1;
+        UpgradeAmountCost = 1;
+        UpgradeSpeedCost = 1;
     }
 }
 [Serializable]
