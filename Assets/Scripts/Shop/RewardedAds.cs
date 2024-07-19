@@ -10,10 +10,10 @@ public class RewardedAds : MonoBehaviour
     [SerializeField] private int _adId;
     [SerializeField] private float _btnCooldown = 120f;
     [SerializeField] private Button _upgBtn;
-    [SerializeField] private GameObject _rewardIcon;
 
-    [SerializeField] private GameObject _rewardedADSUI;
+    [SerializeField] private GameObject _rewardedADSMenu;
 
+    [SerializeField] private GameObject _rewardedIcon;
 
     [SerializeField] private bool _debugMode;
     private YandexGame _sdk;
@@ -35,35 +35,29 @@ public class RewardedAds : MonoBehaviour
         if (id == _adId)
         {
             ResourceManager.Instance.RewardedAdsUpgradeSpeedForPeriod(60f);
+            StartCoroutine(ShowObjectAtTime(_rewardedIcon, 60f));
             StartCoroutine(ButtonCooldown(_btnCooldown));
         }
-    }
-    private void Update()
-    {
-        if (!_rewardedADSUI.activeSelf)
-            StopAllCoroutines();
     }
     private IEnumerator ButtonCooldown(float cooldown)
     {
         _upgBtn.interactable = false;
-        _rewardIcon.SetActive(true);
         yield return new WaitForSeconds(cooldown);
         _upgBtn.interactable = true;
-        _rewardIcon.SetActive(false);
     }
     public void TryADSAfterResourceOreExtracting()
     {
-        if (_rewardedADSUI.activeSelf)
+        if (_rewardedADSMenu.activeSelf || _rewardedIcon.activeSelf)
             return;
         int roll = Random.Range(0, 100);
-        int chance = 10;
+        int chance = 25;
         
         if (roll <= chance)
         {
             if (_debugMode)
                 Debug.Log("Rolled succeful");
-            //StartCoroutine(ShowObjectAtTime(_rewardedADSUI, _rewardCooldown));
-            ShowObject(_rewardedADSUI);
+            //StartCoroutine(ShowObjectAtTime(_rewardedADSMenu, 60f));
+            ShowObject(_rewardedADSMenu);
         }
         else if (_debugMode)
             Debug.Log($"Rolled {roll} need <{chance}");

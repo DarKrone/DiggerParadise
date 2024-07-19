@@ -6,7 +6,12 @@ using TMPro;
 public class TimerUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
-    public void StartTimer(float duration)
+
+    private void OnEnable()
+    {
+        StartTimer(60f);
+    }
+    private void StartTimer(float duration)
     {
         StartCoroutine(Timer(duration));
     }
