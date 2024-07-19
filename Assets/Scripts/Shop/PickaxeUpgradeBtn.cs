@@ -37,7 +37,7 @@ public class PickaxeUpgradeBtn : MonoBehaviour
         _resourceCostTextContainer.color = resource.ResourceColor;
         _resourceUpgradeImageContainer.sprite = resource.ResourceOreSprite;
         _resourceUpgradeTextContainer.color = resource.ResourceColor;
-        //_upgradeTypeImageContainer.GetComponent<Image>().sprite = resource.ResourceOreSprite;
+
         if(_upgradingAmount)
         {
             _upgradeTypeImageContainer.GetComponent<Image>().sprite = _amountSprite;

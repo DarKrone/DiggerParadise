@@ -79,7 +79,17 @@ public class Extract : MonoBehaviour
         {
             curResourceExtractAmount = _currentResource.ResourceAmount;
         }
-        ResourceManager.Instance.AddToStorage(curResourceExtractAmount, _currentResource.ResourceType);
+        Resource resource = ResourceManager.Instance.GetResourceByType(_currentResource.ResourceType);
+        if (!resource.IsAvailable)
+        {
+            resource.ResourceAmount += curResourceExtractAmount;
+            GameManager.Instance.UpdateResourcesList();
+        }
+        else
+        {
+            resource.ResourceAmount += curResourceExtractAmount;
+        }
+        GameManager.Instance.UpdateUI();
         _currentResource.ResourceAmount -= curResourceExtractAmount;
         ResourceNotification(curResourceExtractAmount);
     }
@@ -91,6 +101,6 @@ public class Extract : MonoBehaviour
 
     protected void DebugResourceAmount()
     {
-        Debug.Log($"Current {_currentResource.ResourceType} amount - {ResourceManager.Instance.CheckResourceAmount(_currentResource.ResourceType)}");
+        Debug.Log($"Current {_currentResource.ResourceType} amount - {ResourceManager.Instance.GetResourceByType(_currentResource.ResourceType).ResourceAmount}");
     }
 }

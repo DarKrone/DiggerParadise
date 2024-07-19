@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
         foreach(GameObject resource in _resourcesList)
         {
             ResourceInfoUI resourceInfo = resource.GetComponent<ResourceInfoUI>();
-            resourceInfo.ResourceAmountText.text = ResourceManager.Instance.CheckResourceAmount(resourceInfo.ResourceType).ToString();
+            resourceInfo.ResourceAmountText.text = ResourceManager.Instance.GetResourceByType(resourceInfo.ResourceType).ResourceAmount.ToString();
         }
     }
 }

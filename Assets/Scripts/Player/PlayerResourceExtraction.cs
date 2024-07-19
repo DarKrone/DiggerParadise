@@ -6,8 +6,9 @@ public class PlayerResourceExtraction : Extract
 {
     protected override void SetExtractParams()
     {
-        curResourceExtractAmount = ResourceManager.Instance.GetExtractionAmountByType(_currentResource.ResourceType);
-        curResourceExtractSpeed = ResourceManager.Instance.GetExtractionSpeedByType(_currentResource.ResourceType);
+        Resource resource = ResourceManager.Instance.GetResourceByType(_currentResource.ResourceType);
+        curResourceExtractAmount = resource.ExtractionAmount;
+        curResourceExtractSpeed = resource.ExtractionSpeed;
     }
     protected override bool CheckIfMinerMoving()
     {

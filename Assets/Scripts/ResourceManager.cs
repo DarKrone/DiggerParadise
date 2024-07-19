@@ -70,12 +70,14 @@ public class Resource
         ResourceAmount -= UpgradeAmountCost;
         ExtractionAmount += 1;
         UpgradeAmountCost = Mathf.FloorToInt(UpgradeAmountCost * AmountCostModify);
+        GameManager.Instance.UpdateUI();
     }
     public void UpgradeSpeed()
     {
         ResourceAmount -= UpgradeSpeedCost;
         ExtractionSpeed += 1;
         UpgradeSpeedCost = Mathf.FloorToInt(UpgradeSpeedCost * SpeedCostModify);
+        GameManager.Instance.UpdateUI();
     }
 }
 public class ResourceManager : MonoBehaviour
@@ -83,13 +85,13 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager Instance;
     [SerializeField] public List<Resource> Resources;
     [SerializeField] private float _upgradeSpeedForAds = 2f;
-    private float[] modifiers;
+    private float[] _modifiers;
     private Coroutine _upgCoroutine;
 
     private void Awake()
     {
         Instance = this;
-        modifiers = new float[Resources.Count];
+        _modifiers = new float[Resources.Count];
     }
     public List<ResourceParams> GetParams()
     {
@@ -118,7 +120,7 @@ public class ResourceManager : MonoBehaviour
         {
             float modifier = Mathf.Log(resource.ExtractionSpeed) + _upgradeSpeedForAds;
             modifier = Mathf.Floor(modifier);
-            modifiers[counter] = modifier;
+            _modifiers[counter] = modifier;
             counter++;
             resource.ExtractionSpeed += modifier;
         }
@@ -140,128 +142,11 @@ public class ResourceManager : MonoBehaviour
         int counter = 0;
         foreach (Resource resource in Resources)
         {
-            resource.ExtractionSpeed -= modifiers[counter];
+            resource.ExtractionSpeed -= _modifiers[counter];
             counter++;
         }
     }
 
-    public void AddToStorage(float amount, ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                if (resource.ResourceAmount == 0)
-                {
-                    resource.ResourceAmount += amount;
-                    GameManager.Instance.UpdateResourcesList();
-                    break;
-                }
-                resource.ResourceAmount += amount;
-                break;
-            }
-        }
-        GameManager.Instance.UpdateUI();
-    }
-    public void RemoveFromStorage(float amount, ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                resource.ResourceAmount -= amount;
-            }
-        }
-        GameManager.Instance.UpdateUI();
-    }
-    public float CheckResourceAmount(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ResourceAmount;
-            }
-        }
-        return -1;
-    }
-    public Color GetResourceColorByType(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ResourceColor;
-            }
-        }
-        return Color.white;
-    }
-    public Sprite GetResourceSpriteByType(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ResourceMiniSprite;
-            }
-        }
-        return null;
-    }
-    public Sprite GetOreSpriteByType(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ResourceOreSprite;
-            }
-        }
-        return null;
-    }
-    public float GetExtractionSpeedByType(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ExtractionSpeed;
-            }
-        }
-        return -1;
-    }
-    public float GetExtractionAmountByType(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ExtractionAmount;
-            }
-        }
-        return -1;
-    }
-    public float GetAmountCost(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.UpgradeAmountCost;
-            }
-        }
-        return -1;
-    }
-    public float GetSpeedCost(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.UpgradeSpeedCost;
-            }
-        }
-        return -1;
-    }
     public Resource GetResourceByType(ResourceType resourceType)
     {
         foreach (Resource resource in Resources)
@@ -273,14 +158,22 @@ public class ResourceManager : MonoBehaviour
         }
         return null;
     }
+
+    public bool CheckIfNewResource(Resource resource)
+    {
+        if (resource.ResourceAmount == 0)
+            return true;
+        return false;
+    }
+
     public void UpgradeExtractionAmountByType(ResourceType resourceType)
     {
         Resource resource = GetResourceByType(resourceType);
         if (resource.ResourceAmount < resource.UpgradeAmountCost)
             return;
         resource.UpgradeAmount();
-
     }
+
     public void UpgradeExtractionSpeedByType(ResourceType resourceType)
     {
         Resource resource = GetResourceByType(resourceType);

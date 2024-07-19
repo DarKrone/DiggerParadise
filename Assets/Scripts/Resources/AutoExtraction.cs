@@ -20,7 +20,8 @@ public class AutoExtraction : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(1f / _extractionSpeed);
-            ResourceManager.Instance.AddToStorage(_extractionAmount, _resourceType);
+            Resource resource = ResourceManager.Instance.GetResourceByType(_resourceType);
+            resource.ResourceAmount += _extractionAmount;
         }
     }
 }
