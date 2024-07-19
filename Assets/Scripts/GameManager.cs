@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ResourceManager _resourceManager;
     [SerializeField] private List<UpgradeMinisShop> _upgradeMinisShops;
     [SerializeField] private List<ResourceTaker> ResourceTakers;
+    [SerializeField] private AllResourcesOnMap _allResourcesOnMap;
 
     private void OnEnable()
     {
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
     }
     public void SaveData()
     {
-        ResourceManager.Instance.StopRewardedAdsUpgrade();
+        ResourceManager.Instance.SetExtractSpeedModifiersFromADSForSave();
         List<int> minisTiers = new List<int>();
         foreach(var el in _upgradeMinisShops)
         {
@@ -58,8 +59,9 @@ public class GameManager : MonoBehaviour
         SaveLoad.currentData.ResourceParams = ResourceManager.Instance.GetParams();
         SaveLoad.currentData.NeededResources = neededResources;
         SaveLoad.currentData.UpgradeMinisTiers = minisTiers;
-
+        SaveLoad.currentData.AllResourcesAmounts = _allResourcesOnMap.GetResourcesAmounts();
         SaveLoad.SaveGame();
+        ResourceManager.Instance.ReturnExtractSpeedModifiersFromADSBack();
     }
     private void LoadData()
     {
@@ -72,7 +74,7 @@ public class GameManager : MonoBehaviour
         SaveLoad.LoadGame();
         _player.transform.position = SaveLoad.currentData.GetVector3();
         ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
-
+        _allResourcesOnMap.SetResourceAmounts(SaveLoad.currentData.AllResourcesAmounts);
         for (int i = 0; i < SaveLoad.currentData.NeededResources.Count; i++)
         {
             ResourceTakers[i].NeededResources = SaveLoad.currentData.NeededResources[i];

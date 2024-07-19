@@ -7,7 +7,7 @@ public class ResourceOre : MonoBehaviour
 {
     [SerializeField] private bool _debugMode;
     [SerializeField] private float _oreCooldown = 10f;
-    [SerializeField] private float _defaultResourceAmount = 15f;
+    [SerializeField] public float DefaultResourceAmount = 15f;
     [SerializeField] private float _resourceAmountUpgradeStep = 2f;
     [SerializeField] private float _higherAmountLimit = 100f;
     private Tilemap _tilemap;
@@ -19,10 +19,16 @@ public class ResourceOre : MonoBehaviour
 
     private void Start()
     {
-        ResourceAmount = _defaultResourceAmount;
+        SetResourceAmount();
+        ResourceAmount = DefaultResourceAmount;
         _collider = GetComponent<BoxCollider2D>();
         _tilemap = GameObject.Find("Decor").GetComponent<Tilemap>();
         _tilePos = _tilemap.WorldToCell(transform.position);
+    }
+
+    public void SetResourceAmount()
+    {
+        ResourceAmount = DefaultResourceAmount;
     }
 
     public void AmountCheck(string tag)
@@ -46,9 +52,9 @@ public class ResourceOre : MonoBehaviour
         _tilemap.SetColor(_tilePos, new Color(1f, 1f, 1f, 1f));
         _collider.enabled = true;
         isFullyExtracted = false;
-        if (_defaultResourceAmount < _higherAmountLimit)
-            _defaultResourceAmount += _resourceAmountUpgradeStep;
-        ResourceAmount = _defaultResourceAmount;
+        if (DefaultResourceAmount < _higherAmountLimit)
+            DefaultResourceAmount += _resourceAmountUpgradeStep;
+        ResourceAmount = DefaultResourceAmount;
     }
 }
 

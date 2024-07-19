@@ -17,6 +17,7 @@ public class GameData
     public List<ResourceParams> ResourceParams;
     public List<int> UpgradeMinisTiers;
     public List<List<NeededResource>> NeededResources = new List<List<NeededResource>>();
+    public List<float> AllResourcesAmounts = new List<float>();
 
     public Vector3 GetVector3()
     {
@@ -72,30 +73,4 @@ public static class SaveLoad
         currentData = YandexGame.savesData.gameData;
         Debug.Log("Game loaded");
     }
-    //public static void SaveGame() //Метод для сохранения
-    //{
-    //    FileStream fs = new FileStream(path, FileMode.Create); //Создание файлового потока
-
-    //    //GameData data = new GameData(PlayerPosition, Resources); //Получение данных
-
-    //    formatter.Serialize(fs, currentData); //Сериализация данных
-
-    //    fs.Close(); //Закрытие потока
-    //    Debug.Log("Game saved");
-    //}
-    //public static void LoadGame() //Метод загрузки
-    //{
-    //    Loaded = false;
-    //    if (File.Exists(path))
-    //    {
-    //        FileStream fs = new FileStream(path, FileMode.Open); //Открытие потока
-
-    //        GameData data = formatter.Deserialize(fs) as GameData; //Получение данных
-
-    //        currentData = data;
-
-    //        Loaded = true;
-    //        Debug.Log("Game loaded");
-    //    }
-    //}
 }

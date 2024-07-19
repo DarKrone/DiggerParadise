@@ -166,7 +166,12 @@ public class ResourceTaker : MonoBehaviour
 
         _audioSource.Play();
         NeededResources[currentResourceIndex].ResourceAmountNeeded -= amountToRemove;
-        ResourceManager.Instance.GetResourceByType(NeededResources[currentResourceIndex].ResourceType).ResourceAmount -= amountToRemove;
+        Resource resource = ResourceManager.Instance.GetResourceByType(NeededResources[currentResourceIndex].ResourceType);
+        resource.ResourceAmount -= amountToRemove;
+        if (!resource.IsAvailable)
+        {
+            GameManager.Instance.UpdateResourcesList();
+        }
         GameManager.Instance.UpdateUI();
         NotificationHandler.Instance.ShowNotification(PlayerMovement.Instance.gameObject, NeededResources[currentResourceIndex].ResourceType, -amountToRemove);
         if (NeededResources[currentResourceIndex].ResourceAmountNeeded <= 0)

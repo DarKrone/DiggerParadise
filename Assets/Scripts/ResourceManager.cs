@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 /// <summary>
 /// Это склад всех ресурсов, сюда добавлять и отсюда брать информацию
@@ -143,6 +144,27 @@ public class ResourceManager : MonoBehaviour
         foreach (Resource resource in Resources)
         {
             resource.ExtractionSpeed -= _modifiers[counter];
+            counter++;
+        }
+        _modifiers = new float[Resources.Count];
+    }
+
+    public void SetExtractSpeedModifiersFromADSForSave()
+    {
+        int counter = 0;
+        foreach (Resource resource in Resources)
+        {
+            resource.ExtractionSpeed -= _modifiers[counter];
+            counter++;
+        }
+    }
+
+    public void ReturnExtractSpeedModifiersFromADSBack()
+    {
+        int counter = 0;
+        foreach (Resource resource in Resources)
+        {
+            resource.ExtractionSpeed += _modifiers[counter];
             counter++;
         }
     }
