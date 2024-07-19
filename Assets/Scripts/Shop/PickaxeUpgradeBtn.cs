@@ -16,6 +16,9 @@ public class PickaxeUpgradeBtn : MonoBehaviour
     [SerializeField] private ResourceType _upgradeType;
 
     [Header("Images and text for button")]
+    [SerializeField] private Sprite _speedSprite;
+    [SerializeField] private Sprite _amountSprite;
+
     [SerializeField] private Image _resourceCostImageContainer;
     [SerializeField] private TextMeshProUGUI _resourceCostTextContainer;
     [SerializeField] private Image _resourceUpgradeImageContainer;
@@ -34,16 +37,18 @@ public class PickaxeUpgradeBtn : MonoBehaviour
         _resourceCostTextContainer.color = resource.ResourceColor;
         _resourceUpgradeImageContainer.sprite = resource.ResourceOreSprite;
         _resourceUpgradeTextContainer.color = resource.ResourceColor;
-        _upgradeTypeImageContainer.GetComponent<Image>().sprite = resource.ResourceOreSprite;
+        //_upgradeTypeImageContainer.GetComponent<Image>().sprite = resource.ResourceOreSprite;
         if(_upgradingAmount)
         {
+            _upgradeTypeImageContainer.GetComponent<Image>().sprite = _amountSprite;
             _resourceCostTextContainer.text = $"-{resource.UpgradeAmountCost}";
-            _resourceUpgradeTextContainer.text = $"+{resource.NextTierAmount}";
+            _resourceUpgradeTextContainer.text = $"+{resource.NextTierAmount-resource.ExtractionAmount}";
         }
         if (_upgradingSpeed)
         {
+            _upgradeTypeImageContainer.GetComponent<Image>().sprite = _speedSprite;
             _resourceCostTextContainer.text = $"-{resource.UpgradeSpeedCost}";
-            _resourceUpgradeTextContainer.text = $"+{resource.NextTierSpeed}";
+            _resourceUpgradeTextContainer.text = $"+{resource.NextTierSpeed-resource.ExtractionSpeed}";
         }
     }
 

@@ -50,10 +50,12 @@ public class Resource
     public float ExtractionAmount;
     public float AmountTierModify;
     public float SpeedTierModify;
+    public float AmountCostModify;
+    public float SpeedCostModify;
     public float[] Parameters { get { return new float[] { ResourceAmount, ExtractionSpeed, ExtractionAmount, UpgradeAmountCost, UpgradeSpeedCost }; } }
     public bool IsAvailable { get { return ResourceAmount > 0; } }
-    public float NextTierAmount { get { return ExtractionAmount * AmountTierModify; } }
-    public float NextTierSpeed { get { return ExtractionSpeed * SpeedTierModify; } }
+    public float NextTierAmount { get { return ExtractionAmount +1; } }
+    public float NextTierSpeed { get { return ExtractionSpeed +1; } }
     public void SetParams(ResourceParams parameters)
     {
         ResourceAmount = parameters.ResourceAmount;
@@ -66,14 +68,14 @@ public class Resource
     public void UpgradeAmount()
     {
         ResourceAmount -= UpgradeAmountCost;
-        ExtractionAmount *= AmountTierModify;
-        UpgradeAmountCost *= AmountTierModify;
+        ExtractionAmount += 1;
+        UpgradeAmountCost = Mathf.FloorToInt(UpgradeAmountCost * AmountCostModify);
     }
     public void UpgradeSpeed()
     {
         ResourceAmount -= UpgradeSpeedCost;
-        ExtractionSpeed *= SpeedTierModify;
-        UpgradeAmountCost *= SpeedTierModify;
+        ExtractionSpeed += 1;
+        UpgradeSpeedCost = Mathf.FloorToInt(UpgradeSpeedCost * SpeedCostModify);
     }
 }
 public class ResourceManager : MonoBehaviour

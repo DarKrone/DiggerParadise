@@ -23,7 +23,8 @@ public class ResourceOre : MonoBehaviour
         ResourceAmount = _defaultResourceAmount;
         _collider = GetComponent<BoxCollider2D>();
         _tilemap = GameObject.Find("Decor").GetComponent<Tilemap>();
-        _tilePos = new Vector3Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y), 0);
+        _tilePos = _tilemap.WorldToCell(transform.position);
+        //_tilePos = new Vector3Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y), 0);
     }
     //private void Update()
     //{
