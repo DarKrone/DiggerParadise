@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<UpgradeMinisShop> _upgradeMinisShops;
     [SerializeField] private List<ResourceTaker> ResourceTakers;
     [SerializeField] private AllResourcesOnMap _allResourcesOnMap;
-
+    [SerializeField] private List<ResourceTaker> _bridges;
+    
     private void OnEnable()
     {
         YandexGame.GetDataEvent += LoadData;
@@ -54,10 +55,18 @@ public class GameManager : MonoBehaviour
         {
             neededResources.Add(neededResourceOnTaker.NeededResources);
         }
+        List<List<NeededResource>> bridgesNeededResources = new List<List<NeededResource>>();
+        foreach (var neededResourceOnTaker in _bridges)
+        {
+            bridgesNeededResources.Add(neededResourceOnTaker.NeededResources);
+        }
         SaveLoad.currentData = new GameData();
         SaveLoad.currentData.GetPos(_player.transform.position);
         SaveLoad.currentData.ResourceParams = ResourceManager.Instance.GetParams();
+
         SaveLoad.currentData.NeededResources = neededResources;
+        SaveLoad.currentData.BridgesNeededResources = bridgesNeededResources;
+
         SaveLoad.currentData.UpgradeMinisTiers = minisTiers;
         SaveLoad.currentData.AllResourcesAmounts = _allResourcesOnMap.GetResourcesAmounts();
         SaveLoad.SaveGame();
@@ -75,6 +84,7 @@ public class GameManager : MonoBehaviour
         _player.transform.position = SaveLoad.currentData.GetVector3();
         ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
         _allResourcesOnMap.SetResourceAmounts(SaveLoad.currentData.AllResourcesAmounts);
+
         for (int i = 0; i < SaveLoad.currentData.NeededResources.Count; i++)
         {
             ResourceTakers[i].NeededResources = SaveLoad.currentData.NeededResources[i];
@@ -82,6 +92,10 @@ public class GameManager : MonoBehaviour
             {
                 _upgradeMinisShops[i].UpgradeMinisAfterLoadSave(SaveLoad.currentData.UpgradeMinisTiers[i]);
             }
+        }
+        for (int i = 0; i < SaveLoad.currentData.BridgesNeededResources.Count; i++)
+        {
+            _bridges[i].NeededResources = SaveLoad.currentData.BridgesNeededResources[i];
         }
         UpdateResourcesList();
         UpdateUI();
