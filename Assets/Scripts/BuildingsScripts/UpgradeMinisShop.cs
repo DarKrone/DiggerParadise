@@ -25,12 +25,20 @@ public class UpgradeMinisShop : UpgradeUI
     [SerializeField] private TextMeshProUGUI _speedText;
     [SerializeField] private TextMeshProUGUI _amountText;
     [SerializeField] private Image _resourceImage;
+    [SerializeField] private Image _minisImage;
 
     public int CurrentUpdateTier { get { return _currentUpgradeTier; } }
 
     private void Start()
     {
+        SetMinisSpriteToUI();
         UpdateUpgradeInfo();
+    }
+
+    private void SetMinisSpriteToUI()
+    {
+        Sprite minisSprite = _minis.GetComponent<SpriteRenderer>().sprite;
+        _minisImage.sprite = minisSprite;
     }
 
     private void UpdateUpgradeInfo()
