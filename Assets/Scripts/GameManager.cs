@@ -42,7 +42,19 @@ public class GameManager : MonoBehaviour
 
         UpdateResourcesList();
         UpdateUI();
+
+        StartCoroutine(AutoSave());
     }
+
+    private IEnumerator AutoSave()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(300f);
+            SaveData();
+        }
+    }
+
     public void SaveData()
     {
         ResourceManager.Instance.SetExtractSpeedModifiersFromADSForSave();
