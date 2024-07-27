@@ -11,6 +11,7 @@ public class ResourceOre : MonoBehaviour
     [SerializeField] private float _resourceAmountUpgradeStep = 2f;
     [SerializeField] private float _higherAmountLimit = 100f;
     private Tilemap _tilemap;
+    private SpriteRenderer _spriteRenderer;
     private Vector3Int _tilePos;
     public ResourceType ResourceType;
     public float ResourceAmount;
@@ -23,7 +24,11 @@ public class ResourceOre : MonoBehaviour
         ResourceAmount = DefaultResourceAmount;
         _collider = GetComponent<BoxCollider2D>();
         _tilemap = GameObject.Find("Decor").GetComponent<Tilemap>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
         _tilePos = _tilemap.WorldToCell(transform.position);
+        _spriteRenderer.sprite = _tilemap.GetSprite(_tilePos);
+        _tilemap.SetColor(_tilemap.WorldToCell(transform.position), new Color(1f, 1f, 1f, 0.1f));
     }
 
     public void SetResourceAmount()
@@ -39,7 +44,8 @@ public class ResourceOre : MonoBehaviour
             if(tag == "Player")
                 RewardedAds.Instance.TryADSAfterResourceOreExtracting();
             _collider.enabled = false;
-            _tilemap.SetColor(_tilePos, new Color(1f, 1f, 1f, 0.3f));
+            //_tilemap.SetColor(_tilemap.WorldToCell(transform.position), new Color(1f, 1f, 1f, 0.3f));
+            _spriteRenderer.color = new Color(1f, 1f, 1f, 0.3f);
             StartCoroutine(OreCooldown());
             if (_debugMode)
                 Debug.Log($"Resource {gameObject.name} has been full extracted");
@@ -49,7 +55,8 @@ public class ResourceOre : MonoBehaviour
     private IEnumerator OreCooldown()
     {
         yield return new WaitForSeconds(_oreCooldown);
-        _tilemap.SetColor(_tilePos, new Color(1f, 1f, 1f, 1f));
+        //_tilemap.SetColor(_tilemap.WorldToCell(transform.position), new Color(1f, 1f, 1f, 1f));
+        _spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
         _collider.enabled = true;
         isFullyExtracted = false;
         if (DefaultResourceAmount < _higherAmountLimit)
