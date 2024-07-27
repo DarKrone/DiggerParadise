@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<ResourceTaker> ResourceTakers;
     [SerializeField] private AllResourcesOnMap _allResourcesOnMap;
     [SerializeField] private List<ResourceTaker> _bridges;
+    [SerializeField] private List<ResourceTaker> _artifacts;
     
     private void OnEnable()
     {
@@ -60,12 +61,18 @@ public class GameManager : MonoBehaviour
         {
             bridgesNeededResources.Add(neededResourceOnTaker.NeededResources);
         }
+        List<List<NeededResource>> artifactsNeededResources = new List<List<NeededResource>>();
+        foreach (var neededResourceOnTaker in _artifacts)
+        {
+            artifactsNeededResources.Add(neededResourceOnTaker.NeededResources);
+        }
         SaveLoad.currentData = new GameData();
         SaveLoad.currentData.GetPos(_player.transform.position);
         SaveLoad.currentData.ResourceParams = ResourceManager.Instance.GetParams();
 
         SaveLoad.currentData.NeededResources = neededResources;
         SaveLoad.currentData.BridgesNeededResources = bridgesNeededResources;
+        SaveLoad.currentData.ArtifactsNeededResources = artifactsNeededResources;
 
         SaveLoad.currentData.UpgradeMinisTiers = minisTiers;
         SaveLoad.currentData.AllResourcesAmounts = _allResourcesOnMap.GetResourcesAmounts();
@@ -96,6 +103,10 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < SaveLoad.currentData.BridgesNeededResources.Count; i++)
         {
             _bridges[i].NeededResources = SaveLoad.currentData.BridgesNeededResources[i];
+        }
+        for (int i = 0; i < SaveLoad.currentData.BridgesNeededResources.Count; i++)
+        {
+            _artifacts[i].NeededResources = SaveLoad.currentData.ArtifactsNeededResources[i];
         }
         UpdateResourcesList();
         UpdateUI();

@@ -18,6 +18,7 @@ public class GameData
     public List<int> UpgradeMinisTiers;
     public List<List<NeededResource>> NeededResources = new List<List<NeededResource>>();
     public List<List<NeededResource>> BridgesNeededResources = new List<List<NeededResource>>();
+    public List<List<NeededResource>> ArtifactsNeededResources = new List<List<NeededResource>>();
     public List<float> AllResourcesAmounts = new List<float>();
 
     public Vector3 GetVector3()
