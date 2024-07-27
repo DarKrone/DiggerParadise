@@ -5334,7 +5334,7 @@ MonoBehaviour:
     ResourceAmountNeeded: 1
   _canvasToSpawnTexts: {fileID: 4957149033175947775}
   _resourceNeededPrefab: {fileID: 7541012383906819224, guid: 1eb8c34bfc35e5f44af3f52eca830143, type: 3}
-  _takingSpeed: 20
+  _takingSpeed: 500
   IsDoneTaking: 0
 --- !u!114 &4862983144224304976
 MonoBehaviour:

@@ -80,15 +80,8 @@ public class Extract : MonoBehaviour
             curResourceExtractAmount = _currentResource.ResourceAmount;
         }
         Resource resource = ResourceManager.Instance.GetResourceByType(_currentResource.ResourceType);
-        if (!resource.IsAvailable)
-        {
-            resource.ResourceAmount += curResourceExtractAmount;
-            GameManager.Instance.UpdateResourcesList();
-        }
-        else
-        {
-            resource.ResourceAmount += curResourceExtractAmount;
-        }
+        resource.ResourceAmount += curResourceExtractAmount;
+        GameManager.Instance.UpdateResourcesList();
         GameManager.Instance.UpdateUI();
         _currentResource.ResourceAmount -= curResourceExtractAmount;
         ResourceNotification(curResourceExtractAmount);

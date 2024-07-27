@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class NeededResource
     {
         public ResourceType ResourceType;
-        [Range(1f, 1000f)]
+        [Range(1f, 100000f)]
         public float ResourceAmountNeeded;
     }
 public class ResourceTaker : MonoBehaviour
