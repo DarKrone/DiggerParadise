@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         _mainCamera = Camera.main;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-        _isMobileDevice = YandexGame.EnvironmentData.isMobile;
+        _isMobileDevice = YandexGame.EnvironmentData.isMobile || Application.isMobilePlatform;
         if (_isMobileDevice)
             _joystick.SetActive(true);
         if (_debugMode)
@@ -102,7 +102,6 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
         MiningAnimState();
-        //WalkAnimState();
         _lastPosition = transform.position;
     }
 
@@ -128,17 +127,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FlipCheck()
     {
-        //if (_posToMove.x < transform.position.x)
-        //{
-        //    _spriteRenderer.flipX = true;
-        //}
-        //if (_posToMove.x > transform.position.x)
-        //{
-        //    _spriteRenderer.flipX = false;
-        //}
-
-        // Если партиклы не понадобятся, то вернуть код сверху
-
         if (_posToMove.x < transform.position.x)
         {
             transform.localScale = new Vector3(-_startXScale, transform.localScale.y, transform.localScale.z);
@@ -172,7 +160,6 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         _playerRB.MovePosition(Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.fixedDeltaTime));
-        //transform.position = Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime);
     }
 
 }
