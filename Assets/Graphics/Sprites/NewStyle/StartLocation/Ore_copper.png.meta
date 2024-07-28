@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be25ec0bef632b245adeb754cdebccc9
-      internalID: 2101542340
+      spriteID: 33e98140788ffcf4a83af750d1c6795a
+      internalID: -672690929
       vertices: []
       indices: 
       edges: []
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70b6d628e7e3d2947b48e0f687f7ec5d
-      internalID: 2039968806
+      spriteID: b483d1599b4d83e48af12a3692f2c2c7
+      internalID: -1690221833
       vertices: []
       indices: 
       edges: []
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1f6efd2806f6e843af972e03d3264ae
-      internalID: 1232514242
+      spriteID: 23e9f612b678d44469c80ac3308c5d39
+      internalID: 2111812284
       vertices: []
       indices: 
       edges: []
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32b0f1e3121b38543a5214574ce513fa
-      internalID: -1531376787
+      spriteID: 73cb50038094ccc4082ad4b1fcce2156
+      internalID: -1739070348
       vertices: []
       indices: 
       edges: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ore_copper_0: 2101542340
-      Ore_copper_1: 2039968806
-      Ore_copper_2: 1232514242
-      Ore_copper_3: -1531376787
+      Ore_copper_0: -672690929
+      Ore_copper_1: -1690221833
+      Ore_copper_2: 2111812284
+      Ore_copper_3: -1739070348
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

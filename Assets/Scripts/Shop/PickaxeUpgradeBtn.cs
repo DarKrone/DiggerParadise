@@ -26,6 +26,8 @@ public class PickaxeUpgradeBtn : MonoBehaviour
     [SerializeField] private Image _upgradeTypeImageContainer;
     [SerializeField] private Sprite _upgradeTypeImage;
 
+    [SerializeField] private PropertiesHandler _currentResPropertyUI;
+
     private void Start()
     {
         UpdateUI();
@@ -60,6 +62,7 @@ public class PickaxeUpgradeBtn : MonoBehaviour
         if (_upgradingSpeed)
             ResourceManager.Instance.UpgradeExtractionSpeedByType(_upgradeType);
 
+        _currentResPropertyUI.UpdateAllProperties();
         UpdateUI();
     }
     private void OnEnable()
