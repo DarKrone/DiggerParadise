@@ -33,7 +33,7 @@ MonoBehaviour:
   saveCloud: 1
   flush: 0
   localSaveSync: 1
-  saveCloudInterval: 3
+  saveCloudInterval: 1
   saveOnQuitGame: 1
   quitGameParameters:
     objectName: GameManager
