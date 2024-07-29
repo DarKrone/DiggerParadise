@@ -86,12 +86,12 @@ public class GameManager : MonoBehaviour
         SaveLoad.currentData.BridgesNeededResources = bridgesNeededResources;
         SaveLoad.currentData.ArtifactsNeededResources = artifactsNeededResources;
 
+        SaveLoad.currentData.VersionForDeleteData = Application.version;
         SaveLoad.currentData.UpgradeMinisTiers = minisTiers;
         SaveLoad.currentData.AllResourcesAmounts = _allResourcesOnMap.GetResourcesAmounts();
         SaveLoad.SaveGame();
         UpdateLeaderboardScores();
         ResourceManager.Instance.ReturnExtractSpeedModifiersFromADSBack();
-
 
     }
 
@@ -130,9 +130,9 @@ public class GameManager : MonoBehaviour
             SaveLoad.SaveGame();
             return;
         }
-        else if(SaveLoad.currentData.VersionForDeleteData != Application.unityVersion)
+        else if(SaveLoad.currentData.VersionForDeleteData != Application.version)
         {
-            SaveLoad.currentData.VersionForDeleteData = Application.unityVersion;
+            YandexGame.ResetSaveProgress();
             SaveData();
             return;
         }
