@@ -89,8 +89,39 @@ public class GameManager : MonoBehaviour
         SaveLoad.currentData.UpgradeMinisTiers = minisTiers;
         SaveLoad.currentData.AllResourcesAmounts = _allResourcesOnMap.GetResourcesAmounts();
         SaveLoad.SaveGame();
+        UpdateLeaderboardScores();
         ResourceManager.Instance.ReturnExtractSpeedModifiersFromADSBack();
+
+
     }
+
+    private void UpdateLeaderboardScores()
+    {
+        Resource resource = ResourceManager.Instance.GetResourceByType(ResourceType.Copper);
+        YandexGame.NewLeaderboardScores("CopperLeaderboard", (int)resource.ResourceAmount);
+
+        resource = ResourceManager.Instance.GetResourceByType(ResourceType.Iron);
+        YandexGame.NewLeaderboardScores("IronLeaderboard", (int)resource.ResourceAmount);
+
+        resource = ResourceManager.Instance.GetResourceByType(ResourceType.Gold);
+        YandexGame.NewLeaderboardScores("GoldLeaderboard", (int)resource.ResourceAmount);
+
+        resource = ResourceManager.Instance.GetResourceByType(ResourceType.Ametist);
+        YandexGame.NewLeaderboardScores("AmethystLeaderboard", (int)resource.ResourceAmount);
+
+        resource = ResourceManager.Instance.GetResourceByType(ResourceType.Saphir);
+        YandexGame.NewLeaderboardScores("SapphirLeaderboard", (int)resource.ResourceAmount);
+
+        resource = ResourceManager.Instance.GetResourceByType(ResourceType.Topaz);
+        YandexGame.NewLeaderboardScores("TopazLeaderboard", (int)resource.ResourceAmount);
+
+        resource = ResourceManager.Instance.GetResourceByType(ResourceType.Emerald);
+        YandexGame.NewLeaderboardScores("EmeraldLeaderboard", (int)resource.ResourceAmount);
+
+        resource = ResourceManager.Instance.GetResourceByType(ResourceType.Diamond);
+        YandexGame.NewLeaderboardScores("DiamondLeaderboard", (int)resource.ResourceAmount);
+    }
+
     private void LoadData()
     {
         if (YandexGame.savesData.isFirstSession)
