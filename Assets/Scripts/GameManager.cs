@@ -98,27 +98,35 @@ public class GameManager : MonoBehaviour
     private void UpdateLeaderboardScores()
     {
         Resource resource = ResourceManager.Instance.GetResourceByType(ResourceType.Copper);
-        YandexGame.NewLeaderboardScores("CopperLeaderboard", (int)resource.ResourceAmount);
+        if(resource.ResourceAmount>=1)
+            YandexGame.NewLeaderboardScores("CopperLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Iron);
+        if(resource.ResourceAmount>=1)
         YandexGame.NewLeaderboardScores("IronLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Gold);
+        if(resource.ResourceAmount>=1)
         YandexGame.NewLeaderboardScores("GoldLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Ametist);
+        if(resource.ResourceAmount>=1)
         YandexGame.NewLeaderboardScores("AmethystLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Saphir);
+        if(resource.ResourceAmount>=1)
         YandexGame.NewLeaderboardScores("SapphirLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Topaz);
+        if(resource.ResourceAmount>=1)
         YandexGame.NewLeaderboardScores("TopazLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Emerald);
+        if(resource.ResourceAmount>=1)
         YandexGame.NewLeaderboardScores("EmeraldLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Diamond);
+        if(resource.ResourceAmount>=1)
         YandexGame.NewLeaderboardScores("DiamondLeaderboard", (int)resource.ResourceAmount);
     }
 

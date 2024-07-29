@@ -1,11 +1,11 @@
 {
-  "idSave": 2,
+  "idSave": 3,
   "isFirstSession": false,
   "language": "en",
   "promptDone": false,
   "gameData": {
-    "PlayerPositionX": -4.406,
-    "PlayerPositionY": -1.79151344,
+    "PlayerPositionX": -5.966848,
+    "PlayerPositionY": -1.54226589,
     "PlayerPositionZ": 0.0,
     "ResourceParams": [
       {
@@ -16,7 +16,7 @@
         "UpgradeSpeedCost": 40.0
       },
       {
-        "ResourceAmount": 0.0,
+        "ResourceAmount": 2.0,
         "ExtractionSpeed": 1.0,
         "ExtractionAmount": 1.0,
         "UpgradeAmountCost": 30.0,
@@ -91,7 +91,7 @@
         },
         {
           "ResourceType": 1,
-          "ResourceAmountNeeded": 200.0
+          "ResourceAmountNeeded": 198.0
         }
       ],
       [
