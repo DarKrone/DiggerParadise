@@ -37,13 +37,7 @@ public class GameManager : MonoBehaviour
 
         if(YandexGame.SDKEnabled)
         {
-            if(Application.unityVersion == YandexGame.savesData.gameData.VersionForDeleteData)
-                LoadData();
-            else
-            {
-                SaveLoad.currentData.VersionForDeleteData = Application.unityVersion;
-                SaveData();
-            }
+            LoadData();
         }
 
         UpdateResourcesList();
@@ -134,6 +128,12 @@ public class GameManager : MonoBehaviour
         {
             YandexGame.ResetSaveProgress();
             SaveLoad.SaveGame();
+            return;
+        }
+        else if(SaveLoad.currentData.VersionForDeleteData != Application.unityVersion)
+        {
+            SaveLoad.currentData.VersionForDeleteData = Application.unityVersion;
+            SaveData();
             return;
         }
         SaveLoad.LoadGame();
