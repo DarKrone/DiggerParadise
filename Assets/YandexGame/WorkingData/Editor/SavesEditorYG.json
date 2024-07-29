@@ -1,0 +1,499 @@
+{
+  "idSave": 2,
+  "isFirstSession": false,
+  "language": "en",
+  "promptDone": false,
+  "gameData": {
+    "PlayerPositionX": -4.406,
+    "PlayerPositionY": -1.79151344,
+    "PlayerPositionZ": 0.0,
+    "ResourceParams": [
+      {
+        "ResourceAmount": 0.0,
+        "ExtractionSpeed": 1.0,
+        "ExtractionAmount": 1.0,
+        "UpgradeAmountCost": 30.0,
+        "UpgradeSpeedCost": 40.0
+      },
+      {
+        "ResourceAmount": 0.0,
+        "ExtractionSpeed": 1.0,
+        "ExtractionAmount": 1.0,
+        "UpgradeAmountCost": 30.0,
+        "UpgradeSpeedCost": 40.0
+      },
+      {
+        "ResourceAmount": 0.0,
+        "ExtractionSpeed": 1.0,
+        "ExtractionAmount": 1.0,
+        "UpgradeAmountCost": 30.0,
+        "UpgradeSpeedCost": 40.0
+      },
+      {
+        "ResourceAmount": 0.0,
+        "ExtractionSpeed": 1.0,
+        "ExtractionAmount": 1.0,
+        "UpgradeAmountCost": 30.0,
+        "UpgradeSpeedCost": 40.0
+      },
+      {
+        "ResourceAmount": 0.0,
+        "ExtractionSpeed": 1.0,
+        "ExtractionAmount": 1.0,
+        "UpgradeAmountCost": 30.0,
+        "UpgradeSpeedCost": 40.0
+      },
+      {
+        "ResourceAmount": 0.0,
+        "ExtractionSpeed": 1.0,
+        "ExtractionAmount": 1.0,
+        "UpgradeAmountCost": 30.0,
+        "UpgradeSpeedCost": 40.0
+      },
+      {
+        "ResourceAmount": 0.0,
+        "ExtractionSpeed": 1.0,
+        "ExtractionAmount": 1.0,
+        "UpgradeAmountCost": 30.0,
+        "UpgradeSpeedCost": 40.0
+      },
+      {
+        "ResourceAmount": 0.0,
+        "ExtractionSpeed": 1.0,
+        "ExtractionAmount": 1.0,
+        "UpgradeAmountCost": 30.0,
+        "UpgradeSpeedCost": 40.0
+      }
+    ],
+    "UpgradeMinisTiers": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "NeededResources": [
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 200.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 300.0
+        },
+        {
+          "ResourceType": 1,
+          "ResourceAmountNeeded": 200.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 500.0
+        },
+        {
+          "ResourceType": 1,
+          "ResourceAmountNeeded": 300.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 1200.0
+        },
+        {
+          "ResourceType": 1,
+          "ResourceAmountNeeded": 1000.0
+        },
+        {
+          "ResourceType": 2,
+          "ResourceAmountNeeded": 200.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 1700.0
+        },
+        {
+          "ResourceType": 1,
+          "ResourceAmountNeeded": 1100.0
+        },
+        {
+          "ResourceType": 2,
+          "ResourceAmountNeeded": 400.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 1,
+          "ResourceAmountNeeded": 4000.0
+        },
+        {
+          "ResourceType": 2,
+          "ResourceAmountNeeded": 2000.0
+        },
+        {
+          "ResourceType": 3,
+          "ResourceAmountNeeded": 250.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 10000.0
+        },
+        {
+          "ResourceType": 3,
+          "ResourceAmountNeeded": 500.0
+        },
+        {
+          "ResourceType": 4,
+          "ResourceAmountNeeded": 350.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 2,
+          "ResourceAmountNeeded": 5000.0
+        },
+        {
+          "ResourceType": 3,
+          "ResourceAmountNeeded": 3500.0
+        },
+        {
+          "ResourceType": 4,
+          "ResourceAmountNeeded": 3000.0
+        },
+        {
+          "ResourceType": 5,
+          "ResourceAmountNeeded": 450.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 3,
+          "ResourceAmountNeeded": 6000.0
+        },
+        {
+          "ResourceType": 4,
+          "ResourceAmountNeeded": 5000.0
+        },
+        {
+          "ResourceType": 5,
+          "ResourceAmountNeeded": 4000.0
+        },
+        {
+          "ResourceType": 6,
+          "ResourceAmountNeeded": 500.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 10000.0
+        },
+        {
+          "ResourceType": 1,
+          "ResourceAmountNeeded": 10000.0
+        },
+        {
+          "ResourceType": 2,
+          "ResourceAmountNeeded": 10000.0
+        },
+        {
+          "ResourceType": 3,
+          "ResourceAmountNeeded": 10000.0
+        },
+        {
+          "ResourceType": 4,
+          "ResourceAmountNeeded": 10000.0
+        },
+        {
+          "ResourceType": 5,
+          "ResourceAmountNeeded": 10000.0
+        },
+        {
+          "ResourceType": 6,
+          "ResourceAmountNeeded": 10000.0
+        },
+        {
+          "ResourceType": 7,
+          "ResourceAmountNeeded": 666.0
+        }
+      ]
+    ],
+    "BridgesNeededResources": [
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 1000.0
+        },
+        {
+          "ResourceType": 1,
+          "ResourceAmountNeeded": 1000.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 2000.0
+        },
+        {
+          "ResourceType": 1,
+          "ResourceAmountNeeded": 1000.0
+        },
+        {
+          "ResourceType": 2,
+          "ResourceAmountNeeded": 800.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 3,
+          "ResourceAmountNeeded": 5000.0
+        },
+        {
+          "ResourceType": 4,
+          "ResourceAmountNeeded": 3000.0
+        },
+        {
+          "ResourceType": 5,
+          "ResourceAmountNeeded": 1000.0
+        }
+      ]
+    ],
+    "ArtifactsNeededResources": [
+      [
+        {
+          "ResourceType": 0,
+          "ResourceAmountNeeded": 100000.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 1,
+          "ResourceAmountNeeded": 90000.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 2,
+          "ResourceAmountNeeded": 70000.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 3,
+          "ResourceAmountNeeded": 60000.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 4,
+          "ResourceAmountNeeded": 50000.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 5,
+          "ResourceAmountNeeded": 40000.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 6,
+          "ResourceAmountNeeded": 30000.0
+        }
+      ],
+      [
+        {
+          "ResourceType": 7,
+          "ResourceAmountNeeded": 20000.0
+        }
+      ]
+    ],
+    "AllResourcesAmounts": [
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0,
+      15.0
+    ],
+    "VersionForDeleteData": "0.8.1.0"
+  }
+}

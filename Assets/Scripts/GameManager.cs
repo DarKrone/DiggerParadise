@@ -130,13 +130,15 @@ public class GameManager : MonoBehaviour
             SaveLoad.SaveGame();
             return;
         }
-        else if(SaveLoad.currentData.VersionForDeleteData != Application.version)
+
+        SaveLoad.LoadGame();
+
+        if(SaveLoad.currentData.VersionForDeleteData != Application.version)
         {
             YandexGame.ResetSaveProgress();
             SaveData();
             return;
         }
-        SaveLoad.LoadGame();
         _player.transform.position = SaveLoad.currentData.GetVector3();
         ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
         _allResourcesOnMap.SetResourceAmounts(SaveLoad.currentData.AllResourcesAmounts);
