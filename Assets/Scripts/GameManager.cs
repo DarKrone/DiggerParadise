@@ -20,7 +20,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AllResourcesOnMap _allResourcesOnMap;
     [SerializeField] private List<ResourceTaker> _bridges;
     [SerializeField] private List<ResourceTaker> _artifacts;
-    
+
+    [Header("Payload params")]
+    [SerializeField] private string _resetGameSaves = "resetsavedata";
+    [SerializeField] private string _debugGameMode = "debugmodehesoyam";
+
     private void OnEnable()
     {
         YandexGame.GetDataEvent += LoadData;
@@ -57,6 +61,11 @@ public class GameManager : MonoBehaviour
 
     public void SaveData()
     {
+        if(YandexGame.EnvironmentData.payload == _debugGameMode)
+        {
+            return;
+        }
+
         ResourceManager.Instance.SetExtractSpeedModifiersFromADSForSave();
         List<int> minisTiers = new List<int>();
         foreach(var el in _upgradeMinisShops)
@@ -86,7 +95,6 @@ public class GameManager : MonoBehaviour
         SaveLoad.currentData.BridgesNeededResources = bridgesNeededResources;
         SaveLoad.currentData.ArtifactsNeededResources = artifactsNeededResources;
 
-        SaveLoad.currentData.VersionForDeleteData = Application.version;
         SaveLoad.currentData.UpgradeMinisTiers = minisTiers;
         SaveLoad.currentData.AllResourcesAmounts = _allResourcesOnMap.GetResourcesAmounts();
         SaveLoad.SaveGame();
@@ -132,6 +140,23 @@ public class GameManager : MonoBehaviour
 
     private void LoadData()
     {
+        if(YandexGame.EnvironmentData.payload == _resetGameSaves)
+        {
+            SaveData();
+            return;
+        }
+        else if(YandexGame.EnvironmentData.payload == _debugGameMode)
+        {
+            ResourceManager.Instance.GetResourceByType(ResourceType.Copper).ResourceAmount += 1000000f;
+            ResourceManager.Instance.GetResourceByType(ResourceType.Iron).ResourceAmount += 1000000f;
+            ResourceManager.Instance.GetResourceByType(ResourceType.Gold).ResourceAmount += 1000000f;
+            ResourceManager.Instance.GetResourceByType(ResourceType.Ametist).ResourceAmount += 1000000f;
+            ResourceManager.Instance.GetResourceByType(ResourceType.Saphir).ResourceAmount += 1000000f;
+            ResourceManager.Instance.GetResourceByType(ResourceType.Topaz).ResourceAmount += 1000000f;
+            ResourceManager.Instance.GetResourceByType(ResourceType.Emerald).ResourceAmount += 1000000f;
+            ResourceManager.Instance.GetResourceByType(ResourceType.Diamond).ResourceAmount += 1000000f;
+        }
+
         if (YandexGame.savesData.isFirstSession)
         {
             YandexGame.ResetSaveProgress();
@@ -141,12 +166,7 @@ public class GameManager : MonoBehaviour
 
         SaveLoad.LoadGame();
 
-        if(SaveLoad.currentData.VersionForDeleteData != Application.version)
-        {
-            YandexGame.ResetSaveProgress();
-            SaveData();
-            return;
-        }
+
         _player.transform.position = SaveLoad.currentData.GetVector3();
         ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
         _allResourcesOnMap.SetResourceAmounts(SaveLoad.currentData.AllResourcesAmounts);

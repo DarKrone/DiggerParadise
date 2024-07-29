@@ -21,8 +21,6 @@ public class GameData
     public List<List<NeededResource>> ArtifactsNeededResources = new List<List<NeededResource>>();
     public List<float> AllResourcesAmounts = new List<float>();
 
-    public string VersionForDeleteData = "";
-
 
     public Vector3 GetVector3()
     {
