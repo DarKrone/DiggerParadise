@@ -9,6 +9,7 @@ public class RewardedAds : MonoBehaviour
     public static RewardedAds Instance;
     [SerializeField] private int _adId;
     [SerializeField] private float _btnCooldown = 120f;
+    [SerializeField] private float _upgradeChance = 5f;
     [SerializeField] private Button _upgBtn;
 
     [SerializeField] private GameObject _rewardedADSMenu;
@@ -50,9 +51,9 @@ public class RewardedAds : MonoBehaviour
         if (_rewardedADSMenu.activeSelf || _rewardedIcon.activeSelf)
             return;
         int roll = Random.Range(0, 100);
-        int chance = 25;
+
         
-        if (roll <= chance)
+        if (roll <= _upgradeChance)
         {
             if (_debugMode)
                 Debug.Log("Rolled succeful");
@@ -60,7 +61,7 @@ public class RewardedAds : MonoBehaviour
             ShowObject(_rewardedADSMenu);
         }
         else if (_debugMode)
-            Debug.Log($"Rolled {roll} need <{chance}");
+            Debug.Log($"Rolled {roll} need <{_upgradeChance}");
     }
     private void ShowObject(GameObject obj)
     {
