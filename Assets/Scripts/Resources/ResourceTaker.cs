@@ -164,7 +164,9 @@ public class ResourceTaker : MonoBehaviour
         if (amountToRemove == 0)
             return;
 
-        _audioSource.Play();
+        if(!_audioSource.isPlaying)
+            _audioSource.Play();
+
         NeededResources[currentResourceIndex].ResourceAmountNeeded -= amountToRemove;
         Resource resource = ResourceManager.Instance.GetResourceByType(NeededResources[currentResourceIndex].ResourceType);
         resource.ResourceAmount -= amountToRemove;

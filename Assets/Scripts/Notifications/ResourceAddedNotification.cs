@@ -17,7 +17,7 @@ public class ResourceAddedNotification : MonoBehaviour
         _red = NotificationText.color.r;
         _green = NotificationText.color.g;
         _blue = NotificationText.color.b;
-        Destroy(gameObject, _fadeOutSpeed * 2f);
+        Destroy(gameObject, _fadeOutSpeed);
     }
 
     private void Update()

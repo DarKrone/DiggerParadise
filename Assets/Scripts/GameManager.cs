@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour
             SaveData();
             return;
         }
+
         else if(YandexGame.EnvironmentData.payload == _debugGameMode)
         {
             ResourceManager.Instance.GetResourceByType(ResourceType.Copper).ResourceAmount += 1000000f;
@@ -155,6 +156,7 @@ public class GameManager : MonoBehaviour
             ResourceManager.Instance.GetResourceByType(ResourceType.Topaz).ResourceAmount += 1000000f;
             ResourceManager.Instance.GetResourceByType(ResourceType.Emerald).ResourceAmount += 1000000f;
             ResourceManager.Instance.GetResourceByType(ResourceType.Diamond).ResourceAmount += 1000000f;
+            return;
         }
 
         if (YandexGame.savesData.isFirstSession)
