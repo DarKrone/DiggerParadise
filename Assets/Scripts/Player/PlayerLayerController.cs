@@ -20,8 +20,12 @@ public class PlayerLayerController : MonoBehaviour
     {
         if(collision.CompareTag("HidingCollider"))
         {
-            if(transform.position.y + _offset > collision.ClosestPoint(transform.position + new Vector3(0,_offset,0)).y)
-                _spriteRenderer.sortingOrder = collision.GetComponent<TilemapRenderer>().sortingOrder -1;
+            if(transform.position.y + _offset > collision.ClosestPoint(transform.position + new Vector3(0, _offset, 0)).y)
+            {
+                TilemapRenderer tileMap;
+                if(collision.TryGetComponent<TilemapRenderer>(out tileMap))
+                    _spriteRenderer.sortingOrder = tileMap.sortingOrder - 1;
+            }
             else
                 _spriteRenderer.sortingOrder = _overlapLayer;
         }

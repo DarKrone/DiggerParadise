@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Copper 3
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -1555479505, guid: d20a602de6c3aa8498cb64cbaafd5cae, type: 3}
+  m_DefaultSprite: {fileID: 2111812284, guid: c5c33bfca1a30954db006a029d35bbf8, type: 3}
   m_DefaultGameObject: {fileID: 7563612007430500137, guid: 5a59e6e467cc144429766669af8cbe35, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []

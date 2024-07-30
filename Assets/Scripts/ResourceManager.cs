@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,13 +17,23 @@ public class ResourceParams
 
     public float UpgradeAmountCost;
     public float UpgradeSpeedCost;
+
     public ResourceParams(Resource Resource)
     {
         ResourceAmount = Resource.ResourceAmount;
-        ExtractionSpeed = Resource.ExtractionSpeed; 
+        ExtractionSpeed = Resource.ExtractionSpeed;
         ExtractionAmount = Resource.ExtractionAmount;
         UpgradeAmountCost = Resource.UpgradeAmountCost;
         UpgradeSpeedCost = Resource.UpgradeSpeedCost;
+    }
+
+    public ResourceParams()
+    {
+        ResourceAmount = 0;
+        ExtractionSpeed = 1;
+        ExtractionAmount = 1;
+        UpgradeAmountCost = 1;
+        UpgradeSpeedCost = 1;
     }
 }
 [Serializable]
@@ -37,40 +48,50 @@ public class Resource
     public float ResourceAmount;
     public float ExtractionSpeed;
     public float ExtractionAmount;
-    public bool IsAvailable;
     public float AmountTierModify;
     public float SpeedTierModify;
-    public float NextTierAmount { get { return ExtractionAmount * AmountTierModify; } }
-    public float NextTierSpeed { get { return ExtractionSpeed * SpeedTierModify; } }
-    public void SetParams(ResourceParams Params)
+    public float AmountCostModify;
+    public float SpeedCostModify;
+    public float[] Parameters { get { return new float[] { ResourceAmount, ExtractionSpeed, ExtractionAmount, UpgradeAmountCost, UpgradeSpeedCost }; } }
+    public bool IsAvailable { get { return ResourceAmount > 0; } }
+    public float NextTierAmount { get { return ExtractionAmount +1; } }
+    public float NextTierSpeed { get { return ExtractionSpeed +1; } }
+    public void SetParams(ResourceParams parameters)
     {
-        ResourceAmount = Params.ResourceAmount;
-        ExtractionSpeed = Params.ExtractionSpeed;   
-        ExtractionAmount = Params.ExtractionAmount;
+        ResourceAmount = parameters.ResourceAmount;
+        ExtractionSpeed = parameters.ExtractionSpeed;   
+        ExtractionAmount = parameters.ExtractionAmount;
+        UpgradeAmountCost = parameters.UpgradeAmountCost;
+        UpgradeSpeedCost = parameters.UpgradeSpeedCost;
     }
 
     public void UpgradeAmount()
     {
         ResourceAmount -= UpgradeAmountCost;
-        ExtractionAmount *= AmountTierModify;
-        UpgradeAmountCost *= AmountTierModify;
+        ExtractionAmount += 1;
+        UpgradeAmountCost = Mathf.FloorToInt(UpgradeAmountCost * AmountCostModify);
+        GameManager.Instance.UpdateUI();
     }
     public void UpgradeSpeed()
     {
         ResourceAmount -= UpgradeSpeedCost;
-        ExtractionSpeed *= SpeedTierModify;
-        UpgradeAmountCost *= SpeedTierModify;
+        ExtractionSpeed += 1;
+        UpgradeSpeedCost = Mathf.FloorToInt(UpgradeSpeedCost * SpeedCostModify);
+        GameManager.Instance.UpdateUI();
     }
 }
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance;
-
     [SerializeField] public List<Resource> Resources;
+    [SerializeField] private float _upgradeSpeedForAds = 2f;
+    private float[] _modifiers;
+    private Coroutine _upgCoroutine;
 
     private void Awake()
     {
         Instance = this;
+        _modifiers = new float[Resources.Count];
     }
     public List<ResourceParams> GetParams()
     {
@@ -82,125 +103,71 @@ public class ResourceManager : MonoBehaviour
         }
         return resourceParams;
     }
-    public void SetParams(List<ResourceParams> Params)
+    public void SetParams(List<ResourceParams> parameters)
     {
-        if (Params.Count != Resources.Count)
+        if (parameters.Count != Resources.Count)
             return;
         for (int i = 0; i < Resources.Count; i++)
         {
-            Resources[i].SetParams(Params[i]);
+            Resources[i].SetParams(parameters[i]);
         }
     }
-    public void AddToStorage(float amount, ResourceType resourceType)
+
+    public void RewardedAdsUpgradeSpeedForPeriod(float duration)
     {
+        int counter = 0;
         foreach (Resource resource in Resources)
         {
-            if (resource.ResourceType == resourceType)
-            {
-                resource.ResourceAmount += amount;
-            }
+            float modifier = Mathf.Log(resource.ExtractionSpeed) + _upgradeSpeedForAds;
+            modifier = Mathf.Floor(modifier);
+            _modifiers[counter] = modifier;
+            counter++;
+            resource.ExtractionSpeed += modifier;
         }
-        GameManager.Instance.UpdateUI();
+        _upgCoroutine = StartCoroutine(StartRewardAdsUpgradeTimer(duration));
     }
-    public void RemoveFromStorage(float amount, ResourceType resourceType)
+
+    private IEnumerator StartRewardAdsUpgradeTimer(float duration)
     {
+        yield return new WaitForSeconds(duration);
+        StopRewardedAdsUpgrade();
+    }
+
+    public void StopRewardedAdsUpgrade()
+    {
+        if (_upgCoroutine != null)
+        {
+            StopCoroutine(_upgCoroutine);
+        }
+        int counter = 0;
         foreach (Resource resource in Resources)
         {
-            if (resource.ResourceType == resourceType)
-            {
-                resource.ResourceAmount -= amount;
-            }
+            resource.ExtractionSpeed -= _modifiers[counter];
+            counter++;
         }
-        GameManager.Instance.UpdateUI();
+        _modifiers = new float[Resources.Count];
     }
-    public float CheckResourceAmount(ResourceType resourceType)
+
+    public void SetExtractSpeedModifiersFromADSForSave()
     {
+        int counter = 0;
         foreach (Resource resource in Resources)
         {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ResourceAmount;
-            }
+            resource.ExtractionSpeed -= _modifiers[counter];
+            counter++;
         }
-        return -1;
     }
-    public Color GetResourceColorByType(ResourceType resourceType)
+
+    public void ReturnExtractSpeedModifiersFromADSBack()
     {
+        int counter = 0;
         foreach (Resource resource in Resources)
         {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ResourceColor;
-            }
+            resource.ExtractionSpeed += _modifiers[counter];
+            counter++;
         }
-        return Color.white;
     }
-    public Sprite GetResourceSpriteByType(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ResourceMiniSprite;
-            }
-        }
-        return null;
-    }
-    public Sprite GetOreSpriteByType(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ResourceOreSprite;
-            }
-        }
-        return null;
-    }
-    public float GetExtractionSpeedByType(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ExtractionSpeed;
-            }
-        }
-        return -1;
-    }
-    public float GetExtractionAmountByType(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.ExtractionAmount;
-            }
-        }
-        return -1;
-    }
-    public float GetAmountCost(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.UpgradeAmountCost;
-            }
-        }
-        return -1;
-    }
-    public float GetSpeedCost(ResourceType resourceType)
-    {
-        foreach (Resource resource in Resources)
-        {
-            if (resource.ResourceType == resourceType)
-            {
-                return resource.UpgradeSpeedCost;
-            }
-        }
-        return -1;
-    }
+
     public Resource GetResourceByType(ResourceType resourceType)
     {
         foreach (Resource resource in Resources)
@@ -212,14 +179,22 @@ public class ResourceManager : MonoBehaviour
         }
         return null;
     }
+
+    public bool CheckIfNewResource(Resource resource)
+    {
+        if (resource.ResourceAmount == 0)
+            return true;
+        return false;
+    }
+
     public void UpgradeExtractionAmountByType(ResourceType resourceType)
     {
         Resource resource = GetResourceByType(resourceType);
         if (resource.ResourceAmount < resource.UpgradeAmountCost)
             return;
         resource.UpgradeAmount();
-
     }
+
     public void UpgradeExtractionSpeedByType(ResourceType resourceType)
     {
         Resource resource = GetResourceByType(resourceType);

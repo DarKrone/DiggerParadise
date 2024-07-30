@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using YG;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,10 +20,14 @@ public class PlayerMovement : MonoBehaviour
     private Camera _mainCamera;
     private SpriteRenderer _spriteRenderer;
     private Vector2 _posToMove;
+    private float _playerModelYOffset = 0.5f;
     private float _startXScale;
 
     private Vector3 _lastPosition;
     [SerializeField]private float _minStopAnim;
+
+    [SerializeField] private GameObject _joystick;
+    private bool _isMobileDevice;
 
     void Awake()
     {
@@ -32,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
         _mainCamera = Camera.main;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _isMobileDevice = YandexGame.EnvironmentData.isMobile || Application.isMobilePlatform;
+        if (_isMobileDevice)
+            _joystick.SetActive(true);
         if (_debugMode)
             Debug.Log("Camera founded - " + _mainCamera.ToString());
     }
@@ -41,6 +49,22 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update()
+    {
+        if (_isMobileDevice)
+            MobileMovement();
+        else
+            DesktopMovement();
+    }
+    private void MobileMovement()
+    {
+        WalkAnimState();
+        IsMovingCheck();
+
+        _posToMove = (Vector2)transform.position + _joystick.GetComponent<Joystick>().Direction;
+
+        FlipCheck();
+    }
+    private void DesktopMovement()
     {
         WalkAnimState();
         if (Input.GetMouseButtonDown(0))
@@ -78,7 +102,6 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
         MiningAnimState();
-        //WalkAnimState();
         _lastPosition = transform.position;
     }
 
@@ -94,24 +117,16 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, LayerMask.GetMask("Ground"));
 
         if (hit.point != Vector2.zero)
+        {
             _posToMove = hit.point;
+            _posToMove.y += _playerModelYOffset;
+        }
         else
             _posToMove = transform.position;
     }
 
     private void FlipCheck()
     {
-        //if (_posToMove.x < transform.position.x)
-        //{
-        //    _spriteRenderer.flipX = true;
-        //}
-        //if (_posToMove.x > transform.position.x)
-        //{
-        //    _spriteRenderer.flipX = false;
-        //}
-
-        // Если партиклы не понадобятся, то вернуть код сверху
-
         if (_posToMove.x < transform.position.x)
         {
             transform.localScale = new Vector3(-_startXScale, transform.localScale.y, transform.localScale.z);
@@ -145,7 +160,6 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         _playerRB.MovePosition(Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.fixedDeltaTime));
-        //transform.position = Vector2.MoveTowards(transform.position, _posToMove, _moveSpeed * Time.deltaTime);
     }
 
 }

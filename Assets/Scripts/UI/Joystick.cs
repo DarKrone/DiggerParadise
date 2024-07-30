@@ -57,7 +57,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         _handle.anchorMin = center;
         _handle.anchorMax = center;
         _handle.pivot = center;
-        _handle.anchoredPosition = Vector2.zero;
+        _handle.anchoredPosition = _background.anchoredPosition;
 
     }
 
@@ -78,7 +78,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         _input = (eventData.position - position) / (radius * _canvas.scaleFactor);
         FormatInput();
         HandleInput(_input.magnitude, _input.normalized, radius, _cam);
-        _handle.anchoredPosition = _input * radius * _handleRange;
+        _handle.anchoredPosition = _input * radius * _handleRange + _background.anchoredPosition;
     }
 
     protected virtual void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
@@ -137,8 +137,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public virtual void OnPointerUp(PointerEventData eventData)
     {
         _input = Vector2.zero;
-        _handle.anchoredPosition = Vector2.zero;
         _background.position = _defaultPos; 
+        _handle.anchoredPosition = _background.anchoredPosition;
     }
 
     private Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)

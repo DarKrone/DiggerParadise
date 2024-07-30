@@ -25,26 +25,34 @@ public class UpgradeMinisShop : UpgradeUI
     [SerializeField] private TextMeshProUGUI _speedText;
     [SerializeField] private TextMeshProUGUI _amountText;
     [SerializeField] private Image _resourceImage;
+    [SerializeField] private Image _minisImage;
 
     public int CurrentUpdateTier { get { return _currentUpgradeTier; } }
 
     private void Start()
     {
+        SetMinisSpriteToUI();
         UpdateUpgradeInfo();
+    }
+
+    private void SetMinisSpriteToUI()
+    {
+        Sprite minisSprite = _minis.GetComponent<SpriteRenderer>().sprite;
+        _minisImage.sprite = minisSprite;
     }
 
     private void UpdateUpgradeInfo()
     {
-        _resourceImage.sprite = ResourceManager.Instance.GetResourceSpriteByType(_resourceToUpgrade);
+        _resourceImage.sprite = ResourceManager.Instance.GetResourceByType(_resourceToUpgrade).ResourceMiniSprite;
         _costText.text = _currentUpgradeCost.ToString();
-        _costText.color = ResourceManager.Instance.GetResourceColorByType(_resourceToUpgrade);
-        _currentTierText.text = "Tier - " + _currentUpgradeTier.ToString();
-        _speedText.text = "Speed - " + _minis.GetComponent<MinerAI>().ExtractionSpeed.ToString();
-        _amountText.text = "Amount - " + _minis.GetComponent<MinerAI>().ExtractionAmount.ToString();
+        _costText.color = ResourceManager.Instance.GetResourceByType(_resourceToUpgrade).ResourceColor;
+        _currentTierText.text =  _currentUpgradeTier.ToString();
+        _speedText.text = _minis.GetComponent<MinerAI>().ExtractionSpeed.ToString();
+        _amountText.text = _minis.GetComponent<MinerAI>().ExtractionAmount.ToString();
     }
     public void UpgradeMinis()
     {
-        if (ResourceManager.Instance.CheckResourceAmount(_resourceToUpgrade) < _currentUpgradeCost)
+        if (ResourceManager.Instance.GetResourceByType(_resourceToUpgrade).ResourceAmount < _currentUpgradeCost)
             return;
         _building.GetComponent<BuildingSpriteHandler>().UpdateBuildingSpriteToNext();
         if (_currentUpgradeTier %2 == 0)
@@ -55,14 +63,20 @@ public class UpgradeMinisShop : UpgradeUI
         {
             _minis.GetComponent<MinerAI>().ExtractionAmount += 1;
         }
-        ResourceManager.Instance.RemoveFromStorage(_currentUpgradeCost, _resourceToUpgrade);
+        ResourceManager.Instance.GetResourceByType(_resourceToUpgrade).ResourceAmount -= _currentUpgradeCost;
+        GameManager.Instance.UpdateUI();
         _currentUpgradeTier += 1;
         _currentUpgradeCost += _upgradeCostStep * _currentUpgradeTier;
         UpdateUpgradeInfo();
     }
+    public void UpgradeMinisAfterConstructionCompleted()
+    {
+        _currentUpgradeTier += 1;
+        UpdateUpgradeInfo();
+    }
     public void UpgradeMinisAfterLoadSave(int N)
     {
-        for(int i = 0; i< N+1;i++)
+        for(int i = 0; i< N-1;i++)
         {
             _building.GetComponent<BuildingSpriteHandler>().UpdateBuildingSpriteToNext();
             if (_currentUpgradeTier % 2 == 0)

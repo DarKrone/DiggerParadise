@@ -9,6 +9,7 @@ public class NotificationHandler : MonoBehaviour
     public static NotificationHandler Instance;
     [SerializeField] private bool _debugMode = false;
     [SerializeField] private GameObject _notificationPrefab;
+    [SerializeField] private float _maxNotificationsCount = 50f;
     
     private void Awake()
     {
@@ -19,6 +20,12 @@ public class NotificationHandler : MonoBehaviour
     {
         if (_debugMode)
             Debug.Log("Extract notification called, resource type - " + resourceType);
+        
+        if(this.transform.childCount >= _maxNotificationsCount)
+        {
+            return;
+        }
+
         Vector3 _spawnOffset = ConfigureSpawnOffset();
         ConfigureNotificationText(deltaNumber, resourceType);
         ConfigureNotficationMiniIcon(resourceType);
@@ -34,13 +41,13 @@ public class NotificationHandler : MonoBehaviour
     private void ConfigureNotficationMiniIcon(ResourceType resourceType)
     {
         Image resourceImage = _notificationPrefab.GetComponent<ResourceAddedNotification>().ResourceImage;
-        resourceImage.sprite = ResourceManager.Instance.GetResourceSpriteByType(resourceType);
+        resourceImage.sprite = ResourceManager.Instance.GetResourceByType(resourceType).ResourceMiniSprite;
     }
 
     private void ConfigureNotificationText(float deltaNumber, ResourceType resourceType)
     {
         TextMeshProUGUI notificationText = _notificationPrefab.GetComponent<ResourceAddedNotification>().NotificationText;
         notificationText.text = $"{deltaNumber}";
-        notificationText.color = ResourceManager.Instance.GetResourceColorByType(resourceType);
+        notificationText.color = ResourceManager.Instance.GetResourceByType(resourceType).ResourceColor;
     }
 }
