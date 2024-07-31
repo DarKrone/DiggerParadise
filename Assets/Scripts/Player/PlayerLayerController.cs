@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,7 +8,7 @@ public class PlayerLayerController : MonoBehaviour
     [SerializeField] private float _offset = 0;
 
     SpriteRenderer _spriteRenderer;
-    // Start is called before the first frame update
+
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();

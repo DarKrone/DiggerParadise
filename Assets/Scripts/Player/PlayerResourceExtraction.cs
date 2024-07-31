@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerResourceExtraction : Extract
 {
     protected override void SetExtractParams()
@@ -18,7 +14,6 @@ public class PlayerResourceExtraction : Extract
     protected override void StopMining()
     {
         PlayerMovement.Instance.IsMining = false;
-        //RewardedAds.Instance.TryADSAfterResourceOreExtracting();
     }
 
     protected override void ExtractResource()
