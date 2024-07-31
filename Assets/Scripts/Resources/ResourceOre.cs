@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -44,7 +43,6 @@ public class ResourceOre : MonoBehaviour
             if(tag == "Player")
                 RewardedAds.Instance.TryADSAfterResourceOreExtracting();
             _collider.enabled = false;
-            //_tilemap.SetColor(_tilemap.WorldToCell(transform.position), new Color(1f, 1f, 1f, 0.3f));
             _spriteRenderer.color = new Color(1f, 1f, 1f, 0.3f);
             StartCoroutine(OreCooldown());
             if (_debugMode)
@@ -55,7 +53,6 @@ public class ResourceOre : MonoBehaviour
     private IEnumerator OreCooldown()
     {
         yield return new WaitForSeconds(_oreCooldown);
-        //_tilemap.SetColor(_tilemap.WorldToCell(transform.position), new Color(1f, 1f, 1f, 1f));
         _spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
         _collider.enabled = true;
         isFullyExtracted = false;

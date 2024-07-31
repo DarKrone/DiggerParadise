@@ -1,12 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-/// <summary>
-/// Это склад всех ресурсов, сюда добавлять и отсюда брать информацию
-/// </summary>
 [Serializable]
 public class ResourceParams
 {

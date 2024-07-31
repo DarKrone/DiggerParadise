@@ -1,16 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PickaxeUpgradeBtn : MonoBehaviour
 {
-    //[SerializeField] private ResourceType _resourceCostType;
-    //[SerializeField] private float _resourceCost;
-    //[SerializeField] private float _upgradeAmountValue;
-    //[SerializeField] private float _upgradeSpeedValue;
     [SerializeField] private bool _upgradingAmount;
     [SerializeField] private bool _upgradingSpeed;
     [SerializeField] private ResourceType _upgradeType;
