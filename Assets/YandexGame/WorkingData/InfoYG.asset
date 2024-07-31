@@ -18,14 +18,14 @@ MonoBehaviour:
   playerInfoSimulation:
     authorized: 1
     isMobile: 0
-    language: en
-    name: Player this
+    language: ru
+    name: Player
     uniqueID: 000
     photo: https://justplaygames.ru/public/icon_player.png
   AdWhenLoadingScene: 1
   showFirstAd: 1
   rewardedAfterClosing: 1
-  adDisplayCalls: 0
+  adDisplayCalls: 1
   fullscreenAdInterval: 60
   durationOfAdSimulation: 0.5
   loadAdWithDelaySimulation: 0
