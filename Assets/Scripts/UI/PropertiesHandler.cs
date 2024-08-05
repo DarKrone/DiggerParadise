@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PropertiesHandler : MonoBehaviour
 {
+    [SerializeField] private GameObject _propertiesContainer;
     private List<CurrentResPropertyUI> _resourceProperties;
 
     private void Start()
     {
-        _resourceProperties = GetComponentsInChildren<CurrentResPropertyUI>().ToList();
+        _resourceProperties = _propertiesContainer.gameObject.transform.GetComponentsInChildren<CurrentResPropertyUI>().ToList();
     }
 
     public void UpdateAllProperties()

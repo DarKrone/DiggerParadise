@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using YG;
@@ -66,8 +67,11 @@ public class PlayerMovement : MonoBehaviour
         WalkAnimState();
         if (Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
+            if (EventSystem.current)
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+            }
 
             GetPosToMove();
             if (_debugMode)
@@ -82,8 +86,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
+            if (EventSystem.current)
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+            }
 
             IsMoving = true;
             GetPosToMove();

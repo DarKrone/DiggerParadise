@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class NotificationHandler : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class NotificationHandler : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        if(YandexGame.EnvironmentData.isMobile || Application.isMobilePlatform)
+        {
+            _maxNotificationsCount /= 2f;
+        }
     }
 
     public void ShowNotification (GameObject callingObject, ResourceType resourceType, float deltaNumber)
