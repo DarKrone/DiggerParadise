@@ -1,22 +1,22 @@
 {
-  "idSave": 61,
+  "idSave": 75,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
   "gameData": {
-    "PlayerPositionX": 2.354167,
-    "PlayerPositionY": -20.489584,
+    "PlayerPositionX": -10.5972223,
+    "PlayerPositionY": 4.850695,
     "PlayerPositionZ": 0.0,
     "ResourceParams": [
       {
-        "ResourceAmount": 3.0,
+        "ResourceAmount": 189.0,
         "ExtractionSpeed": 1.0,
         "ExtractionAmount": 1.0,
         "UpgradeAmountCost": 30.0,
         "UpgradeSpeedCost": 40.0
       },
       {
-        "ResourceAmount": 5.0,
+        "ResourceAmount": 15.0,
         "ExtractionSpeed": 1.0,
         "ExtractionAmount": 1.0,
         "UpgradeAmountCost": 30.0,
@@ -135,7 +135,7 @@
       [
         {
           "ResourceType": 1,
-          "ResourceAmountNeeded": 4000.0
+          "ResourceAmountNeeded": 3999.0
         },
         {
           "ResourceType": 2,
@@ -367,6 +367,9 @@
       15.0,
       15.0,
       15.0,
+      17.0,
+      15.0,
+      19.0,
       15.0,
       15.0,
       15.0,
@@ -374,17 +377,14 @@
       15.0,
       15.0,
       15.0,
+      17.0,
       15.0,
       15.0,
       15.0,
+      21.0,
       15.0,
       15.0,
-      15.0,
-      15.0,
-      15.0,
-      15.0,
-      15.0,
-      15.0,
+      19.0,
       15.0,
       15.0,
       15.0,
