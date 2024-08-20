@@ -42,9 +42,13 @@ public class ResourceTaker : MonoBehaviour
         IsDoneTaking = NeededResources.Count <= 0;
 
         if (IsDoneTaking)
+        {
             DoneTaking();
+        }
         else
+        {
             UpdateNeededResources();
+        }
     }
 
     private void FixedUpdate()

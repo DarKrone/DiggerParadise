@@ -10,5 +10,6 @@ public class ArtSpriteController : MonoBehaviour, IComplitedConstruction
     {
         ArtSprite.SetActive(true);
         _artTemplate.SetActive(false);
+        gameObject.GetComponent<EnableCostume>().SetCostumeToEnable();
     }
 }

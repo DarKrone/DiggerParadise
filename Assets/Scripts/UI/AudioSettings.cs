@@ -7,13 +7,8 @@ public class AudioSettings : MonoBehaviour
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private Sprite _audioOn;
     [SerializeField] private Sprite _audioOff;
-    private Image _image;
+    [SerializeField] private Image _image;
     private bool _isAudioOn = true;
-
-    private void Start()
-    {
-        _image = gameObject.GetComponent<Image>();        
-    }
 
     public void TurnAudio()
     {

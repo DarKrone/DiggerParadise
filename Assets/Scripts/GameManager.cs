@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(120f);
             SaveData();
         }
     }
@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
         {
             _bridges[i].NeededResources = SaveLoad.currentData.BridgesNeededResources[i];
         }
-        for (int i = 0; i < SaveLoad.currentData.BridgesNeededResources.Count; i++)
+        for (int i = 0; i < SaveLoad.currentData.ArtifactsNeededResources.Count; i++)
         {
             _artifacts[i].NeededResources = SaveLoad.currentData.ArtifactsNeededResources[i];
         }
