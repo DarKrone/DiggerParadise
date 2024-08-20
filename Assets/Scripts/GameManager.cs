@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using YG;
 
@@ -10,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _resourceInfoPrefab;
     [SerializeField] private GameObject _parentToSpawnResourceUI;
     [SerializeField] private GameObject _player;
+    [SerializeField] private TextMeshProUGUI _lastSaveText;
 
     [Header ("Save params")]
     [SerializeField] private ResourceManager _resourceManager;
@@ -52,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(300f);
+            yield return new WaitForSeconds(10f);
             SaveData();
         }
     }
@@ -98,7 +101,7 @@ public class GameManager : MonoBehaviour
         SaveLoad.SaveGame();
         UpdateLeaderboardScores();
         ResourceManager.Instance.ReturnExtractSpeedModifiersFromADSBack();
-
+        _lastSaveText.text = DateTime.Now.ToString("t");
     }
 
     private void UpdateLeaderboardScores()
@@ -109,31 +112,31 @@ public class GameManager : MonoBehaviour
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Iron);
         if(resource.ResourceAmount>=1)
-        YandexGame.NewLeaderboardScores("IronLeaderboard", (int)resource.ResourceAmount);
+            YandexGame.NewLeaderboardScores("IronLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Gold);
         if(resource.ResourceAmount>=1)
-        YandexGame.NewLeaderboardScores("GoldLeaderboard", (int)resource.ResourceAmount);
+            YandexGame.NewLeaderboardScores("GoldLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Ametist);
         if(resource.ResourceAmount>=1)
-        YandexGame.NewLeaderboardScores("AmethystLeaderboard", (int)resource.ResourceAmount);
+            YandexGame.NewLeaderboardScores("AmethystLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Saphir);
         if(resource.ResourceAmount>=1)
-        YandexGame.NewLeaderboardScores("SapphirLeaderboard", (int)resource.ResourceAmount);
+            YandexGame.NewLeaderboardScores("SapphirLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Topaz);
         if(resource.ResourceAmount>=1)
-        YandexGame.NewLeaderboardScores("TopazLeaderboard", (int)resource.ResourceAmount);
+            YandexGame.NewLeaderboardScores("TopazLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Emerald);
         if(resource.ResourceAmount>=1)
-        YandexGame.NewLeaderboardScores("EmeraldLeaderboard", (int)resource.ResourceAmount);
+            YandexGame.NewLeaderboardScores("EmeraldLeaderboard", (int)resource.ResourceAmount);
 
         resource = ResourceManager.Instance.GetResourceByType(ResourceType.Diamond);
         if(resource.ResourceAmount>=1)
-        YandexGame.NewLeaderboardScores("DiamondLeaderboard", (int)resource.ResourceAmount);
+            YandexGame.NewLeaderboardScores("DiamondLeaderboard", (int)resource.ResourceAmount);
     }
 
     private void LoadData()
@@ -157,15 +160,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (YandexGame.savesData.isFirstSession)
-        {
-            YandexGame.ResetSaveProgress();
-            SaveLoad.SaveGame();
-            return;
-        }
-
         SaveLoad.LoadGame();
-
 
         _player.transform.position = SaveLoad.currentData.GetVector3();
         ResourceManager.Instance.SetParams(SaveLoad.currentData.ResourceParams);
