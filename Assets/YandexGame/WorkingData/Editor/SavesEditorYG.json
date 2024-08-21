@@ -1,15 +1,15 @@
 {
-  "idSave": 75,
+  "idSave": 76,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
   "gameData": {
-    "PlayerPositionX": -10.5972223,
-    "PlayerPositionY": 4.850695,
+    "PlayerPositionX": -8.388889,
+    "PlayerPositionY": 6.010417,
     "PlayerPositionZ": 0.0,
     "ResourceParams": [
       {
-        "ResourceAmount": 189.0,
+        "ResourceAmount": 254.0,
         "ExtractionSpeed": 1.0,
         "ExtractionAmount": 1.0,
         "UpgradeAmountCost": 30.0,
@@ -377,11 +377,11 @@
       15.0,
       15.0,
       15.0,
-      17.0,
+      19.0,
       15.0,
       15.0,
       15.0,
-      21.0,
+      23.0,
       15.0,
       15.0,
       19.0,
