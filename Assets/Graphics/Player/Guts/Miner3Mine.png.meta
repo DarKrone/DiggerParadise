@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 917ee695c114e8e4d9f7b1de442d572f
-      internalID: -731039108
+      spriteID: 18e83943563e4af40b00338c67b592d6
+      internalID: 1515588078
       vertices: []
       indices: 
       edges: []
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 257f20e77fed99d418b594dce2ca444b
-      internalID: -869724170
+      spriteID: 6866a02a170b15f4dbd2e5f08e16d9fe
+      internalID: -1894905378
       vertices: []
       indices: 
       edges: []
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6de7a967b35b7a458a8bcbf39ae970a
-      internalID: -835146722
+      spriteID: c9c75021b1d02994f8e29c607fd15db5
+      internalID: -1761409981
       vertices: []
       indices: 
       edges: []
@@ -183,9 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Miner3Mine_0: -731039108
-      Miner3Mine_1: -869724170
-      Miner3Mine_2: -835146722
+      Miner3Mine_0: 1515588078
+      Miner3Mine_1: -1894905378
+      Miner3Mine_2: -1761409981
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
