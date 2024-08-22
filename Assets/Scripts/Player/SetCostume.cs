@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class SetCostume : MonoBehaviour
 {
-    [SerializeField] private AnimatorController _toSetAnimator;
+    [SerializeField] private RuntimeAnimatorController _toSetAnimator;
     [SerializeField] private ParticleSystem _particleSystemToChange;
     [SerializeField] private Color _particlesColor;
     private Animator _playerAnimator;
